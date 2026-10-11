@@ -12,4 +12,6 @@ Read [engineering standards](docs/engineering-standards.md), the relevant approv
 - Summarize changed files, acceptance criteria satisfied, exact checks/results, limitations, and unresolved risks.
 - Fix accepted review findings and rerun affected checks.
 
-Current gate: the repository contains planning documents only. Do not start Task 001 or provision resources until the human explicitly approves the task and relevant design choices.
+Current gate: Tasks 001 and 002 are approved (see the [MVP plan](docs/plans/001-mvp.md)); Tasks 003–008, hosted resources, deployment, merges, commits and pushes each need separate human authorization.
+
+Task 002 correction: the product owner explicitly requires and authorizes self-service in-app signup and sign-in with a username and password, with immediate sign-in after signup. No email address, email verification or account recovery is required for the current MVP. Earlier invite-only and email-code flows are superseded. API token verification and per-user data isolation remain required. Follow the signup correction handoff in [the task plan](docs/plans/001-mvp.md#signup-correction--implementation-handoff); no repeated product-scope approval is needed. Normal users must not need Make/admin commands. Preserve existing auth/ownership protections and unrelated work; broader tasks and deployment remain outside this approval.

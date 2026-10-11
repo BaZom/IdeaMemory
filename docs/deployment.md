@@ -33,7 +33,7 @@ Store OpenAI and operator Supabase secrets only server/operator side. Use distin
 ## Human-controlled release procedure
 
 1. Review exact commit, required CI, migration change and unresolved risks; obtain release authorization.
-2. Verify configured region, current cost ceiling, secrets, policies, private bucket and Auth invitation settings. Take an appropriate database backup and object export before risky data changes.
+2. Verify configured region, current cost ceiling, secrets, policies, private bucket and Auth email signup/verification and abuse-limit settings. Take an appropriate database backup and object export before risky data changes.
 3. Apply backward-compatible additive migrations first, explicitly to the approved environment; verify grants/RLS. Use expand/migrate/contract if compatibility requires it; destructive contraction is a separately approved step.
 4. Deploy the backend artifact compatible with both old and new frontend clients. Smoke-test health, auth, isolation and manual CRUD with synthetic accounts.
 5. Publish the verified Flutter artifact. Validate headers, routing, auth redirect, manifest and physical iPhone Safari workflow.

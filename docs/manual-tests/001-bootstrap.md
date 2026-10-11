@@ -2,6 +2,8 @@
 
 Covers the checks automation cannot prove: real browser behavior, the explicit Retry flow and physical iPhone Safari ([T001-AC8](../plans/001-mvp.md#task-001--project-bootstrap)). Automated checks (`make check`) are a prerequisite, not a substitute.
 
+**Since Task 002:** the app opens on the sign-in page; open the connection check with the network icon in the app bar, then follow the steps below. LAN builds also need `WEB_SUPABASE_URL` (see the [Task 002 manual test](002-auth.md)).
+
 Use only synthetic, non-sensitive conditions. No credentials are needed. Record a result for every step; a skipped step is **Not run**, never **Pass**.
 
 ## Before you start

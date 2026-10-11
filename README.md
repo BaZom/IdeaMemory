@@ -2,29 +2,36 @@
 
 Working title: a private, conversational memory for things you want to experience.
 
-**Status: Task 001 (project bootstrap) implemented locally, pending Codex review, remote CI and physical iPhone verification.** Task 001 was approved on 2026-10-11; Tasks 002–008 are not approved. No cloud resource, deployment, Supabase or OpenAI configuration exists.
+**Status: Task 002 (self-service sign-up, sign-in and private access) is implemented locally, pending Codex review, remote CI and manual device verification.** Task 001 is reviewed and its CI passed. Task 002 was approved on 2026-10-11; Tasks 003–008 are not approved. Supabase runs only as a local Docker stack; no hosted project, deployment or OpenAI configuration exists.
 
-The repository contains a Flutter Web connection-check shell (`apps/mobile/`), a FastAPI service with a `GET /health` liveness endpoint (`services/api/`), a root `Makefile` and a GitHub Actions workflow. See [development](docs/development.md) for setup, running and validation.
+The repository contains a Flutter Web app (`apps/mobile/`) where users sign up and sign in with a username and password, a FastAPI service (`services/api/`) with a public `GET /health` and a protected `GET /api/v1/me`, local Supabase configuration (`supabase/`), a root `Makefile` and a GitHub Actions workflow. See [development](docs/development.md) for setup, configuration, authentication behavior and validation.
+
+Prerequisites: Flutter 3.47.6, Python 3.13, a running Docker engine.
 
 ```sh
-make setup   # pinned Python venv + locked Flutter packages
-make check   # every canonical check; nonzero on any failure
-make run-api # terminal 1: API on http://127.0.0.1:8000
-make run-web # terminal 2: Flutter app on http://localhost:3000
+make setup                                   # Python venv, Flutter packages, pinned Supabase CLI
+make supabase-start                          # local Supabase stack (Docker)
+make check                                   # every canonical check incl. real auth/isolation tests
+make run-api                                 # terminal 1: API on http://127.0.0.1:8000
+make run-web                                 # terminal 2: app on http://localhost:3000
 ```
+
+Open the app, choose **Sign up** and pick a username and a password (at least 8 characters); you are signed in immediately, and each account sees only its own data. Return later through **Sign in**. No email address is involved (owner decision for the MVP; account recovery and verification come later). `make provision-user USERNAME=... PASSWORD=...` exists only for optional test accounts. Stop the stack with `make supabase-stop` when you are done: its ports, including the database, are reachable from your network while it runs.
 
 ### Run on an iPhone (same Wi-Fi)
 
-An iPhone cannot reach the Mac's `localhost`, so serve both components on the Mac's LAN address. Use a trusted network only: these development servers are unauthenticated.
+An iPhone cannot reach the Mac's `localhost`, so serve everything on the Mac's LAN address. Use a trusted network only: these development servers are unauthenticated.
 
 ```sh
 IP=$(ipconfig getifaddr en0)   # Mac's LAN address; try en1 if empty
+make supabase-start
 make run-api API_HOST=0.0.0.0 ALLOWED_ORIGINS=http://$IP:3000                    # terminal 1
-make build-web API_BASE_URL=http://$IP:8000 && make serve-web WEB_HOST=0.0.0.0    # terminal 2
+make build-web API_BASE_URL=http://$IP:8000 WEB_SUPABASE_URL=http://$IP:54321 \
+  && make serve-web WEB_HOST=0.0.0.0                                             # terminal 2
 echo "http://$IP:3000"         # open this URL in Safari on the iPhone
 ```
 
-Allow incoming connections if macOS asks. Stop both servers (Ctrl+C) when finished. This is plain HTTP for a quick smoke check; HTTPS, home-screen installation and updates are verified in Task 008. Step-by-step checks and a results record are in the [Task 001 manual test](docs/manual-tests/001-bootstrap.md).
+Allow incoming connections if macOS asks. Stop all servers and `make supabase-stop` when finished. This is plain HTTP for a local check; HTTPS, home-screen installation and updates are verified in Task 008. Step-by-step checks and results records: [Task 002 manual test](docs/manual-tests/002-auth.md) and [Task 001 manual test](docs/manual-tests/001-bootstrap.md).
 
 ## Repository inspection — 2026-10-11
 

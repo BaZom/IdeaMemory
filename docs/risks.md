@@ -21,6 +21,7 @@ Status: proposed mitigations. “Before PoC” means before that capability proc
 | Safari/PWA incompatibility | Core experience unusable | Early physical device check, uploads/keyboard/back/install/update tests | Basic check Task 001, full release gate Task 008 |
 | Web-to-native assumptions | Later rewrite cost | Isolate actual platform edges; avoid web-only domain APIs | Throughout; native builds deferred |
 | Browser token exposure | Account compromise through XSS | Restrict scripts, escaped text, CSP, no unsafe imported HTML, logout state cleanup | Before authenticated pilot |
+| Username-only accounts (accepted for MVP) | Forgotten password cannot be recovered except by operator reset; no verified contact for users; guessable passwords | Owner accepted 2026-10-11 to prioritise functionality; minimum 8-character passwords and provider rate limits remain; data isolation unchanged | Revisit before inviting real users (Task 008): recovery, verification, contact channel |
 | Signed URL leakage / cache persistence | Temporary private-image disclosure | Short expiry, no logging, private response cache control; remove objects on deletion | Before screenshot pilot |
 | Unclear retention/processor disclosures | Users misled about private content | Define retention and recipients, minimize AI inputs, document deletion and provider limits | Before anyone else's real data |
 
