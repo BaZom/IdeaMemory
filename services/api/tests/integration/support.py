@@ -1,13 +1,13 @@
 """Helpers for tests against the real local Supabase stack (`make check-integration`).
 
-Privileged keys are used only here, to provision and remove synthetic users and
-the temporary table/bucket. Code under test receives user tokens and the public
-key only. Missing configuration fails the run; nothing is skipped.
+Privileged keys are used only here, to provision and remove synthetic users.
+Code under test receives user tokens and the public key only. Missing
+configuration fails the run; nothing is skipped.
 """
 
+import json
 import os
 import subprocess
-import time
 import uuid
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
@@ -95,6 +95,18 @@ def run_sql(stack: Stack, sql: str) -> None:
     )
 
 
+def query_sql(stack: Stack, sql: str) -> list[dict[str, Any]]:
+    """Run one SQL query as the fixture operator and return its rows."""
+    result = subprocess.run(  # noqa: S603 - fixed binary from the Makefile, local stack only
+        [stack.supabase_bin, "db", "query", "--local", "--agent", "no", "-o", "json", sql],
+        check=True,
+        capture_output=True,
+        timeout=60,
+    )
+    rows: list[dict[str, Any]] = json.loads(result.stdout)
+    return rows
+
+
 # --- users -----------------------------------------------------------------
 
 
@@ -110,30 +122,6 @@ def create_user(http: httpx2.Client, stack: Stack, email: str) -> str:
 
 def delete_user(http: httpx2.Client, stack: Stack, user_id: str) -> None:
     http.delete(f"{stack.url}/auth/v1/admin/users/{user_id}", headers=stack.admin_headers())
-
-
-def find_user(http: httpx2.Client, stack: Stack, email: str) -> dict[str, Any] | None:
-    response = http.get(
-        f"{stack.url}/auth/v1/admin/users",
-        headers=stack.admin_headers(),
-        params={"per_page": "1000"},
-    )
-    response.raise_for_status()
-    for user in response.json()["users"]:
-        if user.get("email") == email:
-            assert isinstance(user, dict)
-            return user
-    return None
-
-
-def user_exists(http: httpx2.Client, stack: Stack, email: str) -> bool:
-    response = http.get(
-        f"{stack.url}/auth/v1/admin/users",
-        headers=stack.admin_headers(),
-        params={"per_page": "1000"},
-    )
-    response.raise_for_status()
-    return any(user.get("email") == email for user in response.json()["users"])
 
 
 def sign_in(http: httpx2.Client, stack: Stack, email: str) -> StackUser:
@@ -158,38 +146,7 @@ def unique_email(label: str) -> str:
     return f"{label}-{uuid.uuid4().hex[:10]}@example.test"
 
 
-def do_block(statements: list[str]) -> str:
-    body = "\n".join(
-        f"{s};" if s.startswith("perform ") else f"execute $sql${s}$sql$;" for s in statements
-    )
-    return f"do $fixture$\nbegin\n{body}\nend\n$fixture$"
-
-
-def wait_until_exposed(http: httpx2.Client, stack: Stack, user: StackUser, table: str) -> None:
-    deadline = time.monotonic() + 15
-    while time.monotonic() < deadline:
-        if http.get(f"{stack.url}/rest/v1/{table}", headers=user.headers(stack)).status_code == 200:
-            return
-        time.sleep(0.25)
-    raise AssertionError(f"Data API did not expose {table}")
-
-
 # --- the API under test ------------------------------------------------------
-
-
-class RecordingTransport(httpx2.AsyncBaseTransport):
-    """Passes requests to the network and records their headers."""
-
-    def __init__(self) -> None:
-        self._inner = httpx2.AsyncHTTPTransport()
-        self.sent_headers: list[dict[str, str]] = []
-
-    async def handle_async_request(self, request: httpx2.Request) -> httpx2.Response:
-        self.sent_headers.append(dict(request.headers))
-        return await self._inner.handle_async_request(request)
-
-    async def aclose(self) -> None:
-        await self._inner.aclose()
 
 
 @asynccontextmanager

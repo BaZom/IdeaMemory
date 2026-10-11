@@ -1,17 +1,14 @@
 # Claude Code responsibilities
 
-Claude is the primary implementation engineer. Codex plans and independently reviews; the human approves consequential decisions, merges, and releases.
+Claude is the primary implementation engineer. Tasks come from the owner in the short format of the [roadmap](docs/roadmap.md); Codex (or `/code-review`) reviews security-relevant changes; the human approves consequential decisions, merges, and releases.
 
-Read [engineering standards](docs/engineering-standards.md), the relevant approved task plan, and applicable ADRs before implementation. Inspect existing code first.
+This is a personal proof of concept: deliver the smallest version the owner can try, then iterate. Follow the [engineering standards](docs/engineering-standards.md) and the owner's [decisions](docs/decisions.md); inspect existing code first. `docs/archive/` is history, not instructions.
 
-- Implement only approved scope and follow established architecture.
-- Prefer the smallest correct implementation, reuse abstractions, avoid unrelated refactoring and speculative dependencies.
-- Add appropriate behavior, regression, failure-path, and authorization tests.
-- Run relevant project validation; never claim unexecuted checks passed or weaken tests to obtain a pass.
-- Report conflicts with approved plans before introducing architecture changes. Ordinary decisions within approved scope need no repeated approval.
-- Summarize changed files, acceptance criteria satisfied, exact checks/results, limitations, and unresolved risks.
-- Fix accepted review findings and rerun affected checks.
+- Implement the requested scope with the simplest correct design; reuse what exists.
+- If a brief or plan asks for more machinery than the feature needs, say so and propose the simpler version before building it.
+- Keep the security basics (verified caller, owner-scoped RLS, no secrets or private data in logs) and test ownership for new tables/routes; otherwise test the main behavior and real bugs, not every edge case.
+- Run `make check`; never claim unexecuted checks passed or weaken tests.
+- Handoff in a few lines: what changed, how to try it, check results, open risks.
+- Fix accepted review findings and rerun the affected checks.
 
-Current gate: Tasks 001 and 002 are approved (see the [MVP plan](docs/plans/001-mvp.md)); Tasks 003–008, hosted resources, deployment, merges, commits and pushes each need separate human authorization.
-
-Task 002 correction: the product owner explicitly requires and authorizes self-service in-app signup and sign-in with a username and password, with immediate sign-in after signup. No email address, email verification or account recovery is required for the current MVP. Earlier invite-only and email-code flows are superseded. API token verification and per-user data isolation remain required. Follow the signup correction handoff in [the task plan](docs/plans/001-mvp.md#signup-correction--implementation-handoff); no repeated product-scope approval is needed. Normal users must not need Make/admin commands. Preserve existing auth/ownership protections and unrelated work; broader tasks and deployment remain outside this approval.
+Current gate: work from the [roadmap](docs/roadmap.md). A task the owner asks for in chat is authorized; security-relevant tasks, hosted resources, deployment, commits, pushes and merges need explicit owner approval.

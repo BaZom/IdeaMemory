@@ -8,14 +8,9 @@ enum AuthMode { signIn, signUp }
 
 /// Username + password sign-in for returning users and sign-up for new ones.
 class SignInPage extends StatefulWidget {
-  const SignInPage({
-    super.key,
-    required this.controller,
-    this.onOpenDiagnostics,
-  });
+  const SignInPage({super.key, required this.controller});
 
   final AuthController controller;
-  final VoidCallback? onOpenDiagnostics;
 
   @override
   State<SignInPage> createState() => _SignInPageState();
@@ -90,17 +85,7 @@ class _SignInPageState extends State<SignInPage> {
     final signOutWarning = widget.controller.remoteSignOutFailed;
     final action = _signingUp ? 'Create account' : 'Sign in';
     return Scaffold(
-      appBar: AppBar(
-        title: Text(_signingUp ? 'Create account' : 'Sign in'),
-        actions: [
-          if (widget.onOpenDiagnostics != null)
-            IconButton(
-              tooltip: 'Connection check',
-              icon: const Icon(Icons.network_check),
-              onPressed: widget.onOpenDiagnostics,
-            ),
-        ],
-      ),
+      appBar: AppBar(title: Text(_signingUp ? 'Create account' : 'Sign in')),
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(

@@ -13,7 +13,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 from app.auth import CurrentUser, TokenVerifier
-from app.errors import install_error_handlers
+from app.errors import BodySizeLimit, install_error_handlers
+from app.ideas.routes import router as ideas_router
 from app.settings import (
     SupabaseSettings,
     allowed_origins_from_env,
@@ -54,11 +55,13 @@ def create_app(
     application = FastAPI(title="API", lifespan=lifespan)
     application.state.token_verifier = None
     install_error_handlers(application)
+    # Inside CORS, so browsers can read a 413.
+    application.add_middleware(BodySizeLimit)
     application.add_middleware(
         CORSMiddleware,
         allow_origins=list(allowed_origins),
-        allow_methods=["GET"],
-        allow_headers=["Authorization"],
+        allow_methods=["GET", "POST", "PATCH", "DELETE"],
+        allow_headers=["Authorization", "Content-Type"],
         expose_headers=["X-Request-ID"],
         allow_credentials=False,
     )
@@ -93,6 +96,7 @@ def create_app(
         response.headers["Cache-Control"] = "no-store"
         return MeResponse(user_id=user.user_id)
 
+    application.include_router(ideas_router)
     return application
 
 

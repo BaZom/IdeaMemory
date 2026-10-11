@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import 'account/me_client.dart';
 import 'app.dart';
 import 'auth/auth_controller.dart';
 import 'auth/auth_gate.dart';
 import 'auth/auth_gateway.dart';
 import 'config.dart';
-import 'connection_check/connection_check_page.dart';
-import 'connection_check/health_client.dart';
+import 'ideas/ideas_client.dart';
 
 Future<void> main() async {
   final AppConfig config;
@@ -44,21 +42,14 @@ Future<void> main() async {
     return;
   }
 
-  final httpClient = http.Client();
-  final healthClient = HealthClient(
-    baseUrl: config.apiBaseUrl,
-    httpClient: httpClient,
-  );
   final controller = AuthController(SupabaseAuthGateway(supabase.client.auth));
   runApp(
     ShellApp(
       home: AuthGate(
         controller: controller,
-        meClient: MeClient(baseUrl: config.apiBaseUrl, httpClient: httpClient),
-        onOpenDiagnostics: (context) => Navigator.of(context).push(
-          MaterialPageRoute<void>(
-            builder: (_) => ConnectionCheckPage(healthClient: healthClient),
-          ),
+        ideasClient: IdeasClient(
+          baseUrl: config.apiBaseUrl,
+          httpClient: http.Client(),
         ),
       ),
     ),

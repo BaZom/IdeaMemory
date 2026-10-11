@@ -12,7 +12,7 @@ Confirmed audience: the product owner first, then a small group, each with a sep
 | --- | --- | --- |
 | R1 | Capture manual text, URL, and screenshot | Each produces an editable draft and saves on explicit confirmation |
 | R2 | Preserve idea and source separately | Saved idea opens its original URL/image; manual idea needs no external source |
-| R3 | User-controlled organization | Browse, search, category filter, edit, delete, tags, notes, status; category optional |
+| R3 | User-controlled organization | Browse, search, category filter, edit, delete, tags, notes; category optional; no done/status marking (owner decision 2026-10-11) |
 | R4 | Self-service signup and private accounts | Users create username/password accounts in the app and sign in immediately, without email verification; managed auth, secure sessions, server authorization and no cross-user access |
 | R5 | Grounded conversational rediscovery | Follow-ups recommend existing owned ideas and acknowledge missing facts |
 | R6 | AI is advisory and optional for saving | Suggestions are editable; provider/extraction failures do not block manual saving |
@@ -28,7 +28,7 @@ Conceptual views: assistant/home, add idea, collection, detail/edit, chat, and a
 
 ## MVP scope
 
-Self-service username + password signup and sign-in; private accounts; manual CRUD; safe best-effort URL metadata; private screenshot upload and multimodal suggestions; optional categories/tags/notes; basic status; search and filters; source display; session conversation; references to saved items. Preserve clearly identified location as optional text with provenance, without geocoding or live venue verification.
+Self-service username + password signup and sign-in; private accounts; manual CRUD; safe best-effort URL metadata; private screenshot upload and multimodal suggestions; optional categories/tags/notes; search and filters; source display; session conversation; references to saved items. Preserve clearly identified location as optional text with provenance, without geocoding or live venue verification.
 
 Source information and user notes survive enrichment. No AI autosave or silent overwrite. A useful title is required at save time; optional metadata never becomes a mandatory form. Duplicate URL warnings are owner-scoped and non-blocking; similar titles never trigger automatic merging.
 
@@ -53,7 +53,7 @@ Self-service username/password signup is required (owner, 2026-10-11). No email 
 
 ## Proposed defaults requiring product acceptance
 
-Fixed optional category keys (food, activity, travel, film-series, recipe, product, book, place, other), free-form tags, and reversible `saved` / `done` statuses. Null category means uncategorized. Session-only chat; no conversation recovery after reload. Online-only data operations; installation does not imply offline collection access.
+Fixed optional category keys (food, activity, travel, film-series, recipe, product, book, place, other), free-form tags. Ideas have no `saved` / `done` status: the owner decided on 2026-10-11 that marking ideas done is not wanted. Null category means uncategorized. Session-only chat; no conversation recovery after reload. Online-only data operations; installation does not imply offline collection access.
 
 These are recommendations, not additional confirmed requirements. Approve as one MVP behavior package before relevant tasks; change labels without coupling domain logic to the working product name.
 

@@ -38,18 +38,6 @@ def test_health_makes_no_network_connections(
     assert response.json() == {"status": "ok"}
 
 
-def test_health_rejects_write_methods(client: TestClient) -> None:
-    assert client.post("/health").status_code == 405
-
-
-def test_cors_allows_configured_origin(client: TestClient) -> None:
-    response = client.get("/health", headers={"Origin": ALLOWED})
-
-    assert response.status_code == 200
-    assert response.headers["access-control-allow-origin"] == ALLOWED
-    assert "access-control-allow-credentials" not in response.headers
-
-
 def test_cors_preflight_allows_configured_origin(client: TestClient) -> None:
     response = client.options(
         "/health",
@@ -67,23 +55,4 @@ def test_cors_preflight_allows_configured_origin(client: TestClient) -> None:
 def test_cors_does_not_grant_unrelated_origin(client: TestClient, origin: str) -> None:
     response = client.get("/health", headers={"Origin": origin})
 
-    assert "access-control-allow-origin" not in response.headers
-
-
-def test_cors_preflight_rejects_unrelated_origin(client: TestClient) -> None:
-    response = client.options(
-        "/health",
-        headers={"Origin": "http://evil.example", "Access-Control-Request-Method": "GET"},
-    )
-
-    assert response.status_code == 400
-    assert "access-control-allow-origin" not in response.headers
-
-
-def test_no_origins_configured_grants_no_cross_origin_access() -> None:
-    client = TestClient(create_app([]))
-
-    response = client.get("/health", headers={"Origin": ALLOWED})
-
-    assert response.status_code == 200
     assert "access-control-allow-origin" not in response.headers

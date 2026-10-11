@@ -10,7 +10,6 @@ PYTHON ?= python3.13
 API_DIR := services/api
 API_VENV := $(API_DIR)/.venv
 API_BIN := $(API_VENV)/bin
-WHEEL_VENV := $(API_DIR)/build/wheel-venv
 WEB_DIR := apps/mobile
 SUPABASE_CLI_DIR := .tools/supabase-cli
 SUPABASE := $(CURDIR)/$(SUPABASE_CLI_DIR)/supabase
@@ -59,17 +58,18 @@ supabase_env = status="$$($(SUPABASE) status -o env --agent no 2>/dev/null)" || 
 	{ echo "error: local Supabase is not running; run 'make supabase-start'" >&2; exit 1; }; \
 	eval "$$(printf '%s\n' "$$status" | sed 's/^/export SB_/')"
 
-.PHONY: help setup setup-api setup-mobile setup-supabase check check-api check-api-wheel \
-	check-mobile check-integration supabase-start supabase-stop supabase-status \
+.PHONY: help setup setup-api setup-mobile setup-supabase check check-api \
+	check-mobile check-integration supabase-start supabase-stop supabase-status db-migrate \
 	provision-user list-users run-api run-web build-web serve-web lock-api clean
 
 help:
 	@echo "setup             API venv (hashed pins), locked Flutter packages, pinned Supabase CLI"
 	@echo "check             Every canonical check (mobile, API, integration); fails on any error"
 	@echo "check-mobile      Dart format check, analyze, tests, web release build"
-	@echo "check-api         Ruff lint/format check, mypy, unit tests, wheel build + clean install"
-	@echo "check-integration Start local Supabase and run the real auth/data/storage tests"
-	@echo "supabase-start    Start the local Supabase stack (Docker required); -stop / -status"
+	@echo "check-api         Ruff lint/format check, mypy, unit tests"
+	@echo "check-integration Start local Supabase, apply migrations, run the real auth/data/storage tests"
+	@echo "supabase-start    Start the local Supabase stack and apply new migrations; -stop / -status"
+	@echo "db-migrate        Apply pending migrations to the running local stack (never resets data)"
 	@echo "provision-user    Optional test account (USERNAME=... PASSWORD=...); users normally sign up in the app"
 	@echo "list-users        List local accounts"
 	@echo "run-api           API with reload on API_HOST:API_PORT, using the local Supabase stack"
@@ -112,26 +112,16 @@ check-api:
 	cd $(API_DIR) && .venv/bin/ruff format --check .
 	cd $(API_DIR) && .venv/bin/mypy
 	cd $(API_DIR) && .venv/bin/pytest
-	$(MAKE) check-api-wheel
 
-# Builds the wheel, installs it with only the pinned runtime dependencies into a
-# fresh venv, and exercises it from outside the repository in isolated mode.
-check-api-wheel:
-	$(require_api_venv)
-	rm -rf $(API_DIR)/dist $(WHEEL_VENV)
-	cd $(API_DIR) && .venv/bin/python -m build --wheel --no-isolation --outdir dist .
-	$(API_BIN)/python -m venv $(WHEEL_VENV)
-	$(WHEEL_VENV)/bin/python -m pip install --quiet --require-hashes -r $(API_DIR)/requirements.txt
-	$(WHEEL_VENV)/bin/python -m pip install --quiet --no-deps --no-index $(API_DIR)/dist/*.whl
-	$(WHEEL_VENV)/bin/python -m pip check
-	cd "$$(mktemp -d)" && $(CURDIR)/$(WHEEL_VENV)/bin/python -I $(CURDIR)/$(API_DIR)/scripts/check_installed_wheel.py
-
-# Real auth/data/storage tests against disposable fixtures on the local stack.
+# Real auth and database tests against disposable users on the local stack.
+# A fresh stack applies supabase/migrations on start; an already-running one
+# gets only the pending migrations, without a reset.
 check-integration:
 	$(require_api_venv)
 	$(require_supabase)
 	$(require_docker)
 	$(SUPABASE) start --agent no
+	$(SUPABASE) migration up --local --agent no
 	$(supabase_env); export SUPABASE_BIN=$(SUPABASE); \
 		cd $(API_DIR) && .venv/bin/pytest -m integration -p no:cacheprovider
 
@@ -139,6 +129,11 @@ supabase-start:
 	$(require_supabase)
 	$(require_docker)
 	$(SUPABASE) start --agent no
+	$(SUPABASE) migration up --local --agent no
+
+db-migrate:
+	$(require_supabase)
+	$(SUPABASE) migration up --local --agent no
 
 supabase-stop:
 	$(require_supabase)

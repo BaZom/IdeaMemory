@@ -1,9 +1,10 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
-import 'package:mobile/account/me_client.dart';
 import 'package:mobile/auth/auth_gateway.dart';
+import 'package:mobile/ideas/ideas_client.dart';
 
 const userA = AuthSession(
   userId: '11111111-1111-4111-8111-111111111111',
@@ -72,27 +73,86 @@ class FakeAuthGateway implements AuthGateway {
   }
 }
 
-/// API whose `/api/v1/me` responses are completed by the test, per request.
-class FakeMeApi {
+/// API whose `/api/v1/ideas` responses are completed by the test, per request.
+class FakeIdeasApi {
+  FakeIdeasApi({this.answerListsEmpty = false});
+
+  /// Answers every list request at once with an empty collection.
+  final bool answerListsEmpty;
   final requests = <http.Request>[];
   final _pending = <Completer<http.Response>>[];
 
-  MeClient client() => MeClient(
+  IdeasClient client() => IdeasClient(
     baseUrl: Uri.parse('http://api.test:8000'),
     httpClient: MockClient((request) {
       requests.add(request);
       final completer = Completer<http.Response>();
       _pending.add(completer);
+      if (answerListsEmpty &&
+          request.method == 'GET' &&
+          request.url.path == '/api/v1/ideas') {
+        completer.complete(_json(200, {'items': [], 'next_cursor': null}));
+      }
       return completer.future;
     }),
   );
 
+  http.Request get last => requests.last;
+  int get count => requests.length;
+
+  Object? bodyOf(int index) => jsonDecode(requests[index].body);
+
   String? tokenOf(int index) =>
       requests[index].headers['Authorization']?.replaceFirst('Bearer ', '');
 
-  void respond(int index, int status, [String body = '']) =>
-      _pending[index].complete(http.Response(body, status));
+  bool isPending(int index) => !_pending[index].isCompleted;
 
-  void respondUser(int index, AuthSession user) =>
-      respond(index, 200, '{"user_id":"${user.userId}"}');
+  void respond(int index, int status, [Object? body]) =>
+      _pending[index].complete(_json(status, body));
+
+  void respondError(int index, int status, String code) =>
+      respond(index, status, {
+        'error': {'code': code, 'message': 'x'},
+      });
+
+  void fail(int index) =>
+      _pending[index].completeError(http.ClientException('offline'));
+
+  static http.Response _json(int status, Object? body) => http.Response.bytes(
+    body == null ? const [] : utf8.encode(jsonEncode(body)),
+    status,
+    headers: {'content-type': 'application/json'},
+  );
 }
+
+/// An idea as the API returns it.
+Map<String, Object?> ideaJson({
+  String id = 'aaaaaaaa-0000-4000-8000-000000000001',
+  String title = 'Ramen',
+  String? description,
+  String? notes,
+  String? location,
+  String? category,
+  List<String> tags = const [],
+  List<Map<String, Object?>>? sources = const [],
+  String createdAt = '2026-10-11T10:00:00.000000Z',
+  String? updatedAt,
+}) => {
+  'id': id,
+  'title': title,
+  'description': description,
+  'notes': notes,
+  'location': location,
+  'category': category,
+  'tags': tags,
+  'created_at': createdAt,
+  'updated_at': updatedAt ?? createdAt,
+  'sources': ?sources,
+};
+
+Map<String, Object?> textSource(String text) => {
+  'id': 'bbbbbbbb-0000-4000-8000-000000000001',
+  'kind': 'text',
+  'original_text': text,
+  'created_at': '2026-10-11T10:00:00.000000Z',
+};

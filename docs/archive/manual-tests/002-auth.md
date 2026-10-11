@@ -21,20 +21,19 @@ Run `make run-api` (terminal 1) and `make run-web` (terminal 2); open http://loc
 | A1 | Load the app | “Restoring your session…” briefly, then **Sign in** with a Sign in / Sign up switch, Username and Password fields; password hidden |
 | A2 | Sign in with `a b` (with a space) and any password | “Use letters, numbers, dots, dashes or underscores, starting with a letter or number.” |
 | A3 | Choose **Sign up**, enter tester A's username and the password `short` | “Choose a password with at least 8 characters.”; no account created (`make list-users`) |
-| A4 | Sign up tester A with an 8+ character password; press **Create account** | Account page immediately: “Signed in”, tester A's username (no email shown anywhere), “Verified by the API”, a user ID matching `make list-users` |
-| A5 | DevTools → Network: inspect the `/api/v1/me` request | `Authorization: Bearer …` header; `{"user_id": …}` with `cache-control: no-store`; no token or password in any URL |
+| A4 | Sign up tester A with an 8+ character password; press **Create account** | **Your ideas** immediately; the account icon shows “Signed in” and tester A's username (no email shown anywhere) |
+| A5 | DevTools → Network: inspect the `/api/v1/ideas` request | `Authorization: Bearer …` header; `cache-control: no-store`; no token or password in any URL |
 | A6 | Reload the page | Restoring, then the account page again without signing in |
 | A7 | **Sign out** | Sign-in page immediately; reload stays signed out |
 | A8 | Sign in as tester A with a wrong password | “Username or password is incorrect.” |
 | A9 | Sign in with a username that has no account | The same “Username or password is incorrect.” |
-| A10 | Sign in as tester A (try typing it in capitals) with the correct password | Account page with the **same** user ID as A4 |
+| A10 | Sign in as tester A (try typing it in capitals) with the correct password | Signed in as tester A, with A's ideas (save one after A4 to check) |
 | A11 | Sign out; **Sign up** again with tester A's username and a different password | “That username is taken. Choose another, or sign in.” Then signing in with the new password fails and with the original password works |
-| A12 | Sign up tester B; check the account page | B's username and a different user ID; nothing from A |
-| A13 | While signed in, stop the API (Ctrl+C terminal 1) and reload | Still signed in; “The API could not be reached. You are still signed in.” with **Retry**. Restart `make run-api`, **Retry** → verified |
-| A14 | Network icon in the app bar | Connection check opens and shows “Connected” |
-| A15 | Press **Sign in** / **Create account** twice quickly | Only one request (DevTools → Network); button shows progress while busy |
-| A16 | Eye icon in the password field | Shows and hides the password |
-| A17 | DevTools device toolbar: iPhone SE portrait and landscape, on sign-in and account pages | All text, fields and buttons visible; no overflow or horizontal scrolling |
+| A12 | Sign up tester B; check the account page | B's username on the account page; none of A's ideas |
+| A13 | While signed in, stop the API (Ctrl+C terminal 1) and reload | Still signed in; “Your ideas could not be loaded…” with **Retry**. Restart `make run-api`, **Retry** → loads |
+| A14 | Press **Sign in** / **Create account** twice quickly | Only one request (DevTools → Network); button shows progress while busy |
+| A15 | Eye icon in the password field | Shows and hides the password |
+| A16 | DevTools device toolbar: iPhone SE portrait and landscape, on sign-in and account pages | All text, fields and buttons visible; no overflow or horizontal scrolling |
 
 ## Part B — Physical iPhone Safari
 
@@ -43,11 +42,11 @@ Same trusted Wi-Fi for Mac and iPhone. Stop servers from Part A first. Commands 
 | # | Step | Expected result |
 | --- | --- | --- |
 | B1 | Open `http://<IP>:3000` | Sign-in page with the Sign in / Sign up switch |
-| B2 | **Sign up** with the iPhone test username (no autocorrect or auto-capitalisation; Safari may offer a strong password) | Account page with a new verified user ID |
+| B2 | **Sign up** with the iPhone test username (no autocorrect or auto-capitalisation; Safari may offer a strong password) | **Your ideas**, empty |
 | B3 | Close the tab and reopen the URL | Session restored without signing in |
 | B4 | Rotate to landscape and back on sign-in and account pages, keyboard open and closed | Fields and buttons reachable; nothing hidden under the notch or home indicator |
 | B5 | **Sign out**, sign in again with the same password, then sign out and sign in as tester B | The phone account keeps its ID; switching shows B only |
-| B6 | Stop the API on the Mac, reload on the phone; restart it, **Retry** | Unavailable message while stopped; verified after retry |
+| B6 | Stop the API on the Mac, reload on the phone; restart it, **Retry** | Error message while stopped; ideas load after retry |
 
 Not in scope (later tasks): HTTPS, Add to Home Screen, app updates, account recovery and verification.
 
