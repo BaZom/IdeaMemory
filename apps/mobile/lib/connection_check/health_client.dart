@@ -43,19 +43,21 @@ class HealthClient {
     return baseUrl.replace(path: '$prefix/health');
   }
 
-  /// Completes normally only for HTTP 200 with body `{"status": "ok"}`.
-  /// Every other outcome throws [HealthCheckException].
+  /// Completes normally only for HTTP 200 with body `{"status": "ok"}` served
+  /// directly by [healthUrl]. Every other outcome, including a redirect,
+  /// throws [HealthCheckException].
   Future<void> check() async {
     final abort = Completer<void>();
+    // Browsers then fail the fetch on a redirect; other clients return the 3xx.
     final request = http.AbortableRequest(
       'GET',
       healthUrl,
       abortTrigger: abort.future,
-    );
+    )..followRedirects = false;
 
-    final http.Response response;
+    final (http.StreamedResponse, List<int>) result;
     try {
-      response = await _send(request).timeout(
+      result = await _send(request).timeout(
         timeout,
         onTimeout: () {
           abort.complete();
@@ -65,7 +67,12 @@ class HealthClient {
     } on http.ClientException {
       throw const HealthCheckException(HealthFailureKind.network);
     }
+    final (response, responseBytes) = result;
 
+    if (response case http.BaseResponseWithUrl(:final url)
+        when url != healthUrl) {
+      throw const HealthCheckException(HealthFailureKind.invalidResponse);
+    }
     if (response.statusCode != 200) {
       throw HealthCheckException(
         HealthFailureKind.unexpectedStatus,
@@ -75,7 +82,7 @@ class HealthClient {
 
     final Object? body;
     try {
-      body = jsonDecode(response.body);
+      body = jsonDecode(utf8.decode(responseBytes));
     } on FormatException {
       throw const HealthCheckException(HealthFailureKind.invalidResponse);
     }
@@ -84,6 +91,10 @@ class HealthClient {
     }
   }
 
-  Future<http.Response> _send(http.BaseRequest request) async =>
-      http.Response.fromStream(await _httpClient.send(request));
+  Future<(http.StreamedResponse, List<int>)> _send(
+    http.BaseRequest request,
+  ) async {
+    final response = await _httpClient.send(request);
+    return (response, await response.stream.toBytes());
+  }
 }

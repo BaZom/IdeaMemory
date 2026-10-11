@@ -29,6 +29,13 @@ WEB_DEFINES := --dart-define-from-file=$(WEB_CONFIG)
 endif
 
 require = @command -v $(1) >/dev/null 2>&1 || { echo "error: required tool '$(1)' not found on PATH" >&2; exit 127; }
+# Pub only enforces the lower bound of `environment.flutter`, so the exact pin
+# in pubspec.yaml is checked against the installed SDK here.
+FLUTTER_VERSION := $(shell sed -n 's/^  flutter: *//p' $(WEB_DIR)/pubspec.yaml)
+require_flutter = $(call require,flutter)
+require_flutter += ; actual="$$(flutter --version --machine 2>/dev/null | sed -n 's/.*"frameworkVersion": *"\([^"]*\)".*/\1/p')"; \
+	test -n "$(FLUTTER_VERSION)" && test "$$actual" = "$(FLUTTER_VERSION)" || \
+	{ echo "error: Flutter $(FLUTTER_VERSION) required (pinned in $(WEB_DIR)/pubspec.yaml), found '$$actual'" >&2; exit 1; }
 require_api_venv = @test -x $(API_BIN)/python || { echo "error: $(API_VENV) missing; run 'make setup-api'" >&2; exit 1; }
 
 .PHONY: help setup setup-api setup-mobile check check-api check-api-wheel check-mobile \
@@ -55,13 +62,13 @@ setup-api:
 	$(API_BIN)/python -m pip install --require-hashes -r $(API_DIR)/requirements-dev.txt
 
 setup-mobile:
-	$(call require,flutter)
+	$(require_flutter)
 	cd $(WEB_DIR) && flutter pub get --enforce-lockfile
 
 check: check-mobile check-api
 
 check-mobile:
-	$(call require,flutter)
+	$(require_flutter)
 	$(call require,dart)
 	cd $(WEB_DIR) && flutter pub get --enforce-lockfile
 	cd $(WEB_DIR) && dart format --output=none --set-exit-if-changed lib test
@@ -95,11 +102,11 @@ run-api:
 		--app-dir src --host $(API_HOST) --port $(API_PORT) --reload
 
 run-web:
-	$(call require,flutter)
+	$(require_flutter)
 	cd $(WEB_DIR) && flutter run -d chrome --web-hostname $(WEB_HOST) --web-port $(WEB_PORT) $(WEB_DEFINES)
 
 build-web:
-	$(call require,flutter)
+	$(require_flutter)
 	cd $(WEB_DIR) && flutter build web --release $(WEB_DEFINES)
 
 serve-web:

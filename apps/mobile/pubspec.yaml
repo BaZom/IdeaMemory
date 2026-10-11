@@ -5,7 +5,8 @@ version: 0.1.0+1
 
 environment:
   sdk: ^3.13.5
-  # Exact SDK pin: pub rejects other Flutter versions and CI installs this one.
+  # Exact SDK pin. Pub enforces only the lower bound; `make` checks the exact
+  # version and CI installs this one.
   flutter: 3.47.6
 
 dependencies:

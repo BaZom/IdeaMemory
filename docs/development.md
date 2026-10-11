@@ -48,7 +48,7 @@ Create modules when their task needs them; no empty placeholders exist. Domain n
 
 | Tool | Version | Pinned where |
 | --- | --- | --- |
-| Flutter / Dart | 3.47.6 stable (framework 5fc346839b) / Dart 3.13.5 | `apps/mobile/pubspec.yaml` `environment.flutter` (pub rejects other versions; CI reads it) |
+| Flutter / Dart | 3.47.6 stable (framework 5fc346839b) / Dart 3.13.5 | `apps/mobile/pubspec.yaml` `environment.flutter`; Make targets fail on any other installed version (pub alone enforces only the lower bound); CI reads it |
 | Python | 3.13.5 (any 3.13.x accepted locally; CI uses 3.13.5) | `pyproject.toml` `requires-python`, CI |
 | pip | 26.2.1 (installed into the venv from the hashed lock) | `requirements-dev.txt` |
 | GNU Make | 3.81 or later | — |
