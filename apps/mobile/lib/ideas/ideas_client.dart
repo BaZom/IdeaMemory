@@ -57,10 +57,15 @@ class IdeasClient {
     );
   }
 
-  Future<IdeaPage> list(String token, {String? cursor, int limit = 20}) async {
+  Future<IdeaPage> list(
+    String token, {
+    String? cursor,
+    String? category,
+    int limit = 20,
+  }) async {
     final body = await _send(
       'GET',
-      _url([], {'limit': '$limit', 'cursor': ?cursor}),
+      _url([], {'limit': '$limit', 'cursor': ?cursor, 'category': ?category}),
       token,
     );
     if (body

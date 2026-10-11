@@ -137,6 +137,39 @@ void main() {
       expect(find.text('Load more'), findsNothing);
     });
 
+    _testWidgets('quick add saves a title with Enter', (tester) async {
+      final h = _Harness();
+      await h.pumpWith(tester, []);
+
+      await tester.enterText(
+        find.widgetWithText(TextField, 'What do you want to remember?'),
+        '  Ramen in Kreuzberg ',
+      );
+      await tester.testTextInput.receiveAction(TextInputAction.done);
+      await tester.pump();
+
+      expect(h.ideas.requests[1].method, 'POST');
+      expect(_body(h, 1)['title'], 'Ramen in Kreuzberg');
+      h.ideas.respond(1, 201, ideaJson(title: 'Ramen in Kreuzberg'));
+      await tester.pump();
+      expect(find.text('Ramen in Kreuzberg'), findsOneWidget);
+      expect(find.text('Idea saved'), findsOneWidget);
+    });
+
+    _testWidgets('category chips filter the collection', (tester) async {
+      final h = _Harness();
+      await h.pumpWith(tester, [ideaJson(title: 'Dune', category: 'book')]);
+
+      await tester.tap(find.widgetWithText(ChoiceChip, 'Food'));
+      await tester.pump();
+
+      expect(h.ideas.requests[1].url.queryParameters['category'], 'food');
+      h.ideas.respond(1, 200, _emptyPage);
+      await tester.pump();
+      expect(find.text('Dune'), findsNothing);
+      expect(find.text('No food ideas yet'), findsOneWidget);
+    });
+
     _testWidgets('deleting every loaded idea still reaches later pages', (
       tester,
     ) async {
@@ -354,7 +387,7 @@ void main() {
         'noodles',
         'Japan',
       ]) {
-        expect(find.text(text), findsWidgets, reason: text);
+        expect(find.textContaining(text), findsWidgets, reason: text);
       }
       final original = tester.widget<SelectableText>(
         find.byWidgetPredicate(

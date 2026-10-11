@@ -16,7 +16,7 @@ from fastapi import APIRouter, Depends, Query, Response
 from app.auth import CurrentUser
 from app.errors import ApiError
 from app.ideas import store
-from app.ideas.models import Idea, IdeaCreate, IdeaPage, IdeaUpdate
+from app.ideas.models import Category, Idea, IdeaCreate, IdeaPage, IdeaUpdate
 from app.supabase_user import UserSupabase
 
 _CURSOR_VERSION = 1
@@ -75,10 +75,12 @@ async def list_ideas(
     db: UserSupabase,
     limit: Annotated[int, Query(ge=1, le=100)] = 20,
     cursor: Annotated[str | None, Query()] = None,
+    category: Annotated[Category | None, Query()] = None,
 ) -> IdeaPage:
-    """The caller's ideas, newest first. Pass `next_cursor` to get the next page."""
+    """The caller's ideas, newest first, optionally of one category. Pass
+    `next_cursor` (with the same category) to get the next page."""
     before = decode_cursor(cursor) if cursor is not None else None
-    rows = await store.list_ideas(db, limit + 1, before)
+    rows = await store.list_ideas(db, limit + 1, before, category)
     items = rows[:limit]
     next_cursor = encode_cursor(items[-1].created_at, items[-1].id) if len(rows) > limit else None
     return IdeaPage(items=items, next_cursor=next_cursor)

@@ -125,9 +125,12 @@ async def create_idea(db: UserScopedSupabase, idea: IdeaCreate) -> Idea:
 
 
 async def list_ideas(
-    db: UserScopedSupabase, limit: int, before: tuple[datetime, uuid.UUID] | None
+    db: UserScopedSupabase,
+    limit: int,
+    before: tuple[datetime, uuid.UUID] | None,
+    category: str | None = None,
 ) -> list[IdeaSummary]:
-    args: dict[str, Any] = {"p_limit": limit}
+    args: dict[str, Any] = {"p_limit": limit, "p_category": category}
     if before is not None:
         args["p_before_created_at"] = before[0].isoformat()
         args["p_before_id"] = str(before[1])

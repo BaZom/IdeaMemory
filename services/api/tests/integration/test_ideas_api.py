@@ -172,3 +172,19 @@ async def test_every_route_requires_a_valid_token(
     )
 
     assert missing.status_code == invalid.status_code == 401
+
+
+async def test_collection_can_be_filtered_by_category(
+    api: httpx2.AsyncClient, user_a: StackUser
+) -> None:
+    food = await created(api, user_a, title="Pasta", category="food")
+    book = await created(api, user_a, title="Dune", category="book")
+
+    page = await api.get("/api/v1/ideas", headers=as_user(user_a), params={"category": "food"})
+    bad = await api.get("/api/v1/ideas", headers=as_user(user_a), params={"category": "music"})
+
+    ids = [item["id"] for item in page.json()["items"]]
+    assert food["id"] in ids
+    assert book["id"] not in ids
+    assert all(item["category"] == "food" for item in page.json()["items"])
+    assert bad.status_code == 422

@@ -63,7 +63,7 @@ void main() {
     testWidgets('starts in sign-in mode with a sign-up choice', (tester) async {
       await _Harness().pump(tester);
 
-      expect(find.widgetWithText(AppBar, 'Sign in'), findsOneWidget);
+      expect(find.text(appDisplayName), findsOneWidget);
       expect(_usernameField, findsOneWidget);
       expect(_passwordField, findsOneWidget);
       expect(_signUpTab, findsOneWidget);

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'category_style.dart';
 import 'failure_text.dart';
 import 'idea.dart';
 import 'idea_form_page.dart';
@@ -282,23 +283,58 @@ class _IdeaDetailPageState extends State<IdeaDetailPage> {
                   ),
                 ),
               ),
-            SelectableText(fields.title, style: theme.textTheme.headlineSmall),
-            const SizedBox(height: 8),
-            Wrap(
-              spacing: 8,
-              runSpacing: 8,
+            Row(
               children: [
-                if (category != null) Chip(label: Text(category)),
-                for (final tag in fields.tags)
-                  Chip(
-                    avatar: const Icon(Icons.tag, size: 16),
-                    label: Text(tag),
+                CategoryAvatar(category: fields.category, size: 56),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SelectableText(
+                        fields.title,
+                        style: theme.textTheme.headlineSmall,
+                      ),
+                      Text(
+                        [
+                          category ?? 'Uncategorised',
+                          relativeDay(idea.createdAt),
+                        ].join(' · '),
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                          color: CategoryStyle.of(fields.category).color,
+                        ),
+                      ),
+                    ],
                   ),
+                ),
               ],
             ),
+            if (fields.location != null) ...[
+              const SizedBox(height: 16),
+              Row(
+                children: [
+                  Icon(
+                    Icons.place_outlined,
+                    size: 20,
+                    color: theme.colorScheme.onSurfaceVariant,
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(child: SelectableText(fields.location!)),
+                ],
+              ),
+            ],
+            if (fields.tags.isNotEmpty) ...[
+              const SizedBox(height: 12),
+              Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                children: [
+                  for (final tag in fields.tags) Chip(label: Text('#$tag')),
+                ],
+              ),
+            ],
             if (fields.description != null)
               section('Description', fields.description!),
-            if (fields.location != null) section('Location', fields.location!),
             if (fields.notes != null) section('Notes', fields.notes!),
             for (final source in sources)
               Padding(

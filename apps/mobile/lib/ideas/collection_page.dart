@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 
 import '../auth/auth_controller.dart';
+import 'category_style.dart';
+import 'failure_text.dart';
 import 'idea.dart';
 import 'idea_detail_page.dart';
 import 'idea_form_page.dart';
+import 'idea_rules.dart';
 import 'ideas_repository.dart';
 
 enum _LoadStatus { loading, ready, failed, sessionExpired }
 
-/// The signed-in home: the user's ideas, newest first.
+/// The signed-in home: quick add, category filter and the user's ideas,
+/// newest first.
 class CollectionPage extends StatefulWidget {
   const CollectionPage({
     super.key,
@@ -26,6 +30,9 @@ class CollectionPage extends StatefulWidget {
 }
 
 class _CollectionPageState extends State<CollectionPage> {
+  final _quickAdd = TextEditingController();
+  bool _quickSaving = false;
+  String? _category;
   _LoadStatus _status = _LoadStatus.loading;
   List<Idea> _items = const [];
   String? _nextCursor;
@@ -41,6 +48,12 @@ class _CollectionPageState extends State<CollectionPage> {
     _reload();
   }
 
+  @override
+  void dispose() {
+    _quickAdd.dispose();
+    super.dispose();
+  }
+
   Future<void> _reload() async {
     final loadId = ++_loadId;
     setState(() {
@@ -49,7 +62,7 @@ class _CollectionPageState extends State<CollectionPage> {
       _loadMoreFailed = false;
     });
     try {
-      final page = await widget.repository.list();
+      final page = await widget.repository.list(category: _category);
       if (!mounted || loadId != _loadId) return;
       setState(() {
         _items = page.items;
@@ -78,7 +91,10 @@ class _CollectionPageState extends State<CollectionPage> {
       _loadMoreFailed = false;
     });
     try {
-      final page = await widget.repository.list(cursor: cursor);
+      final page = await widget.repository.list(
+        cursor: cursor,
+        category: _category,
+      );
       if (!mounted || loadId != _loadId) return;
       final known = {for (final idea in _items) idea.id};
       setState(() {
@@ -104,6 +120,22 @@ class _CollectionPageState extends State<CollectionPage> {
     }
   }
 
+  void _filter(String? category) {
+    if (category == _category) return;
+    setState(() => _category = category);
+    _reload();
+  }
+
+  /// Adds [idea] at the top if it belongs to the current filter.
+  void _show(Idea idea) {
+    if (_category != null && idea.fields.category != _category) return;
+    setState(() {
+      _items = [idea, ..._items.where((i) => i.id != idea.id)];
+      _status = _LoadStatus.ready;
+      _deletedLast = false;
+    });
+  }
+
   void _replace(Idea idea) {
     if (!mounted) return;
     setState(() {
@@ -122,6 +154,36 @@ class _CollectionPageState extends State<CollectionPage> {
     if (_items.isEmpty && _nextCursor != null) _loadMore();
   }
 
+  void _toast(String text) => ScaffoldMessenger.of(context)
+    ..hideCurrentSnackBar()
+    ..showSnackBar(SnackBar(content: Text(text)));
+
+  Future<void> _saveQuickIdea() async {
+    final title = _quickAdd.text.trim();
+    if (title.isEmpty || _quickSaving) return;
+    if (characterCount(title) > titleMax) {
+      _toast('Use at most $titleMax characters, or use New idea.');
+      return;
+    }
+    setState(() => _quickSaving = true);
+    try {
+      final idea = await widget.repository.create(
+        fields: IdeaFields(title: title),
+      );
+      if (!mounted) return;
+      _quickAdd.clear();
+      setState(() => _quickSaving = false);
+      _show(idea);
+      _toast('Idea saved');
+    } on SessionChanged {
+      return;
+    } catch (error) {
+      if (!mounted) return;
+      setState(() => _quickSaving = false);
+      _toast(describeIdeasFailure(error));
+    }
+  }
+
   Future<void> _create() async {
     final idea = await Navigator.of(context).push<Idea>(
       MaterialPageRoute(
@@ -129,13 +191,8 @@ class _CollectionPageState extends State<CollectionPage> {
       ),
     );
     if (idea == null || !mounted) return;
-    setState(() {
-      _items = [idea, ..._items.where((i) => i.id != idea.id)];
-      _status = _LoadStatus.ready;
-      _deletedLast = false;
-    });
-    ScaffoldMessenger.of(context)
-        .showSnackBar(const SnackBar(content: Text('Idea saved')));
+    _show(idea);
+    _toast('Idea saved');
   }
 
   void _open(Idea idea) {
@@ -174,7 +231,77 @@ class _CollectionPageState extends State<CollectionPage> {
       icon: const Icon(Icons.add),
       label: const Text('New idea'),
     ),
-    body: SafeArea(child: _body(Theme.of(context))),
+    body: SafeArea(
+      child: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 720),
+          child: Column(
+            children: [
+              _quickAddBar(),
+              _categoryChips(),
+              Expanded(child: _body(Theme.of(context))),
+            ],
+          ),
+        ),
+      ),
+    ),
+  );
+
+  Widget _quickAddBar() => Padding(
+    padding: const EdgeInsets.fromLTRB(16, 8, 16, 4),
+    child: TextField(
+      controller: _quickAdd,
+      readOnly: _quickSaving,
+      textInputAction: TextInputAction.done,
+      textCapitalization: TextCapitalization.sentences,
+      onSubmitted: (_) => _saveQuickIdea(),
+      decoration: InputDecoration(
+        hintText: 'What do you want to remember?',
+        prefixIcon: const Icon(Icons.lightbulb_outline),
+        filled: true,
+        suffixIcon: _quickSaving
+            ? const Padding(
+                padding: EdgeInsets.all(14),
+                child: SizedBox.square(
+                  dimension: 20,
+                  child: CircularProgressIndicator(strokeWidth: 2),
+                ),
+              )
+            : IconButton(
+                tooltip: 'Save idea',
+                icon: const Icon(Icons.send),
+                onPressed: _saveQuickIdea,
+              ),
+      ),
+    ),
+  );
+
+  Widget _categoryChips() => SizedBox(
+    height: 52,
+    child: ListView(
+      scrollDirection: Axis.horizontal,
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      children: [
+        ChoiceChip(
+          label: const Text('All'),
+          selected: _category == null,
+          onSelected: (_) => _filter(null),
+        ),
+        for (final entry in ideaCategories.entries) ...[
+          const SizedBox(width: 8),
+          ChoiceChip(
+            avatar: Icon(
+              CategoryStyle.of(entry.key).icon,
+              color: CategoryStyle.of(entry.key).color,
+              size: 18,
+            ),
+            label: Text(entry.value),
+            selected: _category == entry.key,
+            onSelected: (selected) => _filter(selected ? entry.key : null),
+          ),
+        ],
+      ],
+    ),
   );
 
   Widget _body(ThemeData theme) {
@@ -182,7 +309,7 @@ class _CollectionPageState extends State<CollectionPage> {
       child: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
         child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 480),
+          constraints: const BoxConstraints(maxWidth: 420),
           child: Semantics(
             liveRegion: true,
             child: Column(mainAxisSize: MainAxisSize.min, children: children),
@@ -225,39 +352,41 @@ class _CollectionPageState extends State<CollectionPage> {
     }
 
     if (_items.isEmpty && _nextCursor == null) {
+      final category = ideaCategories[_category];
       return centered([
+        const CategoryAvatar(category: null, size: 72),
+        const SizedBox(height: 16),
         Text(
-          _deletedLast ? 'No ideas left' : 'No ideas yet',
-          style: theme.textTheme.titleMedium,
+          category != null
+              ? 'No ${category.toLowerCase()} ideas yet'
+              : _deletedLast
+              ? 'No ideas left'
+              : 'No ideas yet',
+          style: theme.textTheme.titleLarge,
         ),
         const SizedBox(height: 8),
-        const Text(
-          'Save something you want to remember with New idea.',
+        Text(
+          'Type something above and press Enter, for example: '
+          '“Ramen place in Kreuzberg”, “Watch Dune: Part Two” or '
+          '“Hike around the Schliersee”.',
           textAlign: TextAlign.center,
+          style: theme.textTheme.bodyMedium?.copyWith(
+            color: theme.colorScheme.onSurfaceVariant,
+          ),
         ),
       ]);
     }
 
     return RefreshIndicator(
       onRefresh: _reload,
-      child: ListView.builder(
+      child: ListView.separated(
         // Room for the floating button below the last entry.
-        padding: const EdgeInsets.only(bottom: 96),
+        padding: const EdgeInsets.fromLTRB(16, 4, 16, 96),
         itemCount: _items.length + 1,
-        itemBuilder: (context, index) {
-          if (index == _items.length) return _footer();
-          final idea = _items[index];
-          final category = ideaCategories[idea.fields.category];
-          return ListTile(
-            title: Text(
-              idea.title,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-            ),
-            subtitle: category == null ? null : Text(category),
-            onTap: () => _open(idea),
-          );
-        },
+        separatorBuilder: (_, _) => const SizedBox(height: 8),
+        itemBuilder: (context, index) => index == _items.length
+            ? _footer()
+            : _IdeaCard(idea: _items[index], onTap: () => _open(_items[index])),
       ),
     );
   }
@@ -281,6 +410,87 @@ class _CollectionPageState extends State<CollectionPage> {
                   ),
                 ],
               ),
+      ),
+    );
+  }
+}
+
+class _IdeaCard extends StatelessWidget {
+  const _IdeaCard({required this.idea, required this.onTap});
+
+  final Idea idea;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final fields = idea.fields;
+    final muted = theme.textTheme.bodySmall?.copyWith(
+      color: theme.colorScheme.onSurfaceVariant,
+    );
+    final category = ideaCategories[fields.category];
+    return Card(
+      color: theme.colorScheme.surfaceContainerLow,
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: onTap,
+        child: Padding(
+          padding: const EdgeInsets.all(12),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              CategoryAvatar(category: fields.category),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      idea.title,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: theme.textTheme.titleMedium,
+                    ),
+                    if (fields.description != null) ...[
+                      const SizedBox(height: 2),
+                      Text(
+                        fields.description!,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                          color: theme.colorScheme.onSurfaceVariant,
+                        ),
+                      ),
+                    ],
+                    const SizedBox(height: 6),
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: 4,
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      children: [
+                        Text(
+                          [
+                            ?category,
+                            ?fields.location,
+                            relativeDay(idea.createdAt),
+                          ].join(' · '),
+                          style: muted,
+                        ),
+                        for (final tag in fields.tags.take(4))
+                          Text(
+                            '#$tag',
+                            style: muted?.copyWith(
+                              color: CategoryStyle.of(fields.category).color,
+                            ),
+                          ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

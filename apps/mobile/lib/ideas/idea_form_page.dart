@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'category_style.dart';
 import 'failure_text.dart';
 import 'idea.dart';
 import 'idea_rules.dart';
@@ -254,6 +255,7 @@ class _IdeaFormPageState extends State<IdeaFormPage> {
     const SizedBox(height: 16),
     DropdownButtonFormField<String?>(
       initialValue: _category,
+      isExpanded: true,
       decoration: const InputDecoration(
         labelText: 'Category',
         border: OutlineInputBorder(),
@@ -261,7 +263,20 @@ class _IdeaFormPageState extends State<IdeaFormPage> {
       items: [
         const DropdownMenuItem(value: null, child: Text('None')),
         for (final entry in ideaCategories.entries)
-          DropdownMenuItem(value: entry.key, child: Text(entry.value)),
+          DropdownMenuItem(
+            value: entry.key,
+            child: Row(
+              children: [
+                Icon(
+                  CategoryStyle.of(entry.key).icon,
+                  color: CategoryStyle.of(entry.key).color,
+                  size: 20,
+                ),
+                const SizedBox(width: 12),
+                Text(entry.value),
+              ],
+            ),
+          ),
       ],
       onChanged: _saving ? null : (value) => setState(() => _category = value),
     ),

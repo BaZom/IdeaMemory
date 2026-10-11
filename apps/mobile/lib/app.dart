@@ -3,6 +3,27 @@ import 'package:flutter/material.dart';
 /// User-visible product name; internal package and type names stay neutral.
 const String appDisplayName = 'Idea Memory';
 
+/// Warm accent; the rest of the palette is derived from it.
+const Color appSeedColor = Color(0xFFE8704A);
+
+ThemeData _theme(Brightness brightness) {
+  final base = ThemeData(colorSchemeSeed: appSeedColor, brightness: brightness);
+  return base.copyWith(
+    cardTheme: const CardThemeData(
+      elevation: 0,
+      margin: EdgeInsets.zero,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(16)),
+      ),
+    ),
+    inputDecorationTheme: const InputDecorationTheme(
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+      ),
+    ),
+  );
+}
+
 class ShellApp extends StatelessWidget {
   const ShellApp({super.key, required this.home});
 
@@ -10,12 +31,11 @@ class ShellApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const seed = Color(0xFF3F51B5);
     return MaterialApp(
       title: appDisplayName,
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(colorSchemeSeed: seed),
-      darkTheme: ThemeData(colorSchemeSeed: seed, brightness: Brightness.dark),
+      theme: _theme(Brightness.light),
+      darkTheme: _theme(Brightness.dark),
       home: home,
     );
   }

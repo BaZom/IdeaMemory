@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../app.dart';
 import 'auth_controller.dart';
 import 'auth_errors.dart';
 import 'username.dart';
@@ -85,7 +86,6 @@ class _SignInPageState extends State<SignInPage> {
     final signOutWarning = widget.controller.remoteSignOutFailed;
     final action = _signingUp ? 'Create account' : 'Sign in';
     return Scaffold(
-      appBar: AppBar(title: Text(_signingUp ? 'Create account' : 'Sign in')),
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -104,6 +104,8 @@ class _SignInPageState extends State<SignInPage> {
                       ),
                       const SizedBox(height: 16),
                     ],
+                    const _Brand(),
+                    const SizedBox(height: 32),
                     SegmentedButton<AuthMode>(
                       segments: const [
                         ButtonSegment(
@@ -230,6 +232,50 @@ class _Notice extends StatelessWidget {
         padding: const EdgeInsets.all(12),
         child: Text(text, style: TextStyle(color: colors.onTertiaryContainer)),
       ),
+    );
+  }
+}
+
+/// App name and promise above the sign-in form.
+class _Brand extends StatelessWidget {
+  const _Brand();
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colors = theme.colorScheme;
+    return Column(
+      children: [
+        Container(
+          width: 80,
+          height: 80,
+          decoration: BoxDecoration(
+            color: colors.primaryContainer,
+            borderRadius: BorderRadius.circular(24),
+          ),
+          child: Icon(
+            Icons.lightbulb,
+            size: 44,
+            color: colors.onPrimaryContainer,
+          ),
+        ),
+        const SizedBox(height: 16),
+        Text(
+          appDisplayName,
+          style: theme.textTheme.headlineMedium?.copyWith(
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          'Keep the food, places, films and trips you want to experience, '
+          'and find them again when the moment comes.',
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyLarge?.copyWith(
+            color: colors.onSurfaceVariant,
+          ),
+        ),
+      ],
     );
   }
 }

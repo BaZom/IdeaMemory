@@ -59,8 +59,9 @@ class IdeasRepository {
     }
   }
 
-  Future<IdeaPage> list({String? cursor}) =>
-      _authorized((token) => client.list(token, cursor: cursor));
+  Future<IdeaPage> list({String? cursor, String? category}) => _authorized(
+    (token) => client.list(token, cursor: cursor, category: category),
+  );
 
   Future<Idea> get(String id) => _authorized((token) => client.get(token, id));
 
