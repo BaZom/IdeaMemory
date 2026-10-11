@@ -4,6 +4,13 @@
 !.env.example
 apps/mobile/config/*.local.json
 
+# Project-local tools (pinned Supabase CLI)
+.tools/
+
+# Supabase CLI local state
+supabase/.temp/
+supabase/.branches/
+
 # Python
 services/api/.venv/
 services/api/build/
@@ -16,5 +23,7 @@ __pycache__/
 
 # Editors and OS
 .DS_Store
+*.swp
+.*.swp
 .idea/
 .vscode/
