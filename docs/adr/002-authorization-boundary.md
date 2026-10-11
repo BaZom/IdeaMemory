@@ -8,11 +8,17 @@ R4 requires each user's collection, images and retrieval to stay private. A publ
 
 ## Decision proposed
 
-Use direct Supabase Auth from Flutter, invite-only email OTP for pilot, and FastAPI for application operations. Verify identity at the API; use that user's bearer token for Supabase Data API and Storage. Enforce owner-scoped RLS, constraints and grants; security-invoker SQL functions provide multi-row transactions. Test direct-provider bypass attempts. Privilege is confined to explicit operator cleanup/account procedures, never normal requests. Source images live in private buckets with short-lived authorized access.
+Use direct Supabase Auth from Flutter, invite-only email OTP for pilot, and FastAPI for application operations. For Task 002, verify each bearer token online using the configured Supabase Auth user endpoint, enforcing expected user claims and matching the provider-returned identity. Use that user's bearer token for Supabase Data API and Storage. Enforce owner-scoped RLS, constraints and grants; security-invoker SQL functions provide multi-row transactions. Test direct-provider bypass attempts. Privilege is confined to explicit operator cleanup/account procedures, never normal requests. Source images live in private buckets with short-lived authorized access.
+
+## Task 002 implementation clarification
+
+The prepared task proposes online server-side token verification first, not a local JWKS cache: supported provider verification handles signatures and signing-key changes, while the API checks the expected user identity/claims and fails closed on outages. This adds per-request latency and Auth availability dependence but avoids maintaining a second verification mode. Do not build custom cryptography or trust decoded claims alone. Access tokens remain request-local; shared mutable SDK auth state is prohibited.
+
+Flutter uses managed SDK session persistence and a small built-in state controller; Riverpod remains deferred. Local synthetic users are provisioned through an operator-only admin path, with server-side signup disabled and code-based email templates. No hosted resources are part of this approval. See [Task 002](../plans/001-mvp.md#task-002--authentication-and-private-access) for the contract, test scope and explicit approval instruction.
 
 ## Alternatives considered
 
-Service-role access for every API request is simple but turns one missing owner predicate into unrestricted exposure; reject as default. Direct SQL with a dedicated non-bypass role and transaction-local identity offers flexibility but adds connection/identity plumbing. Direct frontend domain writes reduce API code but spread validation and orchestration across clients, contrary to requested backend responsibilities. HttpOnly backend session mediation reduces token access from browser scripts but adds a separate session boundary; reconsider if pilot threat assessment demands it.
+Service-role access for every API request is simple but turns one missing owner predicate into unrestricted exposure; reject as default. Local asymmetric JWT verification could avoid a network call but introduces key caching/rotation logic; defer until measured latency or availability justifies it. Direct SQL with a dedicated non-bypass role and transaction-local identity offers flexibility but adds connection/identity plumbing. Direct frontend domain writes reduce API code but spread validation and orchestration across clients, contrary to requested backend responsibilities. HttpOnly backend session mediation reduces token access from browser scripts but adds a separate session boundary; reconsider if pilot threat assessment demands it.
 
 ## Consequences
 

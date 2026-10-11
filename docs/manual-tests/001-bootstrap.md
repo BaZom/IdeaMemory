@@ -76,3 +76,7 @@ Failures and notes:
 ```
 
 T001-AC8 is passed only when every Part B step passes on a physical iPhone and the record is filled in.
+
+## User-reported result
+
+After receiving the iPhone Safari instructions, the product owner reported: “it works.” This confirms a successful user-reported smoke test. Device model, iOS/Safari version, tested revision and individual step results were not supplied, so the detailed checklist above remains unfilled; this is not a claim that Codex observed or independently ran the device checks. Task 001's code-review findings and remote CI are separate verification items.
