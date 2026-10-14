@@ -76,7 +76,19 @@ h3.head { font: 900 33px/1.12 'Nunito', sans-serif; letter-spacing: -1.1px; colo
 .when b { display: block; font-size: 14px; color: var(--orange); font-weight: 900; }
 .coming strong { display: block; font-size: 14px; font-weight: 800; }
 .coming small { display: block; font-size: 11.5px; color: var(--muted); }
-.card.focus { padding: 24px 21px 19px; }
+.card.focus { padding: 24px 21px 19px; touch-action: pan-y; user-select: none; -webkit-user-select: none; }
+.card.focus.from-right { animation: in-right .28s ease-out; }
+.card.focus.from-left { animation: in-left .28s ease-out; }
+@keyframes in-right { from { transform: translateX(46px) rotate(1.5deg); opacity: 0; } }
+@keyframes in-left { from { transform: translateX(-46px) rotate(-1.5deg); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .card.focus.from-right, .card.focus.from-left { animation: none; } }
+.pager { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 12px; }
+.pager .round-btn { width: 40px; height: 40px; }
+.dots { display: inline-flex; align-items: center; gap: 6px; min-width: 60px; justify-content: center; }
+.dots i { width: 7px; height: 7px; border-radius: 4px; background: var(--line); transition: width .2s; }
+.dots i.on { width: 20px; background: var(--orange); }
+.dots .count { font-size: 12px; font-weight: 800; color: var(--muted); }
+.phone .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
 .card.focus .title { font-size: 24px; }
 .card.focus .quote { font-size: 16px; }
 .pointer { margin: 20px 0 6px; padding: 14px 14px 12px; border: 1.5px dashed var(--line); border-radius: 20px; }
@@ -238,7 +250,7 @@ const SEED = () => [
 ];
 
 const S = {
-  view: 'signin', stack: [], user: null, mode: 'signin', memories: [], snoozed: new Set(), shown: null,
+  view: 'signin', stack: [], idx: 0, dir: 0, user: null, mode: 'signin', memories: [], snoozed: new Set(), shown: null,
   search: '', filter: { kind: null, who: null, mood: null, tag: null }, detail: null, sheet: null, draft: null, ask: { q: '', state: 'idle', results: [] },
   dark: false, toast: null, planPick: 'tonight', planDate: '', planId: null,
 };
@@ -317,7 +329,12 @@ function pool() {
     .filter(m => !activePlan(m) && !m.event && m.dur !== 'days' && !S.snoozed.has(m.id))
     .sort((a, b) => b.days - a.days);
 }
-function current() { const p = pool(); if (!p.length) return null; return p.find(m => m.id === S.shown) || p[0]; }
+// The suggestions form a loop: swipe or use the arrows; it wraps around at both ends.
+function current() {
+  const p = pool(); if (!p.length) return null;
+  S.idx = ((S.idx % p.length) + p.length) % p.length;
+  return p[S.idx];
+}
 
 // --- views -----------------------------------------------------------------
 function header() {
@@ -378,7 +395,9 @@ function viewToday() {
   const shownWorth = worth.slice(0, 3);
   let card;
   if (m) {
-    card = `<article class="card focus">
+    const total = pool().length, slide = S.dir > 0 ? 'from-right' : S.dir < 0 ? 'from-left' : '';
+    S.dir = 0;
+    card = `<article class="card focus ${slide}" data-swipe aria-roledescription="carousel" aria-label="Suggestion ${S.idx + 1} of ${total}">
       <span class="tape">a note from past you</span>
       <button class="card-open" data-a="open" data-id="${m.id}" aria-label="Read the note: ${esc(m.title)}">
         <div style="display:flex;gap:12px;align-items:center;margin-top:2px"><div class="symbol">${ic(KINDS[m.kind].icon)}</div><div><p class="kind">${KINDS[m.kind].line}</p><h4 class="title">${esc(m.title)}</h4></div></div>
@@ -386,7 +405,12 @@ function viewToday() {
         <div class="meta" style="margin-bottom:16px">${m.who ? `<span>${whoBadge(m.who)}${esc(m.who)}’s tip</span>` : ''}<span>${ic('hourglass')}on your mind for ${age(m.days)}</span></div>
       </button>
       <div class="duo"><button class="primary" data-a="plan" data-id="${m.id}">${ic('calendar-heart')}Let’s do it</button><button class="secondary" data-a="notnow" data-id="${m.id}">Not now</button></div>
-    </article>`;
+    </article>
+    ${total > 1 ? `<div class="pager">
+      <button class="round-btn" data-a="prev" aria-label="Previous suggestion">${ic('chevron-left')}</button>
+      <span class="dots" aria-live="polite">${total <= 9 ? pool().map((_, i) => `<i class="${i === S.idx ? 'on' : ''}"></i>`).join('') : ''}<span class="${total <= 9 ? 'sr' : 'count'}">${S.idx + 1} of ${total}</span></span>
+      <button class="round-btn" data-a="next" aria-label="Next suggestion">${ic('chevron-right')}</button>
+    </div>` : ''}`;
   } else {
     card = `<div class="card focus" style="text-align:center">
       <div class="companion" style="margin:0 auto 10px"><span class="loop l1"></span><span class="loop l2"></span></div>
@@ -717,7 +741,22 @@ function runAsk(q) {
 }
 
 // --- events --------------------------------------------------------------------
+let swipeStart = null, swiped = false;
+phone.addEventListener('pointerdown', e => {
+  if (e.target.closest('[data-swipe]')) swipeStart = { x: e.clientX, y: e.clientY };
+});
+phone.addEventListener('pointerup', e => {
+  if (!swipeStart) return;
+  const dx = e.clientX - swipeStart.x, dy = e.clientY - swipeStart.y;
+  swipeStart = null;
+  if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.5 && pool().length > 1) {
+    swiped = true; S.idx += dx < 0 ? 1 : -1; S.dir = dx < 0 ? 1 : -1; render();
+    setTimeout(() => { swiped = false; }, 350);
+  }
+});
+phone.addEventListener('pointercancel', () => { swipeStart = null; });
 phone.addEventListener('click', e => {
+  if (swiped) { swiped = false; if (e.target.closest('[data-swipe]')) return; }
   const b = e.target.closest('[data-a]'); if (!b) return;
   const a = b.dataset.a, id = b.dataset.id, v = b.dataset.v;
   if (S.view === 'remember') readDraft();
@@ -735,8 +774,10 @@ phone.addEventListener('click', e => {
     case 'account': go('account'); break;
     case 'back': back(); break;
     case 'browse-mood': S.search = ''; S.filter = { kind: null, who: null, mood: v || null, tag: null }; S.stack = []; go('memory', false); break;
-    case 'again': S.snoozed.clear(); S.shown = null; render(); break;
-    case 'notnow': { S.snoozed.add(id); S.shown = null; toast('Okay, another time.', 'clock'); break; }
+    case 'again': S.snoozed.clear(); S.idx = 0; render(); break;
+    case 'next': S.idx++; S.dir = 1; render(); break;
+    case 'prev': S.idx--; S.dir = -1; render(); break;
+    case 'notnow': { S.snoozed.add(id); S.dir = 1; toast('Okay, another time.', 'clock'); break; }
     case 'open': S.detail = id; go('detail'); break;
     case 'plan': S.planPick = 'tonight'; S.planDate = ''; S.sheet = { type: 'plan', id }; render(); break;
     case 'pick': S.planPick = v; render(); break;
