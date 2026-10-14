@@ -5,6 +5,7 @@ This is a personal proof of concept. Match effort to risk: build the smallest ve
 ## Always
 
 - Inspect the actual code before changing it; don't invent APIs, dependencies or settings.
+- UI follows the [target design](design/oh-app.html) and the product principles in the [roadmap](roadmap.md); deviations need the owner’s OK.
 - Keep changes focused and readable; reuse existing patterns; no speculative abstractions or frameworks.
 - Security basics are not negotiable: verify the caller on every API request, never trust owner IDs from the client, owner-scoped RLS on every user table, no secrets in the repo or the app, no private content in logs.
 - Data changes go through forward migrations; never reset or drop data the owner may want without asking.
