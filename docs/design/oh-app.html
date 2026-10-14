@@ -84,6 +84,9 @@ h3.head { font: 900 33px/1.12 'Nunito', sans-serif; letter-spacing: -1.1px; colo
 .pointer-q svg { color: var(--purple); }
 .label.section { margin-top: 24px; }
 .eventline { display: inline-flex; align-items: center; gap: 7px; background: var(--soft); border-radius: 12px; padding: 7px 11px; font-size: 13px; font-weight: 800; margin: -4px 0 14px; }
+.tag { color: var(--purple); }
+.tagform { display: flex; gap: 8px; margin-top: 8px; }
+.tagform input { flex: 1; min-width: 0; border: 0; border-radius: 19px; background: var(--paper); padding: 8px 14px; font-size: 16px; outline: none; }
 .dates { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .dates label { font-size: 12px; font-weight: 700; color: var(--muted); display: grid; gap: 4px; }
 .dates input { border: 0; border-radius: 12px; background: var(--paper); padding: 10px; font-size: 16px; }
@@ -196,25 +199,25 @@ const MOODS = {
 
 const SEED = () => [
   { id: 'pottery', title: 'That pottery workshop', note: 'Lena says the Sunday drop-in is great. Something to make with our hands.\n\nCheck the workshop dates before making plans.', kind: 'activity', moods: ['out', 'together'], who: 'Lena', days: 63, dur: 'evening', plan: { when: 'date', date: addDays(5) } },
-  { id: 'perfect', title: 'Perfect Days, finally', note: 'Keep this for a night when I want something gentle. Put the phone away, make tea, give it the whole evening.', kind: 'film', moods: ['quiet'], who: 'Max', days: 49, dur: 'evening' },
-  { id: 'ramen', title: 'Ramen place in Kreuzberg', note: 'Rich tonkotsu broth. Go early, no reservations. Perfect when it rains.', kind: 'food', moods: ['out', 'together'], who: 'Lena', days: 20, dur: 'short', link: { url: 'https://maps.google.com/?q=ramen+kreuzberg', site: 'maps.google.com', name: 'Cocolo Ramen, Kreuzberg' } },
-  { id: 'lake', title: 'An afternoon by the lake', note: 'Bring a book, a blanket, something to eat. No schedule. Just fresh air.', kind: 'place', moods: ['out', 'together'], who: null, days: 150, dur: 'day' },
-  { id: 'miso', title: 'Try the miso butter pasta', note: 'Try making this on a slow evening. Looks worth a go.', kind: 'food', moods: ['quiet', 'together'], who: null, days: 3, dur: 'evening', link: { url: 'https://example-recipes.com/miso-butter-pasta', site: 'example-recipes.com', name: 'Miso butter pasta' } },
+  { id: 'perfect', title: 'Perfect Days, finally', note: 'Keep this for a night when I want something gentle. Put the phone away, make tea, give it the whole evening.', kind: 'film', moods: ['quiet'], who: 'Max', days: 49, dur: 'evening' , tags: ['japan', 'slow cinema'] },
+  { id: 'ramen', title: 'Ramen place in Kreuzberg', note: 'Rich tonkotsu broth. Go early, no reservations. Perfect when it rains.', kind: 'food', moods: ['out', 'together'], who: 'Lena', days: 20, dur: 'short', link: { url: 'https://maps.google.com/?q=ramen+kreuzberg', site: 'maps.google.com', name: 'Cocolo Ramen, Kreuzberg' } , tags: ['rainy day', 'japan'] },
+  { id: 'lake', title: 'An afternoon by the lake', note: 'Bring a book, a blanket, something to eat. No schedule. Just fresh air.', kind: 'place', moods: ['out', 'together'], who: null, days: 150, dur: 'day' , tags: ['summer'] },
+  { id: 'miso', title: 'Try the miso butter pasta', note: 'Try making this on a slow evening. Looks worth a go.', kind: 'food', moods: ['quiet', 'together'], who: null, days: 3, dur: 'evening', link: { url: 'https://example-recipes.com/miso-butter-pasta', site: 'example-recipes.com', name: 'Miso butter pasta' } , tags: ['cooking', 'japan'] },
   { id: 'tomorrow', title: 'Tomorrow, and Tomorrow, and Tomorrow', note: 'The novel about friends who make video games. Lena couldn’t stop talking about it.', kind: 'book', moods: ['quiet'], who: 'Lena', days: 40, dur: 'short' },
   { id: 'lisbon', title: 'Long weekend in Lisbon', note: 'Tram 28, pastéis de nata in Belém, a sunset at a miradouro. Autumn is supposed to be lovely.', kind: 'trip', moods: ['together'], who: null, days: 14, dur: 'days', plan: { when: 'date', date: addDays(40) } },
-  { id: 'sunrise', title: 'Sunrise at the Teufelsberg', note: 'Max says the view over the city at sunrise is unreal. Bring a thermos.', kind: 'place', moods: ['out'], who: 'Max', days: 200, dur: 'short' },
+  { id: 'sunrise', title: 'Sunrise at the Teufelsberg', note: 'Max says the view over the city at sunrise is unreal. Bring a thermos.', kind: 'place', moods: ['out'], who: 'Max', days: 200, dur: 'short' , tags: ['summer', 'early bird'] },
   { id: 'jazz', title: 'Jazz night at b-flat', note: 'Tuesday jam sessions. Small room, great vibe.', kind: 'music', moods: ['out', 'together'], who: 'Max', days: 10, dur: 'evening', plan: { when: 'tomorrow', date: addDays(1) } },
   { id: 'bear', title: 'The Bear, season 3', note: 'Finally catch up. One or two episodes at a time.', kind: 'film', moods: ['quiet'], who: null, days: 2, dur: 'short' },
   { id: 'kayak', title: 'Kayak on the Spree', note: 'Rent a kayak near Treptower Park and paddle into the evening.', kind: 'activity', moods: ['out', 'together'], who: null, days: 95, dur: 'day', plan: { when: 'date', date: addDays(-4) } },
   { id: 'pho', title: 'Vietnamese place on Kantstraße', note: 'Mira swears by the pho. Cash only.', kind: 'food', moods: ['out'], who: 'Mira', days: 30, dur: 'short' },
-  { id: 'lights', title: 'Festival of Lights', note: 'Buildings all over the city lit up at night. Best after dark, go on a weekday when it is less crowded.', kind: 'event', moods: ['out', 'together'], who: 'Lena', days: 25, dur: 'evening', event: { start: addDays(3), end: addDays(12) } },
+  { id: 'lights', title: 'Festival of Lights', note: 'Buildings all over the city lit up at night. Best after dark, go on a weekday when it is less crowded.', kind: 'event', moods: ['out', 'together'], who: 'Lena', days: 25, dur: 'evening', event: { start: addDays(3), end: addDays(12) } , tags: ['autumn'] },
   { id: 'monet', title: 'Monet exhibition at the Barberini', note: 'The water lilies. Book a time slot online, it sells out on weekends.', kind: 'event', moods: ['out'], who: 'Mira', days: 60, dur: 'day', event: { start: addDays(-40), end: addDays(16) } },
   { id: 'erhard', title: 'Anna Erhard live', note: 'Saw her video, would love to hear it live. Tickets go on sale soon.', kind: 'music', moods: ['out', 'together'], who: null, days: 8, dur: 'evening', event: { start: addDays(70) } },
 ];
 
 const S = {
   view: 'signin', stack: [], user: null, mode: 'signin', memories: [], snoozed: new Set(), shown: null,
-  search: '', filter: { kind: null, who: null, mood: null }, detail: null, sheet: null, draft: null, ask: { q: '', state: 'idle', results: [] },
+  search: '', filter: { kind: null, who: null, mood: null, tag: null }, detail: null, sheet: null, draft: null, ask: { q: '', state: 'idle', results: [] },
   dark: false, toast: null, planPick: 'tonight', planDate: '', forceNothing: false,
 };
 
@@ -369,11 +372,11 @@ function memItem(m, forgotten = false) {
   return `<button class="item ${forgotten ? 'forgotten' : ''}" data-a="open" data-id="${m.id}">${ic(KINDS[m.kind].icon)}<div>
     <p class="kind">${activePlan(m) ? 'Planned: ' + planLabel(m.plan) : eventOpen(m) ? eventLabel(m) : KINDS[m.kind].line}</p><strong>${esc(m.title)}</strong>
     <span class="q">“${esc(firstSentence(m.note))}”</span>
-    <div class="meta">${m.who ? `<span>${whoBadge(m.who)}${esc(m.who)}</span>` : ''}<span>${ic('hourglass')}${forgotten ? 'tucked away ' + age(m.days) + ' ago' : age(m.days)}</span>${m.link ? `<span>${ic('link')}${esc(m.link.site)}</span>` : ''}</div>
+    <div class="meta">${m.who ? `<span>${whoBadge(m.who)}${esc(m.who)}</span>` : ''}<span>${ic('hourglass')}${forgotten ? 'tucked away ' + age(m.days) + ' ago' : age(m.days)}</span>${m.link ? `<span>${ic('link')}${esc(m.link.site)}</span>` : ''}${(m.tags || []).map(t => `<span class="tag">#${esc(t)}</span>`).join('')}</div>
   </div></button>`;
 }
 function matchesSearch(m, q) {
-  const hay = [m.title, m.note, m.who, KINDS[m.kind].label, KINDS[m.kind].line, m.link?.site, m.link?.name, ...m.moods.map(x => MOODS[x].label)].join(' ').toLowerCase();
+  const hay = [m.title, m.note, m.who, KINDS[m.kind].label, KINDS[m.kind].line, m.link?.site, m.link?.name, ...m.moods.map(x => MOODS[x].label), ...(m.tags || [])].join(' ').toLowerCase();
   return q.toLowerCase().split(/\s+/).filter(Boolean).every(w => hay.includes(w));
 }
 function viewMemory() {
@@ -383,10 +386,12 @@ function viewMemory() {
   const kindChips = Object.entries(KINDS).filter(([k]) => S.memories.some(m => m.kind === k)).map(([k, v]) => `<button class="chip sm ${f.kind === k ? 'on' : ''}" data-a="f" data-t="kind" data-v="${k}" aria-pressed="${f.kind === k}">${ic(v.icon)}${v.label}</button>`).join('');
   const peopleChips = people.map(p => `<button class="chip sm ${f.who === p ? 'on' : ''}" data-a="f" data-t="who" data-v="${esc(p)}" aria-pressed="${f.who === p}">${whoBadge(p)}${esc(p)}’s tips</button>`).join('');
   const moodChips = Object.entries(MOODS).map(([k, v]) => `<button class="chip sm ${f.mood === k ? 'on' : ''}" data-a="f" data-t="mood" data-v="${k}" aria-pressed="${f.mood === k}">${ic(v.icon)}${v.label}</button>`).join('');
-  const filtering = q || f.kind || f.who || f.mood;
+  const allTags = [...new Set(S.memories.flatMap(m => m.tags || []))].sort();
+  const tagChips = allTags.map(t => `<button class="chip sm ${f.tag === t ? 'on' : ''}" data-a="f" data-t="tag" data-v="${esc(t)}" aria-pressed="${f.tag === t}">#${esc(t)}</button>`).join('');
+  const filtering = q || f.kind || f.who || f.mood || f.tag;
   let list;
   if (filtering) {
-    const found = S.memories.filter(m => (!q || matchesSearch(m, q)) && (!f.kind || m.kind === f.kind) && (!f.who || m.who === f.who) && (!f.mood || m.moods.includes(f.mood)));
+    const found = S.memories.filter(m => (!q || matchesSearch(m, q)) && (!f.kind || m.kind === f.kind) && (!f.who || m.who === f.who) && (!f.tag || (m.tags || []).includes(f.tag)) && (!f.mood || m.moods.includes(f.mood)));
     list = `<div class="shelf">${found.length} ${found.length === 1 ? 'memory' : 'memories'} <button class="text-btn" style="padding:0;min-height:0;color:var(--purple)" data-a="clear">Clear</button></div>`
       + (found.length ? found.map(m => memItem(m)).join('') : `<div class="card" style="text-align:center"><p style="font-weight:800">No little memory like that.</p><p class="sub" style="margin:6px 0 14px">Try another word, or ask your memory in your own words.</p><button class="secondary" data-a="ask-with">${ic('sparkles')}Ask your memory</button></div>`);
   } else {
@@ -405,6 +410,7 @@ function viewMemory() {
     <p class="browse-label">By kind</p><div class="chips scrollx">${kindChips}</div>
     <p class="browse-label">By person</p><div class="chips scrollx">${peopleChips}</div>
     <p class="browse-label">By mood</p><div class="chips scrollx">${moodChips}</div>
+    ${tagChips ? `<p class="browse-label">Your tags</p><div class="chips scrollx">${tagChips}</div>` : ''}
     ${list}
   </div>${navBar()}`;
 }
@@ -442,6 +448,7 @@ function viewDetail() {
       <p class="body">${esc(m.note)}</p>
       ${m.link ? `<a class="linkcard" href="${esc(m.link.url)}" target="_blank" rel="noopener noreferrer">${ic('link')}<span>${esc(m.link.name)}<small>${esc(m.link.site)}</small></span></a>` : ''}
       <div class="meta" style="margin-bottom:14px">${m.who ? `<span>${whoBadge(m.who)}${esc(m.who)} told you about it</span>` : ''}${m.moods.map(x => `<span>${ic(MOODS[x].icon)}${MOODS[x].label}</span>`).join('')}</div>
+      ${(m.tags || []).length ? `<div class="chips" style="margin-bottom:14px">${m.tags.map(t => `<button class="chip sm" data-a="tag-open" data-v="${esc(t)}">#${esc(t)}</button>`).join('')}</div>` : ''}
       <p class="signoff">${ic('heart')}Something worth remembering.</p>
     </article>
     ${activePlan(m) ? `<div class="planned">${ic('calendar-heart')}<span style="flex:1">Planned: ${planLabel(m.plan)}</span><button class="text-btn" style="padding:0;min-height:0;color:var(--purple)" data-a="plan" data-id="${m.id}">Change</button></div>
@@ -473,6 +480,10 @@ function viewRemember() {
     <div class="dates"><label>From<input type="date" id="d-start" value="${esc(d.start || '')}"></label><label>Until<input type="date" id="d-end" value="${esc(d.end || '')}"></label></div>` : ''}
     <div class="q-label">Good for… <small>optional</small></div>
     <div class="chips">${Object.entries(MOODS).map(([k, v]) => `<button class="chip sm ${d.moods.includes(k) ? 'on' : ''}" data-a="d-mood" data-v="${k}" aria-pressed="${d.moods.includes(k)}">${ic(v.icon)}${v.label}</button>`).join('')}</div>
+    <div class="q-label">Your own tags <small>optional</small></div>
+    <div class="chips">${d.tags.map(t => `<button class="chip sm on" data-a="d-untag" data-v="${esc(t)}" aria-label="Remove tag ${esc(t)}">#${esc(t)} ${ic('x')}</button>`).join('')}
+      ${[...new Set(S.memories.flatMap(m => m.tags || []))].filter(t => !d.tags.includes(t)).slice(0, 6).map(t => `<button class="chip sm" data-a="d-tag" data-v="${esc(t)}">#${esc(t)}</button>`).join('')}</div>
+    <form data-form="tag" class="tagform"><input id="d-tagin" placeholder="Add a tag, e.g. brunch" maxlength="50" aria-label="New tag"><button class="chip sm" aria-label="Add tag">${ic('plus')}</button></form>
     <div class="q-label">Who told you? <small>optional</small></div>
     <div class="chips">${people.map(p => `<button class="chip sm ${d.who === p ? 'on' : ''}" data-a="d-who" data-v="${esc(p)}" aria-pressed="${d.who === p}">${whoBadge(p)}${esc(p)}</button>`).join('')}<button class="chip sm" data-a="d-person">${ic('plus')}Someone else</button></div>
     <p class="sub" style="margin:16px 2px 0">P.S. Leave yourself a clue. Future you might forget why this felt special.</p>
@@ -556,7 +567,7 @@ function autofill(url) {
   if (guess.start && !d.start) d.start = guess.start;
   d.filled = true;
 }
-function newDraft(extra = {}) { return { id: null, title: '', note: '', kind: null, moods: [], who: null, link: null, start: '', end: '', filled: false, error: false, newPeople: [], ...extra }; }
+function newDraft(extra = {}) { return { id: null, title: '', note: '', kind: null, moods: [], tags: [], who: null, link: null, start: '', end: '', filled: false, error: false, newPeople: [], ...extra }; }
 
 // --- ask (simulated AI) --------------------------------------------------------
 function answer(q) {
@@ -590,13 +601,13 @@ phone.addEventListener('click', e => {
       const err = document.getElementById('err');
       if (!/^[a-z0-9][a-z0-9._-]{2,29}$/i.test(u)) { err.hidden = false; err.textContent = 'Use 3–30 letters, numbers, dots, dashes or underscores.'; return; }
       if (p.length < 8) { err.hidden = false; err.textContent = S.mode === 'signup' ? 'Choose a password with at least 8 characters.' : 'Username or password is incorrect.'; return; }
-      S.user = u.toLowerCase(); S.memories = S.mode === 'signup' ? [] : SEED(); S.stack = []; S.snoozed.clear(); go('today', false); break;
+      S.user = u.toLowerCase(); S.memories = S.mode === 'signup' ? [] : SEED().map(m => ({ tags: [], ...m })); S.stack = []; S.snoozed.clear(); go('today', false); break;
     }
     case 'home': S.stack = []; go('today', false); break;
     case 'memory': S.stack = []; go('memory', false); break;
     case 'account': go('account'); break;
     case 'back': back(); break;
-    case 'browse-mood': S.search = ''; S.filter = { kind: null, who: null, mood: v || null }; S.stack = []; go('memory', false); break;
+    case 'browse-mood': S.search = ''; S.filter = { kind: null, who: null, mood: v || null, tag: null }; S.stack = []; go('memory', false); break;
     case 'again': S.snoozed.clear(); S.shown = null; render(); break;
     case 'notnow': { S.snoozed.add(id); S.shown = null; toast('Okay, another time.', 'clock'); break; }
     case 'open': S.detail = id; go('detail'); break;
@@ -617,25 +628,28 @@ phone.addEventListener('click', e => {
     case 'close': S.sheet = null; render(); break;
     case 'remember': S.draft = newDraft(); go('remember'); break;
     case 'starter': S.draft = newDraft({ kind: b.dataset.kind }); go('remember'); break;
-    case 'edit': { const m = byId(id); S.draft = newDraft({ id: m.id, title: m.title, note: m.note, kind: m.kind, moods: [...m.moods], who: m.who, link: m.link || null, start: m.event?.start || '', end: m.event?.end || '' }); go('remember'); break; }
+    case 'edit': { const m = byId(id); S.draft = newDraft({ id: m.id, title: m.title, note: m.note, kind: m.kind, moods: [...m.moods], tags: [...(m.tags || [])], who: m.who, link: m.link || null, start: m.event?.start || '', end: m.event?.end || '' }); go('remember'); break; }
     case 'd-kind': S.draft.kind = S.draft.kind === v ? null : v; render(); break;
     case 'd-mood': { const ms = S.draft.moods; S.draft.moods = ms.includes(v) ? ms.filter(x => x !== v) : [...ms, v]; render(); break; }
+    case 'd-tag': if (!S.draft.tags.includes(v)) S.draft.tags.push(v); render(); break;
+    case 'd-untag': S.draft.tags = S.draft.tags.filter(t => t !== v); render(); break;
+    case 'tag-open': S.search = ''; S.filter = { kind: null, who: null, mood: null, tag: v }; S.stack = []; go('memory', false); break;
     case 'd-who': S.draft.who = S.draft.who === v ? null : v; render(); break;
     case 'd-person': S.sheet = { type: 'person' }; render(); setTimeout(() => document.getElementById('p-name')?.focus(), 0); break;
     case 'save': {
       const d = S.draft;
       if (!d.title.trim()) { d.error = true; render(); document.getElementById('d-title')?.focus(); return; }
-      const fields = { title: d.title.trim(), note: d.note.trim() || d.title.trim(), kind: d.kind || 'other', moods: d.moods, who: d.who, link: d.link, event: (d.start || d.end) ? { start: d.start || null, end: d.end || null } : null };
+      const fields = { title: d.title.trim(), note: d.note.trim() || d.title.trim(), kind: d.kind || 'other', moods: d.moods, tags: d.tags, who: d.who, link: d.link, event: (d.start || d.end) ? { start: d.start || null, end: d.end || null } : null };
       if (d.id) { Object.assign(byId(d.id), fields); S.detail = d.id; S.stack.pop(); S.view = 'detail'; toast('Your note has been updated.'); }
       else {
         S.memories.unshift({ id: 'm' + Date.now(), days: 0, dur: 'evening', plan: null, ...fields });
-        S.search = ''; S.filter = { kind: null, who: null, mood: null }; S.stack = []; S.view = 'memory';
+        S.search = ''; S.filter = { kind: null, who: null, mood: null, tag: null }; S.stack = []; S.view = 'memory';
         toast('Tucked away. You can let go of that thought now.', 'bookmark-check');
       }
       break;
     }
     case 'f': { const t = b.dataset.t; S.filter[t] = S.filter[t] === v ? null : v; render(); break; }
-    case 'clear': S.search = ''; S.filter = { kind: null, who: null, mood: null }; render(); break;
+    case 'clear': S.search = ''; S.filter = { kind: null, who: null, mood: null, tag: null }; render(); break;
     case 'ask': S.ask = { q: '', state: 'idle', results: [] }; go('ask'); break;
     case 'ask-with': S.ask = { q: S.search, state: 'idle', results: [] }; go('ask'); if (S.search.trim()) runAsk(S.search.trim()); break;
     case 'ask-ex': runAsk(v); break;
@@ -656,6 +670,15 @@ phone.addEventListener('paste', e => {
 phone.addEventListener('submit', e => {
   e.preventDefault();
   if (e.target.dataset.form === 'ask') { const q = document.getElementById('askq').value.trim(); if (q) runAsk(q); }
+  if (e.target.dataset.form === 'tag') {
+    readDraft();
+    const raw = document.getElementById('d-tagin').value;
+    for (const piece of raw.split(',')) {
+      const t = piece.trim().replace(/^#/, '').toLowerCase().slice(0, 50);
+      if (t && !S.draft.tags.includes(t) && S.draft.tags.length < 20) S.draft.tags.push(t);
+    }
+    render(); document.getElementById('d-tagin')?.focus();
+  }
   if (e.target.dataset.form === 'person') {
     const n = document.getElementById('p-name').value.trim(); if (!n) return;
     const name = n[0].toUpperCase() + n.slice(1);
