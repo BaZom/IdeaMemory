@@ -1,6 +1,6 @@
-# Idea Memory
+# Oh, right!
 
-**oh! your little memory**: a private external memory for the things you want to experience, so that when you don’t know what to do, it does. Personal proof of concept; the goal is a phone app.
+**Oh, right!** *your little memory*: a private external memory for the things you want to experience, so that when you don’t know what to do, it does. Personal proof of concept; the goal is a phone app.
 
 **See the design:** https://bazom.github.io/IdeaMemory/design/oh-app.html (clickable, made-up data).
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 /// User-visible product name; internal package and type names stay neutral.
-const String appDisplayName = 'Idea Memory';
+const String appDisplayName = 'Oh, right!';
 
 /// Warm accent; the rest of the palette is derived from it.
 const Color appSeedColor = Color(0xFFE8704A);

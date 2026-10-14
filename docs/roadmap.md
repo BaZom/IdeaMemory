@@ -1,6 +1,6 @@
 # Roadmap
 
-**oh! your little memory**: a private external memory for the things you want to experience, so that when you don’t know what to do, it does. Personal proof of concept; the goal is a phone app.
+**Oh, right!** *your little memory*: a private external memory for the things you want to experience, so that when you don’t know what to do, it does. Personal proof of concept; the goal is a phone app.
 
 **Target design:** [oh-app.html](design/oh-app.html), live at https://bazom.github.io/IdeaMemory/design/oh-app.html. Every UI task builds towards it (see [design](design/README.md)).
 
@@ -123,7 +123,7 @@ Security-relevant: yes (fetching untrusted URLs) → review before merge.
 ### 015 — “Fill it in for me” (AI step 1)
 Goal: AI suggests kind, “good for”, tags and dates from the link text and your note.
 Done when:
-- suggestions appear as pre-selected chips with “oh! filled this in, check it?”; nothing is saved without your Save
+- suggestions appear as pre-selected chips with “Filled in from the link. Check it?”; nothing is saved without your Save
 - only that one memory’s text is sent; it works without AI (feature off or provider down)
 
 Needs owner approval first: provider and model, what is sent, monthly budget.

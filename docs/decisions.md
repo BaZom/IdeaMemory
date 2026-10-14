@@ -4,8 +4,9 @@ Owner decisions and the technical choices that follow from them. Newest first. O
 
 | Date | Decision | Consequence |
 | --- | --- | --- |
+| 2026-10-15 | The app is called **Oh, right!** (tagline “your little memory”); “oh,” is the icon and logo mark | Visible name, icon and docs use it; the repository and code names stay as they are. Before going public (019): check App Store, Google Play, trademarks (TMview, classes 9 and 42) and a domain |
 | 2026-10-14 | Product principles: the nudge recommends from your memory for today or very soon; My memory holds everything; plans come from memories; saving asks little and infers a lot | [Roadmap](roadmap.md) principles and main flow; every task is checked against them |
-| 2026-10-14 | Target design is “oh! your little memory” ([oh-app.html](design/oh-app.html)) with three tabs: A little nudge, Planned, My memory | UI tasks build towards it; deviations need the owner’s OK |
+| 2026-10-14 | Target design is “oh! your little memory”, now branded Oh, right! ([oh-app.html](design/oh-app.html)) with three tabs: A little nudge, Planned, My memory | UI tasks build towards it; deviations need the owner’s OK |
 | 2026-10-14 | Plans are always a day (tonight, tomorrow, this weekend, a picked day), one active plan per memory; a passed plan becomes a “planned before” line | No done status, no “still want to?” prompt, no “someday” list |
 | 2026-10-14 | Sharing is later and starts as an invite link with “I’m in / Maybe”; no in-app chat | No shared ownership of rows in the MVP |
 | 2026-10-14 | AI comes in phase 2: first “fill it in for me”, then “ask your memory”; suggestions stay rule-based at first | See [roadmap: when AI comes in](roadmap.md#when-ai-comes-in-and-why) |

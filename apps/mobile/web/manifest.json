@@ -1,11 +1,11 @@
 {
-    "name": "Idea Memory",
-    "short_name": "Idea Memory",
+    "name": "Oh, right! your little memory",
+    "short_name": "Oh, right!",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#FFFFFF",
-    "theme_color": "#3F51B5",
-    "description": "A private memory for things you want to experience.",
+    "background_color": "#F5F1E3",
+    "theme_color": "#F57908",
+    "description": "Your little memory for the things you want to experience.",
     "prefer_related_applications": false,
     "icons": [
         {

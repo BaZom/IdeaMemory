@@ -6,7 +6,10 @@
 <meta name="theme-color" content="#F5F1E3">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<title>oh! your little memory</title>
+<title>Oh, right! your little memory</title>
+<link rel="icon" href="brand/favicon.png">
+<link rel="apple-touch-icon" href="brand/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="Oh, right!">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&amp;display=swap">
 <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
 <style>
@@ -40,6 +43,8 @@ body { background: #2B2B28; font-family: 'Nunito', system-ui, sans-serif; displa
 .scroll::-webkit-scrollbar { display: none; }
 .top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; gap: 10px; }
 .logo { font: 900 33px/1 'Nunito', sans-serif; letter-spacing: -1.8px; transform: rotate(-6deg); border: 0; background: none; padding: 0; text-align: left; }
+.phone .logo.small { font-size: 26px; letter-spacing: -1.2px; }
+.logo .r { color: var(--orange); }
 .logo small { display: block; font-size: 11px; font-weight: 600; letter-spacing: .1px; color: var(--muted); transform: rotate(6deg); margin-top: 6px; }
 .pill-btn { border: 0; background: var(--paper); border-radius: 30px; padding: 10px 14px; display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 800; min-height: 44px; }
 .round-btn { width: 44px; height: 44px; border-radius: 22px; border: 0; background: var(--paper); display: inline-flex; align-items: center; justify-content: center; }
@@ -209,7 +214,7 @@ nav svg { width: 23px !important; height: 23px !important; }
 <body>
 
 
-<div class="phone" id="phone" aria-label="oh! prototype"></div>
+<div class="phone" id="phone" aria-label="Oh, right! prototype"></div>
 
 <script>
 (() => {
@@ -338,7 +343,7 @@ function current() {
 
 // --- views -----------------------------------------------------------------
 function header() {
-  return `<div class="top"><button class="logo" data-a="home" aria-label="oh!, go to A little nudge">oh!<small>your little memory</small></button>
+  return `<div class="top"><button class="logo small" data-a="home" aria-label="Oh, right!, go to A little nudge">oh, <span class="r">right!</span><small>your little memory</small></button>
     <div style="display:flex;gap:8px"><button class="pill-btn" data-a="remember">${ic('plus')}Remember this</button><button class="round-btn" data-a="account" aria-label="Account">${ic('user-round')}</button></div></div>`;
 }
 function navBar() {
@@ -350,7 +355,7 @@ function viewSignin() {
   const up = S.mode === 'signup';
   return `<div class="scroll" style="padding-top:70px">
     <div style="text-align:center">
-      <div class="logo" style="display:inline-block;font-size:64px;letter-spacing:-3px">oh!<small style="font-size:14px;margin-top:10px">your little memory</small></div>
+      <div class="logo" style="display:inline-block;font-size:62px;line-height:.92;letter-spacing:-3px">oh,<br><span class="r">right!</span><small style="font-size:14px;margin-top:12px">your little memory</small></div>
       <p class="sub" style="margin:26px auto 0;max-width:270px;font-size:15px">Keep the little things you want to do. I’ll bring them back when you don’t know what to do.</p>
     </div>
     <div class="seg" role="tablist"><button class="${up ? '' : 'on'}" data-a="mode" data-v="signin" role="tab" aria-selected="${!up}">Sign in</button><button class="${up ? 'on' : ''}" data-a="mode" data-v="signup" role="tab" aria-selected="${up}">I’m new</button></div>
@@ -621,7 +626,7 @@ function viewRemember() {
       <textarea id="d-note" placeholder="Why did you want to keep it? Who would you go with?">${esc(d.note)}</textarea>
       <input class="l" id="d-link" value="${esc(d.link?.url || '')}" placeholder="Paste a link, optional" aria-label="Link">
     </div>
-    ${d.filled ? `<div class="autofill">${ic('sparkles')}<span style="flex:1">oh! filled this in from the link. Check it?</span></div>` : ''}
+    ${d.filled ? `<div class="autofill">${ic('sparkles')}<span style="flex:1">Filled in from the link. Check it?</span></div>` : ''}
     <div class="error" id="d-err" ${d.error ? '' : 'hidden'}>Give this thought a few words first.</div>
     <div class="q-label">What is it? <small>optional</small></div>
     <div class="chips">${Object.entries(KINDS).map(([k, v]) => `<button class="chip sm ${d.kind === k ? 'on' : ''}" data-a="d-kind" data-v="${k}" aria-pressed="${d.kind === k}">${ic(v.icon)}${v.label}</button>`).join('')}</div>
