@@ -5,6 +5,7 @@
 **Target design: [oh-app.html](oh-app.html)** (clickable, dummy data, phone-first). Live: https://bazom.github.io/IdeaMemory/design/oh-app.html. This is what we build towards; the product principles and main flow behind it are in the [roadmap](../roadmap.md).
 
 - `oh-app.html`: the target design, full screen on phones. Use this link to show the design.
+- `oh-together.html`: draft for couples and groups (shared spaces, “I’d love to” matches, finding a day together, who’s in, who sorts out what, little notes, invite links). Not approved yet; `oh-app.html` stays the target until it is.
 - `oh-app-backup-3.html`: backup before the Oh, right! branding (logo “oh!”).
 - `brand/`: app icon (512 px), home-screen icon (180 px) and favicon.
 - `oh-app-backup-2.html`: backup before the suggestion cards became a swipeable loop.
