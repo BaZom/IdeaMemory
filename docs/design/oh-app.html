@@ -76,6 +76,17 @@ h3.head { font: 900 33px/1.12 'Nunito', sans-serif; letter-spacing: -1.1px; colo
 .when b { display: block; font-size: 14px; color: var(--orange); font-weight: 900; }
 .coming strong { display: block; font-size: 14px; font-weight: 800; }
 .coming small { display: block; font-size: 11.5px; color: var(--muted); }
+.card.focus { padding: 24px 21px 19px; }
+.card.focus .title { font-size: 24px; }
+.card.focus .quote { font-size: 16px; }
+.pointer { margin: 20px 0 6px; padding: 14px 14px 12px; border: 1.5px dashed var(--line); border-radius: 20px; }
+.pointer-q { display: flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 800; margin-bottom: 10px; }
+.pointer-q svg { color: var(--purple); }
+.label.section { margin-top: 24px; }
+.eventline { display: inline-flex; align-items: center; gap: 7px; background: var(--soft); border-radius: 12px; padding: 7px 11px; font-size: 13px; font-weight: 800; margin: -4px 0 14px; }
+.dates { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.dates label { font-size: 12px; font-weight: 700; color: var(--muted); display: grid; gap: 4px; }
+.dates input { border: 0; border-radius: 12px; background: var(--paper); padding: 10px; font-size: 16px; }
 .nudge-box { background: var(--lilac); border-radius: 20px; padding: 16px; margin-bottom: 18px; }
 .nudge-box p { color: var(--ink); }
 nav { display: flex; justify-content: space-around; border-top: 1px solid var(--line); padding: 10px 0 14px; background: var(--bg); }
@@ -173,6 +184,8 @@ const KINDS = {
   book: { label: 'Books', line: 'Something to read', icon: 'book-open' },
   activity: { label: 'Things to do', line: 'Something to try', icon: 'hand' },
   trip: { label: 'Trips', line: 'A trip, one day', icon: 'plane' },
+  event: { label: 'Events', line: 'Something happening', icon: 'ticket' },
+  music: { label: 'Music', line: 'Something to listen to', icon: 'music' },
   other: { label: 'Other', line: 'A little idea', icon: 'sparkles' },
 };
 const MOODS = {
@@ -180,7 +193,6 @@ const MOODS = {
   out: { label: 'Go somewhere', icon: 'footprints' },
   together: { label: 'With someone', icon: 'heart' },
 };
-const TIMES = { hour: { label: 'An hour', fits: ['short'] }, evening: { label: 'The evening', fits: ['short', 'evening'] }, day: { label: 'All day', fits: ['short', 'evening', 'day'] } };
 
 const SEED = () => [
   { id: 'pottery', title: 'That pottery workshop', note: 'Lena says the Sunday drop-in is great. Something to make with our hands.\n\nCheck the workshop dates before making plans.', kind: 'activity', moods: ['out', 'together'], who: 'Lena', days: 63, dur: 'evening', plan: { when: 'date', date: addDays(5) } },
@@ -189,16 +201,19 @@ const SEED = () => [
   { id: 'lake', title: 'An afternoon by the lake', note: 'Bring a book, a blanket, something to eat. No schedule. Just fresh air.', kind: 'place', moods: ['out', 'together'], who: null, days: 150, dur: 'day' },
   { id: 'miso', title: 'Try the miso butter pasta', note: 'Try making this on a slow evening. Looks worth a go.', kind: 'food', moods: ['quiet', 'together'], who: null, days: 3, dur: 'evening', link: { url: 'https://example-recipes.com/miso-butter-pasta', site: 'example-recipes.com', name: 'Miso butter pasta' } },
   { id: 'tomorrow', title: 'Tomorrow, and Tomorrow, and Tomorrow', note: 'The novel about friends who make video games. Lena couldn’t stop talking about it.', kind: 'book', moods: ['quiet'], who: 'Lena', days: 40, dur: 'short' },
-  { id: 'lisbon', title: 'Long weekend in Lisbon', note: 'Tram 28, pastéis de nata in Belém, a sunset at a miradouro. Autumn is supposed to be lovely.', kind: 'trip', moods: ['together'], who: null, days: 14, dur: 'days', plan: { when: 'soon' } },
+  { id: 'lisbon', title: 'Long weekend in Lisbon', note: 'Tram 28, pastéis de nata in Belém, a sunset at a miradouro. Autumn is supposed to be lovely.', kind: 'trip', moods: ['together'], who: null, days: 14, dur: 'days', plan: { when: 'date', date: addDays(40) } },
   { id: 'sunrise', title: 'Sunrise at the Teufelsberg', note: 'Max says the view over the city at sunrise is unreal. Bring a thermos.', kind: 'place', moods: ['out'], who: 'Max', days: 200, dur: 'short' },
-  { id: 'jazz', title: 'Jazz night at b-flat', note: 'Tuesday jam sessions. Small room, great vibe.', kind: 'activity', moods: ['out', 'together'], who: 'Max', days: 10, dur: 'evening' },
+  { id: 'jazz', title: 'Jazz night at b-flat', note: 'Tuesday jam sessions. Small room, great vibe.', kind: 'music', moods: ['out', 'together'], who: 'Max', days: 10, dur: 'evening', plan: { when: 'tomorrow', date: addDays(1) } },
   { id: 'bear', title: 'The Bear, season 3', note: 'Finally catch up. One or two episodes at a time.', kind: 'film', moods: ['quiet'], who: null, days: 2, dur: 'short' },
   { id: 'kayak', title: 'Kayak on the Spree', note: 'Rent a kayak near Treptower Park and paddle into the evening.', kind: 'activity', moods: ['out', 'together'], who: null, days: 95, dur: 'day', plan: { when: 'date', date: addDays(-4) } },
   { id: 'pho', title: 'Vietnamese place on Kantstraße', note: 'Mira swears by the pho. Cash only.', kind: 'food', moods: ['out'], who: 'Mira', days: 30, dur: 'short' },
+  { id: 'lights', title: 'Festival of Lights', note: 'Buildings all over the city lit up at night. Best after dark, go on a weekday when it is less crowded.', kind: 'event', moods: ['out', 'together'], who: 'Lena', days: 25, dur: 'evening', event: { start: addDays(3), end: addDays(12) } },
+  { id: 'monet', title: 'Monet exhibition at the Barberini', note: 'The water lilies. Book a time slot online, it sells out on weekends.', kind: 'event', moods: ['out'], who: 'Mira', days: 60, dur: 'day', event: { start: addDays(-40), end: addDays(16) } },
+  { id: 'erhard', title: 'Anna Erhard live', note: 'Saw her video, would love to hear it live. Tickets go on sale soon.', kind: 'music', moods: ['out', 'together'], who: null, days: 8, dur: 'evening', event: { start: addDays(70) } },
 ];
 
 const S = {
-  view: 'signin', stack: [], user: null, mode: 'signin', memories: [], mood: null, time: null, snoozed: new Set(), shown: null,
+  view: 'signin', stack: [], user: null, mode: 'signin', memories: [], snoozed: new Set(), shown: null,
   search: '', filter: { kind: null, who: null, mood: null }, detail: null, sheet: null, draft: null, ask: { q: '', state: 'idle', results: [] },
   dark: false, toast: null, planPick: 'tonight', planDate: '', forceNothing: false,
 };
@@ -213,19 +228,36 @@ function age(days) {
 }
 function whoBadge(name) { return name ? `<b class="who">${esc(name[0])}</b>` : ''; }
 function byId(id) { return S.memories.find(m => m.id === id); }
-function planPassed(m) { return m.plan && m.plan.when === 'date' && m.plan.date < addDays(0); }
+const TODAY = () => addDays(0);
+function daysUntil(date) { return Math.round((new Date(date + 'T12:00') - new Date(TODAY() + 'T12:00')) / 86400000); }
+function fmtDay(date) { return new Date(date + 'T12:00').toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' }); }
+function inDays(n) { return n === 0 ? 'today' : n === 1 ? 'tomorrow' : `in ${n} days`; }
+// A plan is always a day. Once that day has passed it quietly becomes a normal memory again.
+function activePlan(m) { return !!(m.plan && m.plan.date >= TODAY()); }
 function planLabel(p) {
   if (!p) return '';
-  if (p.when === 'tonight') return 'Tonight';
-  if (p.when === 'weekend') return 'This weekend';
-  if (p.when === 'soon') return 'Soon-ish';
-  const d = new Date(p.date + 'T12:00'); return d.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' });
+  const n = daysUntil(p.date);
+  return n === 0 ? 'Tonight' : n === 1 ? 'Tomorrow' : fmtDay(p.date);
 }
-function whenBox(p) {
-  if (p.when === 'date') { const d = new Date(p.date + 'T12:00'); return `<div class="when">${d.toLocaleDateString('en-GB', { weekday: 'short' })}<b>${d.getDate()}</b></div>`; }
-  const t = { tonight: ['TONIGHT', 'moon'], weekend: ['WEEKEND', 'sun'], soon: ['SOON-ISH', 'sprout'] }[p.when];
-  return `<div class="when">${t[0]}<b style="display:flex;justify-content:center">${ic(t[1])}</b></div>`;
+// Events have their own dates (an exhibition, a festival, a concert).
+function eventOpen(m) { return !!(m.event && (!m.event.end || m.event.end >= TODAY()) && (m.event.start || m.event.end)); }
+function eventSoon(m) {
+  if (!m.event || activePlan(m) || !eventOpen(m)) return false;
+  const { start, end } = m.event;
+  if (start && start > TODAY()) return daysUntil(start) <= 21;
+  return !!end && daysUntil(end) <= 21;
 }
+function eventLabel(m) {
+  const { start, end } = m.event;
+  if (start && start > TODAY()) return `Starts ${inDays(daysUntil(start))}` + (end ? `, until ${fmtDay(end)}` : '');
+  if (end) return `Ends ${inDays(daysUntil(end))}, ${fmtDay(end)}`;
+  return 'Happening now';
+}
+function whenBox(date) {
+  const d = new Date(date + 'T12:00');
+  return `<div class="when">${d.toLocaleDateString('en-GB', { weekday: 'short' }).toUpperCase()}<b>${d.getDate()}</b></div>`;
+}
+function weekendDay() { const d = new Date().getDay(); return addDays(d === 6 || d === 0 ? 0 : 6 - d); }
 function greeting() {
   const now = new Date(), h = now.getHours(), day = now.getDay();
   const part = h < 5 ? 'tonight' : h < 11 ? 'this morning' : h < 17 ? 'this afternoon' : h < 22 ? 'this evening' : 'tonight';
@@ -239,11 +271,9 @@ function toast(msg, icon = 'check') { S.toast = { msg, icon }; render(); clearTi
 
 // --- suggestions -------------------------------------------------------------
 function pool() {
-  if (S.forceNothing) return [];
+  // Doable tonight or in the next few days: not planned, no own dates (those are in Coming up), no multi-day trips.
   return S.memories
-    .filter(m => !m.plan && !S.snoozed.has(m.id))
-    .filter(m => !S.mood || m.moods.includes(S.mood))
-    .filter(m => !S.time || TIMES[S.time].fits.includes(m.dur))
+    .filter(m => !activePlan(m) && !m.event && m.dur !== 'days' && !S.snoozed.has(m.id))
     .sort((a, b) => b.days - a.days);
 }
 function current() { const p = pool(); if (!p.length) return null; return p.find(m => m.id === S.shown) || p[0]; }
@@ -296,48 +326,48 @@ function viewToday() {
   if (!S.memories.length) return viewEmpty();
   const m = current();
   if (m) S.shown = m.id;
-  const passed = S.memories.find(planPassed);
-  const upcoming = S.memories.filter(x => x.plan && !planPassed(x));
-  const moodChips = Object.entries(MOODS).map(([k, v]) => `<button class="chip ${S.mood === k ? 'on' : ''}" data-a="mood" data-v="${k}" aria-pressed="${S.mood === k}">${ic(v.icon)}${v.label}</button>`).join('')
-    + `<button class="chip ${!S.mood ? 'on' : ''}" data-a="mood" data-v="" aria-pressed="${!S.mood}">${ic('shuffle')}Surprise me</button>`;
-  const timeChips = Object.entries(TIMES).map(([k, v]) => `<button class="chip sm ${S.time === k ? 'on' : ''}" data-a="time" data-v="${k}" aria-pressed="${S.time === k}">${v.label}</button>`).join('');
+  const reminders = S.memories.filter(x => activePlan(x) && daysUntil(x.plan.date) <= 14).sort((x, y) => x.plan.date.localeCompare(y.plan.date));
+  const soon = S.memories.filter(eventSoon).sort((x, y) => (x.event.start > TODAY() ? x.event.start : x.event.end).localeCompare(y.event.start > TODAY() ? y.event.start : y.event.end));
   let card;
   if (m) {
-    card = `<p class="label">${ic('corner-down-right')}You tucked this away…</p>
-    <article class="card">
+    card = `<article class="card focus">
       <span class="tape">a note from past you</span>
       <button class="card-open" data-a="open" data-id="${m.id}" aria-label="Read the note: ${esc(m.title)}">
         <div style="display:flex;gap:12px;align-items:center;margin-top:2px"><div class="symbol">${ic(KINDS[m.kind].icon)}</div><div><p class="kind">${KINDS[m.kind].line}</p><h4 class="title">${esc(m.title)}</h4></div></div>
         <blockquote class="quote">“${esc(firstSentence(m.note))}”</blockquote>
-        <div class="meta" style="margin-bottom:14px">${m.who ? `<span>${whoBadge(m.who)}${esc(m.who)}’s tip</span>` : ''}<span>${ic('hourglass')}on your mind for ${age(m.days)}</span></div>
+        <div class="meta" style="margin-bottom:16px">${m.who ? `<span>${whoBadge(m.who)}${esc(m.who)}’s tip</span>` : ''}<span>${ic('hourglass')}on your mind for ${age(m.days)}</span></div>
       </button>
       <div class="duo"><button class="primary" data-a="plan" data-id="${m.id}">${ic('calendar-heart')}Let’s do it</button><button class="secondary" data-a="notnow" data-id="${m.id}">Not now</button></div>
     </article>`;
   } else {
-    card = `<div class="card" style="text-align:center">
+    card = `<div class="card focus" style="text-align:center">
       <div class="companion" style="margin:0 auto 10px"><span class="loop l1"></span><span class="loop l2"></span></div>
-      <h4 class="title">Nothing fits right now.</h4>
-      <p class="sub" style="margin:8px 0 16px">${S.snoozed.size ? 'You’ve said “not now” to everything that fits. That’s fine too.' : 'None of your memories is marked for this mood yet.'}</p>
-      <div class="duo"><button class="primary" data-a="surprise">${ic('shuffle')}Surprise me</button><button class="secondary" data-a="remember">Remember something</button></div>
+      <h4 class="title">That’s all for the next few days.</h4>
+      <p class="sub" style="margin:8px 0 16px">${S.snoozed.size ? 'You said “not now” to the rest. That’s fine too.' : 'Everything else is planned or has its own date.'}</p>
+      <div class="duo"><button class="primary" data-a="again">${ic('rotate-ccw')}Show them again</button><button class="secondary" data-a="memory">My memory</button></div>
     </div>`;
   }
+  const moodLinks = Object.entries(MOODS).map(([k, v]) => `<button class="chip sm" data-a="browse-mood" data-v="${k}">${ic(v.icon)}${v.label}</button>`).join('')
+    + `<button class="chip sm" data-a="browse-mood" data-v="">${ic('notebook')}Everything</button>`;
+  const row = (x, box, line) => `<button class="coming" data-a="open" data-id="${x.id}">${box}<span style="flex:1;min-width:0"><strong>${esc(x.title)}</strong><small>${line}</small></span>${ic('chevron-right')}</button>`;
   return `<div class="scroll">${header()}
-    <div style="text-align:center;margin:16px 0 18px;position:relative">
-      ${ic('sparkle', 'spark')}
+    <div style="text-align:center;margin:14px 0 20px">
       <h3 class="head">A little spark<br><span class="squiggle">${greeting()}</span></h3>
-      <p class="sub" style="margin-top:16px">What are you in the mood for?</p>
+      <p class="sub" style="margin-top:16px">Something you tucked away that fits the next few days.</p>
     </div>
-    ${passed ? `<div class="nudge-box"><p style="font-weight:800;margin-bottom:4px">Still want to?</p><p class="sub" style="color:var(--ink)">You planned <b>${esc(passed.title)}</b> for ${planLabel(passed.plan)}. No worries if it didn’t happen.</p><div class="duo" style="margin-top:12px"><button class="primary" data-a="plan" data-id="${passed.id}">Plan it again</button><button class="secondary" data-a="rest" data-id="${passed.id}">Let it rest</button></div></div>` : ''}
-    <div class="chips center" style="margin-bottom:8px">${moodChips}</div>
-    <div class="chips center" style="margin-bottom:20px">${timeChips}</div>
     ${card}
-    ${upcoming.length ? `<p class="label" style="margin-top:22px">${ic('calendar-heart')}Coming up</p>` + upcoming.map(u => `<button class="coming" data-a="open" data-id="${u.id}">${whenBox(u.plan)}<span style="flex:1"><strong>${esc(u.title)}</strong><small>${planLabel(u.plan)}${u.who ? `, ${esc(u.who)}’s tip` : ''}</small></span>${ic('chevron-right')}</button>`).join('') : ''}
+    <div class="pointer">
+      <p class="pointer-q">${ic('corner-down-right')}Not what you feel like? Look in your memory:</p>
+      <div class="chips">${moodLinks}</div>
+    </div>
+    ${reminders.length ? `<p class="label section">${ic('bell')}Don’t forget</p>` + reminders.map(x => row(x, whenBox(x.plan.date), `You planned it for ${daysUntil(x.plan.date) <= 1 ? planLabel(x.plan).toLowerCase() : inDays(daysUntil(x.plan.date))}${x.who ? `, ${esc(x.who)}’s tip` : ''}`)).join('') : ''}
+    ${soon.length ? `<p class="label section">${ic('ticket')}Coming soon, plan ahead</p>` + soon.map(x => row(x, whenBox(x.event.start > TODAY() ? x.event.start : x.event.end), eventLabel(x))).join('') : ''}
   </div>${navBar()}`;
 }
 
 function memItem(m, forgotten = false) {
   return `<button class="item ${forgotten ? 'forgotten' : ''}" data-a="open" data-id="${m.id}">${ic(KINDS[m.kind].icon)}<div>
-    <p class="kind">${m.plan && !planPassed(m) ? 'Planned: ' + planLabel(m.plan) : KINDS[m.kind].line}</p><strong>${esc(m.title)}</strong>
+    <p class="kind">${activePlan(m) ? 'Planned: ' + planLabel(m.plan) : eventOpen(m) ? eventLabel(m) : KINDS[m.kind].line}</p><strong>${esc(m.title)}</strong>
     <span class="q">“${esc(firstSentence(m.note))}”</span>
     <div class="meta">${m.who ? `<span>${whoBadge(m.who)}${esc(m.who)}</span>` : ''}<span>${ic('hourglass')}${forgotten ? 'tucked away ' + age(m.days) + ' ago' : age(m.days)}</span>${m.link ? `<span>${ic('link')}${esc(m.link.site)}</span>` : ''}</div>
   </div></button>`;
@@ -360,7 +390,8 @@ function viewMemory() {
     list = `<div class="shelf">${found.length} ${found.length === 1 ? 'memory' : 'memories'} <button class="text-btn" style="padding:0;min-height:0;color:var(--purple)" data-a="clear">Clear</button></div>`
       + (found.length ? found.map(m => memItem(m)).join('') : `<div class="card" style="text-align:center"><p style="font-weight:800">No little memory like that.</p><p class="sub" style="margin:6px 0 14px">Try another word, or ask your memory in your own words.</p><button class="secondary" data-a="ask-with">${ic('sparkles')}Ask your memory</button></div>`);
   } else {
-    const coming = S.memories.filter(m => m.plan && !planPassed(m));
+    const dateOf = m => activePlan(m) ? m.plan.date : (m.event.start > TODAY() ? m.event.start : m.event.end || TODAY());
+    const coming = S.memories.filter(m => activePlan(m) || eventOpen(m)).sort((a, b) => dateOf(a).localeCompare(dateOf(b)));
     const fresh = S.memories.filter(m => !coming.includes(m) && m.days <= 7);
     const forgotten = S.memories.filter(m => !coming.includes(m) && m.days > 90);
     const mind = S.memories.filter(m => !coming.includes(m) && !fresh.includes(m) && !forgotten.includes(m));
@@ -402,20 +433,20 @@ function viewAsk() {
 
 function viewDetail() {
   const m = byId(S.detail); if (!m) return viewToday();
-  const passed = planPassed(m);
   return `<div class="scroll">
     <div class="top"><button class="text-btn" data-a="back">${ic('arrow-left')}Back</button><button class="text-btn" data-a="edit" data-id="${m.id}">${ic('pencil')}Edit note</button></div>
     <article class="letter"><span class="tape"></span>
       <div class="letter-top"><div class="symbol">${ic(KINDS[m.kind].icon)}</div><span class="from">A little note from past you<br>${m.days < 2 ? age(m.days) : age(m.days) + ' ago'}</span></div>
       <h4>${esc(m.title)}</h4>
+      ${m.event && eventOpen(m) ? `<div class="eventline">${ic('ticket')}${m.event.start && m.event.end ? `${fmtDay(m.event.start)} to ${fmtDay(m.event.end)}` : m.event.start ? fmtDay(m.event.start) : 'Until ' + fmtDay(m.event.end)}</div>` : ''}
       <p class="body">${esc(m.note)}</p>
       ${m.link ? `<a class="linkcard" href="${esc(m.link.url)}" target="_blank" rel="noopener noreferrer">${ic('link')}<span>${esc(m.link.name)}<small>${esc(m.link.site)}</small></span></a>` : ''}
       <div class="meta" style="margin-bottom:14px">${m.who ? `<span>${whoBadge(m.who)}${esc(m.who)} told you about it</span>` : ''}${m.moods.map(x => `<span>${ic(MOODS[x].icon)}${MOODS[x].label}</span>`).join('')}</div>
       <p class="signoff">${ic('heart')}Something worth remembering.</p>
     </article>
-    ${m.plan && !passed ? `<div class="planned">${ic('calendar-heart')}<span style="flex:1">Planned: ${planLabel(m.plan)}</span><button class="text-btn" style="padding:0;min-height:0;color:var(--purple)" data-a="plan" data-id="${m.id}">Change</button></div>
+    ${activePlan(m) ? `<div class="planned">${ic('calendar-heart')}<span style="flex:1">Planned: ${planLabel(m.plan)}</span><button class="text-btn" style="padding:0;min-height:0;color:var(--purple)" data-a="plan" data-id="${m.id}">Change</button></div>
       <button class="secondary" data-a="unplan" data-id="${m.id}">Not anymore</button>`
-      : `<button class="primary" data-a="plan" data-id="${m.id}">${ic('calendar-heart')}${passed ? 'Plan it again' : 'Let’s do it'}</button>`}
+      : `<button class="primary" data-a="plan" data-id="${m.id}">${ic('calendar-heart')}Let’s do it</button>`}
     <div style="text-align:center;margin-top:8px"><button class="text-btn muted" data-a="letgo" data-id="${m.id}">${ic('wind')}Let it go</button></div>
   </div>`;
 }
@@ -438,6 +469,8 @@ function viewRemember() {
     <div class="error" id="d-err" ${d.error ? '' : 'hidden'}>Give this thought a few words first.</div>
     <div class="q-label">What is it? <small>optional</small></div>
     <div class="chips">${Object.entries(KINDS).map(([k, v]) => `<button class="chip sm ${d.kind === k ? 'on' : ''}" data-a="d-kind" data-v="${k}" aria-pressed="${d.kind === k}">${ic(v.icon)}${v.label}</button>`).join('')}</div>
+    ${d.kind === 'event' || d.kind === 'music' ? `<div class="q-label">When is it? <small>optional</small></div>
+    <div class="dates"><label>From<input type="date" id="d-start" value="${esc(d.start || '')}"></label><label>Until<input type="date" id="d-end" value="${esc(d.end || '')}"></label></div>` : ''}
     <div class="q-label">Good for… <small>optional</small></div>
     <div class="chips">${Object.entries(MOODS).map(([k, v]) => `<button class="chip sm ${d.moods.includes(k) ? 'on' : ''}" data-a="d-mood" data-v="${k}" aria-pressed="${d.moods.includes(k)}">${ic(v.icon)}${v.label}</button>`).join('')}</div>
     <div class="q-label">Who told you? <small>optional</small></div>
@@ -468,10 +501,10 @@ function sheet() {
   let body = '';
   if (s.type === 'plan') {
     const m = byId(s.id);
-    const opt = (k, icon, t, d) => `<button class="opt ${S.planPick === k ? 'on' : ''}" data-a="pick" data-v="${k}" aria-pressed="${S.planPick === k}">${ic(icon)}<span style="flex:1"><strong>${t}</strong><small>${d}</small>${k === 'date' && S.planPick === 'date' ? `<input type="date" id="plan-date" value="${S.planDate || addDays(7)}" min="${addDays(0)}" aria-label="Day">` : ''}</span></button>`;
-    body = `<h4>When feels right?</h4><p class="sub">${esc(m.title)}. No pressure, you can change it any time.</p>
-      <div class="opts">${opt('tonight', 'moon', 'Tonight', 'If the evening is free anyway')}${opt('weekend', 'sun', 'This weekend', 'Saturday or Sunday')}${opt('soon', 'sprout', 'Soon-ish', 'In the next few weeks')}${opt('date', 'calendar', 'Pick a day', 'For something with a date')}</div>
-      <p class="note-purple">You don’t need a date for everything.<br>Sometimes wanting to is enough.</p>
+    const opt = (k, icon, t, d) => `<button class="opt ${S.planPick === k ? 'on' : ''}" data-a="pick" data-v="${k}" aria-pressed="${S.planPick === k}">${ic(icon)}<span style="flex:1"><strong>${t}</strong><small>${d}</small>${k === 'date' && S.planPick === 'date' ? `<input type="date" id="plan-date" value="${S.planDate || (byId(s.id).event?.start > TODAY() ? byId(s.id).event.start : addDays(7))}" min="${addDays(0)}" aria-label="Day">` : ''}</span></button>`;
+    body = `<h4>When feels right?</h4><p class="sub">${esc(m.title)}${m.event && eventOpen(m) ? `. ${eventLabel(m)}` : ''}.</p>
+      <div class="opts">${opt('tonight', 'moon', 'Tonight', fmtDay(TODAY()))}${opt('tomorrow', 'sunrise', 'Tomorrow', fmtDay(addDays(1)))}${opt('weekend', 'sun', 'This weekend', fmtDay(weekendDay()))}${opt('date', 'calendar', 'Pick a day', 'Any other day')}</div>
+      <p class="note-purple">I’ll remind you on the day.<br>No pressure if plans change.</p>
       <button class="primary" data-a="confirm-plan">${ic('calendar-heart')}Plan it</button>`;
   }
   if (s.type === 'letgo') {
@@ -504,6 +537,8 @@ function readDraft() {
   const d = S.draft; if (!d) return;
   const t = document.getElementById('d-title'), n = document.getElementById('d-note');
   if (t) d.title = t.value; if (n) d.note = n.value;
+  const st = document.getElementById('d-start'), en = document.getElementById('d-end');
+  if (st) d.start = st.value; if (en) d.end = en.value;
 }
 function autofill(url) {
   const u = url.toLowerCase(); const d = S.draft;
@@ -511,21 +546,22 @@ function autofill(url) {
   const guess =
     /maps|goo\.gl/.test(u) ? { title: 'Café am Neuen See', kind: 'place', moods: ['out', 'together'], name: 'Café am Neuen See, Tiergarten' } :
     /imdb|netflix|letterboxd|mubi/.test(u) ? { title: 'Past Lives', kind: 'film', moods: ['quiet'], name: 'Past Lives (2023)' } :
-    /eventbrite|ticket|resident/.test(u) ? { title: 'Ceramics evening at Kiln Studio', kind: 'activity', moods: ['out', 'together'], name: 'Ceramics evening, Kiln Studio' } :
+    /eventbrite|ticket|resident/.test(u) ? { title: 'Ceramics evening at Kiln Studio', kind: 'event', moods: ['out', 'together'], name: 'Ceramics evening, Kiln Studio', start: addDays(9) } :
     /recipe|cook|food/.test(u) ? { title: 'Green shakshuka', kind: 'food', moods: ['quiet', 'together'], name: 'Green shakshuka recipe' } :
     { title: 'Something from ' + site, kind: 'other', moods: [], name: site };
   d.link = { url, site, name: guess.name };
   if (!d.title.trim()) d.title = guess.title;
   if (!d.kind) d.kind = guess.kind;
   if (!d.moods.length) d.moods = guess.moods;
+  if (guess.start && !d.start) d.start = guess.start;
   d.filled = true;
 }
-function newDraft(extra = {}) { return { id: null, title: '', note: '', kind: null, moods: [], who: null, link: null, filled: false, error: false, newPeople: [], ...extra }; }
+function newDraft(extra = {}) { return { id: null, title: '', note: '', kind: null, moods: [], who: null, link: null, start: '', end: '', filled: false, error: false, newPeople: [], ...extra }; }
 
 // --- ask (simulated AI) --------------------------------------------------------
 function answer(q) {
   const t = q.toLowerCase();
-  const kindWords = { food: /eat|food|restaurant|dinner|lunch|cook|recipe|hungry/, film: /film|movie|watch|show|series|cinema/, book: /book|read|novel/, trip: /trip|travel|weekend away|holiday|fly/, place: /place|outside|walk|view|lake|nature/, activity: /do|try|activity|class|workshop|music|jazz/ };
+  const kindWords = { food: /eat|food|restaurant|dinner|lunch|cook|recipe|hungry/, film: /film|movie|watch|show|series|cinema/, book: /book|read|novel/, trip: /trip|travel|weekend away|holiday|fly/, place: /place|outside|walk|view|lake|nature/, activity: /do|try|activity|class|workshop/, event: /event|exhibition|festival|happening|ticket/, music: /music|concert|gig|jazz|live/ };
   const moodWords = { quiet: /cozy|cosy|quiet|rain|home|calm|gentle|slow/, out: /\bout\b|go somewhere|leave the house|outside/, together: /friend|together|date|with someone|partner|us\b/ };
   const scored = S.memories.map(m => {
     let s = 0;
@@ -560,9 +596,8 @@ phone.addEventListener('click', e => {
     case 'memory': S.stack = []; go('memory', false); break;
     case 'account': go('account'); break;
     case 'back': back(); break;
-    case 'mood': S.mood = v || null; S.shown = null; S.forceNothing = false; render(); break;
-    case 'time': S.time = S.time === v ? null : v; S.shown = null; S.forceNothing = false; render(); break;
-    case 'surprise': S.mood = null; S.time = null; S.snoozed.clear(); S.forceNothing = false; S.shown = null; render(); break;
+    case 'browse-mood': S.search = ''; S.filter = { kind: null, who: null, mood: v || null }; S.stack = []; go('memory', false); break;
+    case 'again': S.snoozed.clear(); S.shown = null; render(); break;
     case 'notnow': { S.snoozed.add(id); S.shown = null; toast('Okay, another time.', 'clock'); break; }
     case 'open': S.detail = id; go('detail'); break;
     case 'plan': S.planPick = 'tonight'; S.planDate = ''; S.sheet = { type: 'plan', id }; render(); break;
@@ -570,9 +605,10 @@ phone.addEventListener('click', e => {
     case 'confirm-plan': {
       const m = byId(S.sheet.id);
       const dateEl = document.getElementById('plan-date');
-      m.plan = S.planPick === 'date' ? { when: 'date', date: dateEl?.value || addDays(7) } : { when: S.planPick };
-      m.days = 0; S.sheet = null; S.shown = null;
-      toast(`Planned: ${planLabel(m.plan)}. It’s waiting in Coming up.`, 'calendar-heart'); break;
+      const date = { tonight: TODAY(), tomorrow: addDays(1), weekend: weekendDay() }[S.planPick] || dateEl?.value || addDays(7);
+      m.plan = { when: S.planPick, date };
+      S.sheet = null; S.shown = null;
+      toast(`Planned for ${planLabel(m.plan).toLowerCase() === 'tonight' || planLabel(m.plan) === 'Tomorrow' ? planLabel(m.plan).toLowerCase() : planLabel(m.plan)}. I’ll remind you.`, 'bell'); break;
     }
     case 'unplan': { const m = byId(id); m.plan = null; toast('Back in your memory. No pressure.', 'feather'); break; }
     case 'rest': { const m = byId(id); m.plan = null; toast('Let it rest. It’s still in your memory.', 'feather'); break; }
@@ -581,7 +617,7 @@ phone.addEventListener('click', e => {
     case 'close': S.sheet = null; render(); break;
     case 'remember': S.draft = newDraft(); go('remember'); break;
     case 'starter': S.draft = newDraft({ kind: b.dataset.kind }); go('remember'); break;
-    case 'edit': { const m = byId(id); S.draft = newDraft({ id: m.id, title: m.title, note: m.note, kind: m.kind, moods: [...m.moods], who: m.who, link: m.link || null }); go('remember'); break; }
+    case 'edit': { const m = byId(id); S.draft = newDraft({ id: m.id, title: m.title, note: m.note, kind: m.kind, moods: [...m.moods], who: m.who, link: m.link || null, start: m.event?.start || '', end: m.event?.end || '' }); go('remember'); break; }
     case 'd-kind': S.draft.kind = S.draft.kind === v ? null : v; render(); break;
     case 'd-mood': { const ms = S.draft.moods; S.draft.moods = ms.includes(v) ? ms.filter(x => x !== v) : [...ms, v]; render(); break; }
     case 'd-who': S.draft.who = S.draft.who === v ? null : v; render(); break;
@@ -589,7 +625,7 @@ phone.addEventListener('click', e => {
     case 'save': {
       const d = S.draft;
       if (!d.title.trim()) { d.error = true; render(); document.getElementById('d-title')?.focus(); return; }
-      const fields = { title: d.title.trim(), note: d.note.trim() || d.title.trim(), kind: d.kind || 'other', moods: d.moods, who: d.who, link: d.link };
+      const fields = { title: d.title.trim(), note: d.note.trim() || d.title.trim(), kind: d.kind || 'other', moods: d.moods, who: d.who, link: d.link, event: (d.start || d.end) ? { start: d.start || null, end: d.end || null } : null };
       if (d.id) { Object.assign(byId(d.id), fields); S.detail = d.id; S.stack.pop(); S.view = 'detail'; toast('Your note has been updated.'); }
       else {
         S.memories.unshift({ id: 'm' + Date.now(), days: 0, dur: 'evening', plan: null, ...fields });
