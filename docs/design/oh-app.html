@@ -231,8 +231,10 @@ nav svg { width: 23px !important; height: 23px !important; }
 .welcome-opt strong { display: block; font-size: 16px; font-weight: 900; }
 .welcome-opt small { display: block; font-size: 12.5px; color: var(--muted); }
 .welcome-opt > svg { width: 26px !important; height: 26px !important; color: var(--orange); transform: rotate(-9deg); }
-.space-btn { border: 0; background: var(--lilac); color: var(--purple); border-radius: 30px; padding: 6px 12px 6px 6px; min-height: 44px; display: inline-flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 800; }
-.space-btn.me { background: var(--paper); color: var(--ink); padding-left: 12px; }
+.top > .logo { flex: none; }
+.space-btn { flex: none; width: 64px; height: 44px; border: 0; background: var(--lilac); color: var(--purple); border-radius: 22px; padding: 0; display: inline-flex; align-items: center; justify-content: center; gap: 3px; }
+.space-btn.me { background: var(--paper); color: var(--ink); }
+.space-btn svg + svg { width: 14px; height: 14px; }
 .faces { display: inline-flex; }
 .faces .who { box-shadow: 0 0 0 2px var(--paper); }
 .faces .who + .who { margin-left: -7px; }
@@ -496,7 +498,7 @@ function current() {
 // --- views -----------------------------------------------------------------
 function header() {
   return `<div class="top"><button class="logo small" data-a="home" aria-label="Oh, right!, go to A little nudge">oh, <span class="r">right!</span><small>your little memory</small></button>
-    <div style="display:flex;gap:8px"><button class="pill-btn" data-a="remember">${ic('plus')}Remember this</button><button class="space-btn ${isShared() ? '' : 'me'}" data-a="spaces" aria-label="Space: ${esc(sp().name)}. Switch space">${isShared() ? faces(sp().members.slice(0, 3)) : ic('user-round')}${ic('chevron-down')}</button></div></div>`;
+    <div style="display:flex;gap:8px;flex:none"><button class="pill-btn" data-a="remember">${ic('plus')}Remember this</button><button class="space-btn ${isShared() ? '' : 'me'}" data-a="spaces" aria-label="Space: ${esc(sp().name)}. Switch space">${ic(S.space === 'me' ? 'user-round' : sp().icon)}${ic('chevron-down')}</button></div></div>`;
 }
 function navBar() {
   const tab = (v, a, icon, label) => `<button class="${S.view === v ? 'on' : ''}" data-a="${a}" aria-pressed="${S.view === v}">${ic(icon)}${label}</button>`;
