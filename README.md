@@ -37,7 +37,7 @@ flowchart LR
 - **Plan:** the concrete details for the day.
 - **After the day:** back into the memory with a “planned before” line, to be suggested again, planned again or let go.
 
-Why the app works this way, and what comes next: [roadmap](docs/roadmap.md).
+Why the app works this way, and what comes next: [roadmap](docs/roadmap.md). Where it could go one day: [vision](docs/vision.md).
 
 ## Status
 
