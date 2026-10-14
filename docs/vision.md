@@ -26,23 +26,54 @@ It grows from features that are useful *and* spread on their own:
 - That opens partnerships: event platforms, ticketing, restaurant reservations (“book a table” right from the plan).
 - That’s where real revenue is, but also where trust can break.
 
-## What it could earn, and under which conditions
+## What it could earn, and under which conditions (updated 2026-10-15)
 
-Rough planning numbers per year, not a forecast. Assumptions: freemium with a subscription of about €3.99 a month or €29.99 a year, roughly **€30 a year net per subscriber** after store fees; freemium apps typically convert **2–3%** of users to paid (up to ~5% with a strong reason to pay such as shared memory for two); typical lifestyle apps keep only about **4% of users after 30 days**, so retention is the lever that decides everything; running costs (hosting, AI) of roughly **€0.05–0.20 per active user and month**. Benchmarks: [RevenueCat, State of Subscription Apps](https://www.revenuecat.com/state-of-subscription-apps-2025), [retention benchmarks](https://enable3.io/blog/app-retention-benchmarks-2025).
+Rough planning numbers per year, our own estimates, not a forecast. Updated for couples and groups as a core feature.
 
-| Stage | Active users (monthly) | Conditions to get there | Paying users | Revenue / year | Running costs / year | Outcome | Likelihood |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| **Personal** | 1 | You keep using it | 0 | €0 | €60–180 | A tool you love, small cost | Very likely |
-| **Friends** | 10–50 | Hosting, account recovery, the nudge is useful within a week | 0 | €0 | €150–400 | Feedback, proof it works for others | Likely |
-| **Niche app** | 2,000–5,000 | App Store presence, share-sheet saving, 30-day retention ≥ 10%, word of mouth in one city | 40–150 (2–3%) | €1k–5k | €1k–3k | Roughly break-even hobby | Possible |
-| **Growing app** | ~50,000 | Tips and plan invites bring new users (each user brings ≥ 0.3 others), shared memory for two as the paid reason, several cities, small marketing budget | 1,500–2,500 (3–5%) | €45k–75k, plus €5k–20k from bookings | €20k–50k (before salaries) | Side business, maybe one part-time salary | Hard |
-| **Breakout** | 500,000–1,000,000 | 30-day retention ≥ 20% (5× the lifestyle average), viral loops working, team of 3–6, partnerships with ticketing and reservations | 20,000–50,000 (4–5%) | €0.6M–1.5M, plus €0.2M–1M from partnerships | €0.5M–1.5M (team included) | A real company, needs funding | Rare |
+**Base assumptions:** a freemium subscription of about €3.99 a month or €29.99 a year, where one subscription covers a whole space, so roughly **€30–40 a year net per paying space** after store fees. Typical lifestyle apps keep only about **4% of users after 30 days**. Running costs (hosting, AI) are roughly **€0.05–0.20 per active user and month**. Benchmarks: [RevenueCat, State of Subscription Apps](https://www.revenuecat.com/state-of-subscription-apps-2025), [retention benchmarks](https://enable3.io/blog/app-retention-benchmarks-2025).
 
-**The levers, in order of impact:** 30-day retention (does the nudge make people come back?), how many friends each user brings (tips, plan invites), conversion to paid (a clear reason such as shared memory for two), then price.
+**What couples and groups change:**
+
+| Lever | Personal app only | With couples and groups |
+| --- | --- | --- |
+| New users each user brings | ~0.1 (tips) | 0.5–1.0 (partner, group, guests on plan links) |
+| Still using it after 30 days | ~4–10% | 10–20% (someone else keeps adding things) |
+| Users who pay | 2–3% | 4–6% (one subscription per space) |
+| Revenue per paying space | €30 a year | €30–40 a year (premium spaces: more groups, trip tools, costs per person) |
+
+| Stage | Monthly users | Conditions to get there | Paying spaces | Revenue a year | Running costs a year | Likelihood (personal only → with couples and groups) |
+| --- | --- | --- | --- | --- | --- | --- |
+| **You two** | 2 | You and your partner use it every week | 0 | €0 | €60–180 | very likely → very likely |
+| **Friends** | 20–100 (10–30 spaces) | Tasks 010–017 done, hosting, account recovery | 0 | €0 | €200–500 | likely → likely |
+| **Niche app** | 5k–15k | App stores; ≥ 15% still using it after 30 days; each space brings ≥ 0.5 new ones | 100–400 | €4k–15k | €2k–5k | 20–30% → 25–35% |
+| **Growing app** | ~100k | Invite loop working; guests on plan links sign up; premium spaces; some marketing | 2.5k–5k | €90k–180k, plus €10k–40k from bookings | €40k–100k | ~5% → ~8% |
+| **Breakout** | 1–3M | A self-spreading loop like Partiful’s; a team of 4–8; funding | 40k–100k | €1.5M–4M | €1M–3M | < 1% → 1–2% |
+
+**The levers, in order of impact:** whether people share (spaces and invites), 30-day retention (do shared spaces and the nudge bring people back?), conversion to paid (premium spaces), then price.
+
+## Effort to the decision point (5–8 hours a week)
+
+| Step | Tasks | Hours | Calendar time |
+| --- | --- | --- | --- |
+| Personal app working | 010–013 | 40–60 | ~2 months |
+| Online and together | 014–017 | 60–90 | ~3 months |
+| Test with you two and 3–4 couples | — | ~10 | 1–2 months |
+| **Decision point** | | **~110–160** | **~6–7 months** |
 
 ## How to find out which future is real
 
 1. Use it yourself for 4–8 weeks after phase 1. Track saves per week and how often a nudge becomes a plan; if the second is near zero, fix the nudge first.
 2. Use a shared space with your partner after hosting (014) and spaces (015–016). Track how many matches turn into plans.
-3. Give it to 3–4 couples and one friend group. Watch whether they open it without being reminded and whether they invite anyone themselves.
-4. Only then choose between staying personal and building share-sheet saving, tips and premium spaces.
+3. Give it to 3–4 couples and one friend group, then check the four numbers that decide it:
+   - **Do people share?** ≥ 40% of new users start or join a shared space in their first week.
+   - **Do invites land?** ≥ 50% of space invites are accepted.
+   - **Do matches turn into plans?** ≥ 2 plans per couple per month come from matches.
+   - **Do people stay?** ≥ 15% still use it after 30 days.
+4. All four hold: the niche app is realistic and growing becomes possible; go for app stores and premium spaces. If sharing (1) or matches → plans (3) fail, sharing isn’t the hook, and staying personal is a good result.
+
+## Risks
+
+- **Competition:** couples apps, “swipe on date ideas” apps and group-planning tools exist. The edge is the combination: your own memory, plus matching, plus planning, which only shows after real use.
+- **Both people must care:** a shared space dies if only one partner adds things; the first page and news dots have to bring the second person back.
+- **Stores, support and privacy:** a paid app brings all three; realistic as a side project at the niche stage, not before.
+- **Verdict (2026-10-15):** build it for the two of you first, measure, then decide. Worth it even if it ends at “You two”.

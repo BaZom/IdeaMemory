@@ -89,6 +89,13 @@ flowchart LR
 - **Manual memories (backend and a first UI):** save with just a title (description, category, tags, notes, location, exact original text), browse newest first, filter by category, open, edit, delete.
 - **Design:** the clickable target design ([oh-app.html](design/oh-app.html)), including couples and groups.
 
+## Where we are (2026-10-15)
+
+- **Built:** accounts and manual memories (backend and a first Flutter UI, still the old look).
+- **Designed:** the complete target, including couples and groups ([oh-app.html](design/oh-app.html)); this roadmap and the [decisions](decisions.md) match it.
+- **Next:** 010 (the oh! look in the real app), then 011–013. Start a task by asking for it in chat; security-relevant tasks need the owner’s explicit OK first.
+- **Decision point:** after 017 and a test with 3–4 couples (see the [vision](vision.md) for the four numbers).
+
 ## Plan
 
 Phases in order. Each task is small enough to try on the same day; the order inside a phase can change. Tasks use the short format at the end.
