@@ -23,14 +23,29 @@ Every task is checked against these.
 
 Your guess “create memory → plan memory → …” is close, but the step in between is what makes the app: memories come back to you.
 
-```text
-   Remember ──► My memory ──► A little nudge ──► Let’s do it ──► Plan ──► the day ──┐
-   (save it)    (everything)   (brings one back,   (decide)       (details,         │
-       ▲             ▲          or “not now”)                      reminder)        │
-       │             │                                                              │
-       │             └──────── the plan passes: “planned before” on the memory ◄────┘
-       │                       (it can come back later, be planned again, or let go)
-       └── “Remember & plan it” goes straight from saving to a plan
+```mermaid
+flowchart LR
+    R["<b>Remember</b><br/>save in seconds"]
+    M["<b>My memory</b><br/>everything you saved"]
+    N["<b>A little nudge</b><br/>what fits today or soon"]
+    P["<b>Plan</b><br/>day, time, who,<br/>what to sort out"]
+    D(["the day"])
+
+    R --> M
+    M --> N
+    N -- "Let’s do it" --> P
+    N -. "Not now" .-> M
+    M -- "plan it" --> P
+    R -- "Remember & plan it" --> P
+    P --> D
+    D -- "planned before" --> M
+
+    classDef step fill:#FFFEFA,stroke:#E0DDCC,color:#24251E
+    classDef key fill:#FFEAD1,stroke:#F57908,color:#24251E
+    classDef day fill:#F0EBFA,stroke:#7560C0,color:#24251E
+    class R,M step
+    class N,P key
+    class D day
 ```
 
 - **Remember:** title, plus optional details or a link that fills them in.

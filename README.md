@@ -1,6 +1,45 @@
 # Idea Memory
 
-A private place to save things you want to experience later and find them again. Personal proof of concept; the goal is a phone app.
+**oh! your little memory**: a private external memory for the things you want to experience, so that when you don’t know what to do, it does. Personal proof of concept; the goal is a phone app.
+
+**See the design:** https://bazom.github.io/IdeaMemory/design/oh-app.html (clickable, made-up data).
+
+## How it works
+
+```mermaid
+flowchart LR
+    R["<b>Remember</b><br/>save in seconds"]
+    M["<b>My memory</b><br/>everything you saved"]
+    N["<b>A little nudge</b><br/>what fits today or soon"]
+    P["<b>Plan</b><br/>day, time, who,<br/>what to sort out"]
+    D(["the day"])
+
+    R --> M
+    M --> N
+    N -- "Let’s do it" --> P
+    N -. "Not now" .-> M
+    M -- "plan it" --> P
+    R -- "Remember & plan it" --> P
+    P --> D
+    D -- "planned before" --> M
+
+    classDef step fill:#FFFEFA,stroke:#E0DDCC,color:#24251E
+    classDef key fill:#FFEAD1,stroke:#F57908,color:#24251E
+    classDef day fill:#F0EBFA,stroke:#7560C0,color:#24251E
+    class R,M step
+    class N,P key
+    class D day
+```
+
+- **Remember:** save in seconds, just a title, or a link that fills in the rest.
+- **My memory:** everything you saved, findable without remembering the words.
+- **A little nudge:** brings the right memory back for today or soon; you decide *Let’s do it* or *Not now*.
+- **Plan:** the concrete details for the day.
+- **After the day:** back into the memory with a “planned before” line, to be suggested again, planned again or let go.
+
+Why the app works this way, and what comes next: [roadmap](docs/roadmap.md).
+
+## Status
 
 **Now:** sign up with a username and password, then save ideas (just a title is enough; optional description, category, tags, notes, location and the exact original text), browse, edit and delete them. Each account sees only its own ideas. **Next:** see the [roadmap](docs/roadmap.md).
 
