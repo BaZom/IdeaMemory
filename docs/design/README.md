@@ -2,10 +2,12 @@
 
 **Brand:** **Oh, right!** with the tagline *your little memory*. Wordmark: “oh, **right!**” in Nunito Black, slightly tilted, *right!* in orange `#F57908`. Icon: “oh,” on orange (`brand/`). Voice: the app is your memory talking, warm and never pushy.
 
-**Target design: [oh-app.html](oh-app.html)** (clickable, dummy data, phone-first). Live: https://bazom.github.io/IdeaMemory/design/oh-app.html. This is what we build towards; the product principles and main flow behind it are in the [roadmap](../roadmap.md).
+**Target design: [oh-app.html](oh-app.html)** (clickable, dummy data, phone-first; on your own and in shared spaces for couples and groups). Live: https://bazom.github.io/IdeaMemory/design/oh-app.html. This is what we build towards; the product principles and main flow behind it are in the [roadmap](../roadmap.md).
 
 - `oh-app.html`: the target design, full screen on phones. Use this link to show the design.
-- `oh-together.html`: draft for couples and groups (shared spaces, “I’d love to” matches, finding a day together, who’s in, who sorts out what, little notes, invite links). Not approved yet; `oh-app.html` stays the target until it is.
+- `oh-together.html`: the couples and groups draft, now merged into `oh-app.html` (kept so its link keeps working).
+- `oh-app-backup-5.html`: backup before the spaces row, news dots, the “Who do you do things with?” welcome and the invite card.
+- `oh-app-backup-4.html`: backup before couples and groups (shared spaces, matches, planning together) were merged in.
 - `oh-app-backup-3.html`: backup before the Oh, right! branding (logo “oh!”).
 - `brand/`: app icon (512 px), home-screen icon (180 px) and favicon.
 - `oh-app-backup-2.html`: backup before the suggestion cards became a swipeable loop.

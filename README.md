@@ -1,6 +1,6 @@
 # Oh, right!
 
-**Oh, right!** *your little memory*: a private external memory for the things you want to experience, so that when you don’t know what to do, it does. Personal proof of concept; the goal is a phone app.
+**Oh, right!** *your little memory*: an external memory for the things you want to experience, on your own and with your partner or friends, so that when you don’t know what to do, it does. Personal proof of concept; the goal is a phone app.
 
 **See the design:** https://bazom.github.io/IdeaMemory/design/oh-app.html (clickable, made-up data).
 
@@ -36,6 +36,7 @@ flowchart LR
 - **A little nudge:** brings the right memory back for today or soon; you decide *Let’s do it* or *Not now*.
 - **Plan:** the concrete details for the day.
 - **After the day:** back into the memory with a “planned before” line, to be suggested again, planned again or let go.
+- **Together:** share a space with your partner or a group (up to 8). Everyone says *I’d love to* or *Not for me*; when you both say yes it’s a match, and you plan it together: find a day, who’s in, who sorts out what. (Designed; planned in roadmap phase 2.)
 
 Why the app works this way, and what comes next: [roadmap](docs/roadmap.md). Where it could go one day: [vision](docs/vision.md).
 
@@ -72,6 +73,6 @@ make build-web API_BASE_URL=http://$IP:8000 WEB_SUPABASE_URL=http://$IP:54321 \
 echo "http://$IP:3000"         # open this URL in Safari on the iPhone
 ```
 
-Things worth checking on the phone: sign up and save an idea with a long pasted text; edit it with the keyboard open; delete it; reload (you stay signed in); rotate the phone; sign out and in as a second user (you see none of the first user's ideas). Allow incoming connections if macOS asks; stop everything and `make supabase-stop` afterwards. This is plain HTTP; HTTPS and the home screen come with hosting (roadmap 009).
+Things worth checking on the phone: sign up and save an idea with a long pasted text; edit it with the keyboard open; delete it; reload (you stay signed in); rotate the phone; sign out and in as a second user (you see none of the first user's ideas). Allow incoming connections if macOS asks; stop everything and `make supabase-stop` afterwards. This is plain HTTP; HTTPS and the home screen come with hosting (roadmap 014).
 
 The original planning documents (product spec, architecture, ADRs, detailed task plans, manual test records) are in [docs/archive](docs/archive/README.md).

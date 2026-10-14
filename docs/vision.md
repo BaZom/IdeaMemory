@@ -2,7 +2,9 @@
 
 Built first for personal use. These are possible next steps if it proves useful; none of them is planned work yet (see the [roadmap](roadmap.md)).
 
-**The opportunity:** saving things is solved, getting them back at the right moment is not. Oh, right! works across every kind of thing, brings them back for today, turns them into plans and remembers who told you.
+**The opportunity:** saving things is solved, getting them back at the right moment is not, and deciding *together* what to do is even harder. Oh, right! works across every kind of thing, brings them back for today, turns them into plans, remembers who told you, and lets couples and groups find what they all want to do and plan it together.
+
+**Since 2026-10-15, couples and groups are core, not a later extra:** shared spaces, matches and planning together are roadmap phase 2, before AI. They are the social loop (every space and every plan invite brings people in) and the clearest reason to pay.
 
 ## 1. Stay a personal tool
 
@@ -14,8 +16,8 @@ It grows from features that are useful *and* spread on their own:
 
 - **Save from anywhere:** the phone’s share sheet (Instagram, TikTok, Maps, browser) straight into Oh, right!. The biggest usability unlock.
 - **Send a tip:** “Lena sent you a tip: Ramen in Kreuzberg”. It lands in your friend’s memory with her name on it. Every tip is an invitation, a natural growth loop.
-- **Plan invites:** the “I’m in / Maybe” link already planned. Every plan reaches people who don’t have the app yet.
-- **Shared memory for two:** couples or flatmates with one pool of “things we want to do”. A strong, specific use case, and a reason to pay.
+- **Plan invites (on the roadmap, 017):** the “I’m in / Maybe / Can’t” link. Every plan reaches people who don’t have the app yet.
+- **Shared memory for two (now on the roadmap, 015–017):** couples, friends and trip crews with one pool of “things we want to do”, matches and shared plans. The strongest use case, and the reason to pay (e.g. premium spaces: more groups, trip tools, costs per person).
 - **Context:** weather, weekends, holidays, nearby (“you’re in Kreuzberg; the ramen place is 5 minutes away”).
 
 ## 3. A local discovery layer (later, only if 2 works)
@@ -41,5 +43,6 @@ Rough planning numbers per year, not a forecast. Assumptions: freemium with a su
 ## How to find out which future is real
 
 1. Use it yourself for 4–8 weeks after phase 1. Track saves per week and how often a nudge becomes a plan; if the second is near zero, fix the nudge first.
-2. Give it to 5–10 friends after hosting (task 019, with account recovery). Watch whether they open it without being reminded.
-3. Only then choose between staying personal and building share-sheet saving, tips and shared memory.
+2. Use a shared space with your partner after hosting (014) and spaces (015–016). Track how many matches turn into plans.
+3. Give it to 3–4 couples and one friend group. Watch whether they open it without being reminded and whether they invite anyone themselves.
+4. Only then choose between staying personal and building share-sheet saving, tips and premium spaces.
