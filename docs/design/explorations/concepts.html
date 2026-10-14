@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brand concepts</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Schibsted+Grotesk:wght@400;500;600;700&amp;family=Big+Shoulders+Display:wght@700;800;900&amp;family=Hanken+Grotesk:wght@400;500;600;700&amp;family=Overpass:wght@400;600;700;800&amp;display=swap">
+<style>
+body { margin: 0; background: #DCDFE5; color: #1B1F2A; font-family: system-ui, sans-serif; }
+h1 { text-align: center; margin: 40px 16px 4px; font-size: 26px; }
+.lede { text-align: center; margin: 0 16px; color: #4A5060; font-size: 15px; }
+main { display: flex; flex-wrap: wrap; gap: 48px; justify-content: center; padding: 36px 24px 56px; }
+.concept { width: 390px; max-width: 100%; }
+.concept h2 { margin: 0 0 4px; font-size: 20px; }
+.concept .pitch { margin: 0 0 16px; font-size: 14px; line-height: 1.45; color: #4A5060; min-height: 104px; }
+.phone { position: relative; width: 390px; height: 844px; border-radius: 30px; overflow: hidden; box-shadow: 0 14px 36px rgba(20, 24, 40, 0.22); box-sizing: border-box; }
+.phone * { box-sizing: border-box; }
+button { font-family: inherit; cursor: pointer; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+
+/* 1 — Pocket museum */
+.museum { background: #ECEDEF; color: #0E1430; font-family: 'Schibsted Grotesk', sans-serif; padding: 26px 22px 0; }
+.museum .top { display: flex; justify-content: space-between; align-items: center; font-size: 14px; color: #535A70; }
+.museum .round { width: 44px; height: 44px; border-radius: 22px; border: 1.5px solid #0E1430; background: transparent; color: #0E1430; display: flex; align-items: center; justify-content: center; padding: 0; }
+.museum h3 { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 58px; line-height: 0.92; margin: 14px 0 8px; letter-spacing: -0.5px; }
+.museum .sub { font-size: 15px; line-height: 1.4; color: #3D4459; margin: 0 0 14px; }
+.museum .rooms { display: flex; gap: 18px; border-bottom: 1px solid #C5C9D3; margin-bottom: 16px; }
+.museum .rooms button { border: 0; background: none; padding: 0 0 10px; font-size: 15px; color: #535A70; }
+.museum .rooms .on { color: #1B3FD1; font-weight: 600; box-shadow: inset 0 -2px 0 #1B3FD1; }
+.exhibit { position: relative; background: #1B3FD1; color: #FFFFFF; border-radius: 4px; padding: 18px 20px 20px; }
+.exhibit .no { font-family: 'Instrument Serif', serif; font-size: 44px; line-height: 1; }
+.exhibit .title { font-family: 'Instrument Serif', serif; font-size: 31px; line-height: 1.05; margin: 34px 0 10px; max-width: 250px; }
+.exhibit .label { font-size: 14px; line-height: 1.45; color: #D6DDFF; max-width: 260px; }
+.stamp { position: absolute; top: 18px; right: 18px; width: 82px; height: 82px; border-radius: 41px; border: 2px solid #FFFFFF; box-shadow: inset 0 0 0 4px #1B3FD1, inset 0 0 0 5.5px #FFFFFF; transform: rotate(-14deg); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; font-size: 11px; line-height: 1.25; }
+.stamp b { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 20px; }
+.placard { display: flex; gap: 16px; align-items: baseline; background: #FFFFFF; border-radius: 4px; padding: 14px 18px; margin-top: 10px; }
+.placard .no { font-family: 'Instrument Serif', serif; font-size: 30px; color: #1B3FD1; min-width: 44px; }
+.placard .t { font-size: 17px; font-weight: 600; line-height: 1.25; }
+.placard .c { font-size: 13px; color: #535A70; margin-top: 2px; }
+.museum .add { position: absolute; left: 22px; right: 22px; bottom: 26px; height: 56px; border: 0; border-radius: 4px; background: #0E1430; color: #FFFFFF; font-size: 16px; font-weight: 600; }
+
+/* 2 — Someday tickets */
+.someday { background: #F0EFF6; color: #1D1B2E; font-family: 'Hanken Grotesk', sans-serif; padding: 24px 20px 0; }
+.someday h3 { font-family: 'Big Shoulders Display', sans-serif; font-weight: 900; font-size: 78px; line-height: 0.85; margin: 6px 0 6px; letter-spacing: 0.5px; }
+.someday .tag { font-size: 18px; font-weight: 600; margin: 0; }
+.someday .count { font-size: 14px; color: #55526B; margin: 4px 0 16px; }
+.someday .quick { display: flex; gap: 8px; background: #FFFFFF; border-radius: 30px; padding: 6px 6px 6px 18px; align-items: center; margin-bottom: 18px; box-shadow: 0 1px 0 #DCDAE8; }
+.someday .quick input { flex: 1; min-width: 0; border: 0; outline: none; font: inherit; font-size: 16px; background: transparent; height: 40px; color: #1D1B2E; }
+.someday .quick button { height: 44px; padding: 0 18px; border-radius: 22px; border: 0; background: #1D1B2E; color: #FFFFFF; font-weight: 700; font-size: 15px; }
+.ticket { position: relative; display: flex; height: 124px; border-radius: 14px; margin-bottom: 12px; }
+.ticket .main { flex: 1; min-width: 0; padding: 14px 16px; display: flex; flex-direction: column; justify-content: space-between; }
+.ticket .kind { font-size: 13px; font-weight: 700; }
+.ticket .name { font-family: 'Big Shoulders Display', sans-serif; font-weight: 800; font-size: 31px; line-height: 0.95; }
+.ticket .where { font-size: 13px; font-weight: 500; }
+.ticket .stub { width: 74px; flex: none; border-left: 2.5px dotted rgba(29, 27, 46, 0.4); display: flex; align-items: center; justify-content: center; gap: 6px; writing-mode: vertical-rl; font-size: 12px; font-weight: 600; }
+.ticket .stub b { font-family: 'Big Shoulders Display', sans-serif; font-size: 22px; font-weight: 800; }
+.ticket .notch { position: absolute; right: 64px; width: 20px; height: 20px; border-radius: 10px; background: #F0EFF6; }
+.ticket .notch.t { top: -10px; } .ticket .notch.b { bottom: -10px; }
+.mint { background: #BDEBD3; } .peach { background: #FFC7A6; } .lilac { background: #D5C9FF; } .butter { background: #FFE37E; }
+.tilt { transform: rotate(-1.6deg); }
+
+/* 3 — Next stop */
+.metro { background: #FFFFFF; color: #16181D; font-family: 'Overpass', sans-serif; padding: 26px 20px 0; }
+.metro .top { display: flex; justify-content: space-between; align-items: flex-start; }
+.metro h3 { font-weight: 800; font-size: 42px; line-height: 1; margin: 0; letter-spacing: -0.5px; }
+.metro .sub { font-size: 15px; color: #4B505C; margin: 6px 0 16px; }
+.metro .round { width: 44px; height: 44px; border-radius: 22px; border: 0; background: #F0F1F3; color: #16181D; display: flex; align-items: center; justify-content: center; padding: 0; }
+.lines { display: flex; gap: 8px; align-items: center; margin-bottom: 18px; }
+.lines .all { height: 36px; padding: 0 14px; border-radius: 18px; border: 2px solid #16181D; background: #16181D; color: #FFFFFF; font-weight: 700; font-size: 14px; }
+.badge { width: 36px; height: 36px; border-radius: 8px; border: 0; color: #FFFFFF; font-weight: 800; font-size: 17px; display: flex; align-items: center; justify-content: center; padding: 0; }
+.stop { display: flex; gap: 14px; min-height: 104px; }
+.rail { position: relative; width: 28px; flex: none; }
+.rail .seg { position: absolute; left: 10px; top: 0; bottom: 0; width: 8px; }
+.rail .seg.first { top: 22px; } .rail .seg.last { bottom: calc(100% - 22px); }
+.rail .dot { position: absolute; left: 2px; top: 12px; width: 24px; height: 24px; border-radius: 12px; background: #FFFFFF; border: 5px solid; }
+.stop .body { flex: 1; min-width: 0; padding: 10px 0 16px; border-bottom: 1px solid #ECEDF0; }
+.stop .row { display: flex; align-items: center; gap: 8px; }
+.stop .mini { width: 24px; height: 24px; border-radius: 6px; color: #FFFFFF; font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+.stop .name { font-size: 19px; font-weight: 700; line-height: 1.2; }
+.stop .meta { display: flex; justify-content: space-between; font-size: 14px; color: #4B505C; margin-top: 4px; }
+.metro .add { position: absolute; right: 20px; bottom: 28px; height: 56px; padding: 0 22px; border: 0; border-radius: 28px; background: #16181D; color: #FFFFFF; font-size: 16px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+</style>
+</head>
+<body>
+<h1>Three brand concepts</h1>
+<p class="lede">Same app, three personalities. Each mockup is the collection screen.</p>
+<main>
+
+<section class="concept">
+  <h2>1. Pocket museum</h2>
+  <p class="pitch">Your private collection of things worth going out for. Categories are rooms, every idea gets an exhibit number, and a collector’s stamp marks new acquisitions. Cobalt #1B3FD1 on gallery grey #ECEDEF, ink #0E1430. Instrument Serif headlines, Schibsted Grotesk labels.</p>
+  <div class="phone museum">
+    <div class="top">
+      <span>Basem’s pocket museum</span>
+      <button class="round" aria-label="Account"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></button>
+    </div>
+    <h3>The Collection</h3>
+    <p class="sub">24 things worth going out for, newest acquisition first.</p>
+    <div class="rooms">
+      <button class="on">All rooms</button><button>Food</button><button>Places</button><button>Film</button><button>Books</button>
+    </div>
+    <div class="exhibit">
+      <div class="no">No. 024</div>
+      <div class="stamp"><span>Collected</span><b>14 Oct</b><span>2026</span></div>
+      <div class="title">Ramen place in Kreuzberg</div>
+      <div class="label">Food room. Berlin. Rich tonkotsu broth; go early, there are no reservations.</div>
+    </div>
+    <div class="placard"><span class="no">023</span><div><div class="t">Hike around the Schliersee</div><div class="c">Outdoors room, Bavaria</div></div></div>
+    <div class="placard"><span class="no">022</span><div><div class="t">Watch Dune: Part Two</div><div class="c">Film room</div></div></div>
+    <div class="placard"><span class="no">021</span><div><div class="t">Long weekend in Lisbon</div><div class="c">Travel room, Portugal</div></div></div>
+    <button class="add">Add to the collection</button>
+  </div>
+</section>
+
+<section class="concept">
+  <h2>2. Someday</h2>
+  <p class="pitch">Perforated keepsakes for future experiences. Every idea is a ticket with a serial number; the ticket stock is colored by kind. The voice is light: “Ideas, not obligations.” Pastel stock on lavender grey #F0EFF6, ink #1D1B2E. Big Shoulders Display + Hanken Grotesk.</p>
+  <div class="phone someday">
+    <h3>Someday</h3>
+    <p class="tag">Ideas, not obligations.</p>
+    <p class="count">37 tickets in your pocket</p>
+    <label class="sr" for="sd-quick">New ticket</label>
+    <div class="quick"><input id="sd-quick" placeholder="Write a ticket for someday…"><button>Add</button></div>
+    <div class="ticket peach tilt">
+      <div class="main"><span class="kind">Food</span><span class="name">Ramen place in Kreuzberg</span><span class="where">Berlin</span></div>
+      <div class="stub"><b>№ 0037</b><span>admit one, someday</span></div>
+      <span class="notch t"></span><span class="notch b"></span>
+    </div>
+    <div class="ticket mint">
+      <div class="main"><span class="kind">Outdoors</span><span class="name">Hike around the Schliersee</span><span class="where">Bavaria</span></div>
+      <div class="stub"><b>№ 0036</b><span>admit one, someday</span></div>
+      <span class="notch t"></span><span class="notch b"></span>
+    </div>
+    <div class="ticket lilac">
+      <div class="main"><span class="kind">Film</span><span class="name">Dune: Part Two</span><span class="where">Any cinema with a big screen</span></div>
+      <div class="stub"><b>№ 0035</b><span>admit one, someday</span></div>
+      <span class="notch t"></span><span class="notch b"></span>
+    </div>
+    <div class="ticket butter">
+      <div class="main"><span class="kind">Trip</span><span class="name">Long weekend in Lisbon</span><span class="where">Portugal</span></div>
+      <div class="stub"><b>№ 0034</b><span>admit one, someday</span></div>
+      <span class="notch t"></span><span class="notch b"></span>
+    </div>
+  </div>
+</section>
+
+<section class="concept">
+  <h2>3. Next stop</h2>
+  <p class="pitch">Your ideas as a transit map. Each kind of idea is a line with its own color and letter badge, every idea is a stop you haven’t visited yet, and the filter is the line legend. Bold signage type (Overpass) on white, line colors orange #E8590C, blue #1E64C8, magenta #B4176E, green #198754.</p>
+  <div class="phone metro">
+    <div class="top">
+      <div>
+        <h3>Next stops</h3>
+        <p class="sub">Places to go and things to try</p>
+      </div>
+      <button class="round" aria-label="Account"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></button>
+    </div>
+    <div class="lines">
+      <button class="all">All lines</button>
+      <button class="badge" style="background:#E8590C" aria-label="Food line">F</button>
+      <button class="badge" style="background:#1E64C8" aria-label="Trips line">T</button>
+      <button class="badge" style="background:#B4176E" aria-label="Film line">M</button>
+      <button class="badge" style="background:#198754" aria-label="Outdoors line">O</button>
+      <button class="badge" style="background:#6F42C1" aria-label="Books line">B</button>
+    </div>
+    <div class="stop">
+      <div class="rail"><span class="seg first" style="background:#E8590C"></span><span class="dot" style="border-color:#E8590C"></span></div>
+      <div class="body"><div class="row"><span class="mini" style="background:#E8590C">F</span><span class="name">Ramen place in Kreuzberg</span></div><div class="meta"><span>Berlin, Kreuzberg</span><span>3 days ago</span></div></div>
+    </div>
+    <div class="stop">
+      <div class="rail"><span class="seg" style="background:#198754"></span><span class="dot" style="border-color:#198754"></span></div>
+      <div class="body"><div class="row"><span class="mini" style="background:#198754">O</span><span class="name">Hike around the Schliersee</span></div><div class="meta"><span>Bavaria</span><span>last week</span></div></div>
+    </div>
+    <div class="stop">
+      <div class="rail"><span class="seg" style="background:#B4176E"></span><span class="dot" style="border-color:#B4176E"></span></div>
+      <div class="body"><div class="row"><span class="mini" style="background:#B4176E">M</span><span class="name">Watch Dune: Part Two</span></div><div class="meta"><span>Any big screen</span><span>today</span></div></div>
+    </div>
+    <div class="stop">
+      <div class="rail"><span class="seg" style="background:#1E64C8"></span><span class="dot" style="border-color:#1E64C8"></span></div>
+      <div class="body"><div class="row"><span class="mini" style="background:#1E64C8">T</span><span class="name">Long weekend in Lisbon</span></div><div class="meta"><span>Portugal</span><span>2 weeks ago</span></div></div>
+    </div>
+    <div class="stop">
+      <div class="rail"><span class="seg last" style="background:#6F42C1"></span><span class="dot" style="border-color:#6F42C1"></span></div>
+      <div class="body" style="border-bottom:0"><div class="row"><span class="mini" style="background:#6F42C1">B</span><span class="name">Read “Tomorrow, and Tomorrow, and Tomorrow”</span></div><div class="meta"><span>Recommended by Lena</span><span>2 weeks ago</span></div></div>
+    </div>
+    <button class="add"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg>Add a stop</button>
+  </div>
+</section>
+
+</main>
+</body>
+</html>

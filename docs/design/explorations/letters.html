@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Letters from your memory</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&amp;family=Figtree:wght@400;500;600;700&amp;family=Kalam:wght@400;700&amp;display=swap">
+<style>
+body { margin: 0; background: #D6D3DF; color: #2A2440; font-family: 'Figtree', system-ui, sans-serif; }
+h1 { text-align: center; margin: 40px 16px 4px; font-size: 26px; font-family: 'Young Serif', serif; font-weight: 400; }
+.lede { text-align: center; margin: 0 auto; max-width: 780px; padding: 0 16px; color: #4B4562; font-size: 15px; line-height: 1.45; }
+main { display: flex; flex-wrap: wrap; gap: 48px; justify-content: center; padding: 36px 24px 56px; }
+.screen { width: 390px; max-width: 100%; }
+.screen h2 { margin: 0 0 4px; font-size: 18px; }
+.screen .pitch { margin: 0 0 16px; font-size: 14px; line-height: 1.45; color: #4B4562; min-height: 82px; }
+.phone { box-sizing: border-box; position: relative; width: 390px; height: 844px; border-radius: 30px; overflow: hidden; box-shadow: 0 14px 36px rgba(42, 36, 64, 0.25); }
+.phone * { box-sizing: border-box; }
+button { font-family: inherit; cursor: pointer; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.hand { font-family: 'Kalam', cursive; }
+
+/* Evening: deep dusk, warm paper */
+.dusk { background: #3A3157; color: #F6F0E6; padding: 26px 22px 0; }
+.dusk .top { display: flex; justify-content: space-between; align-items: center; font-size: 14px; color: #CFC6E8; font-weight: 600; }
+.round { width: 44px; height: 44px; border-radius: 22px; border: 1.5px solid #6A5F92; background: transparent; color: #F6F0E6; display: flex; align-items: center; justify-content: center; padding: 0; }
+.dusk h3 { font-family: 'Young Serif', serif; font-weight: 400; font-size: 34px; line-height: 1.08; margin: 18px 0 8px; }
+.dusk .sub { font-size: 15px; line-height: 1.45; color: #D8D0EE; margin: 0 0 22px; }
+.moon { position: absolute; right: 26px; top: 86px; }
+.env { position: relative; height: 120px; border-radius: 10px; margin-bottom: 14px; color: #2A2440; overflow: hidden; box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25); }
+.env svg.flap { position: absolute; left: 0; top: 0; }
+.env .to { position: absolute; left: 18px; bottom: 14px; font-family: 'Kalam', cursive; font-size: 19px; line-height: 1.2; }
+.env .stamp { position: absolute; right: 14px; top: 12px; width: 40px; height: 46px; border: 2px dashed rgba(42, 36, 64, 0.35); border-radius: 3px; display: flex; align-items: center; justify-content: center; background: rgba(255, 255, 255, 0.5); }
+.env .seal { position: absolute; left: 50%; top: 40px; width: 34px; height: 34px; margin-left: -17px; border-radius: 17px; background: #C2410C; box-shadow: inset 0 0 0 3px #9A3412; }
+.peach { background: #FFD9C7; } .mint { background: #CDEBDD; } .butter { background: #FCE7A8; }
+.env.opened { opacity: 0.55; }
+.streak { display: flex; align-items: center; gap: 10px; margin-top: 6px; font-size: 14px; color: #D8D0EE; }
+.streak .dots { display: flex; gap: 5px; }
+.streak .dots span { width: 10px; height: 10px; border-radius: 5px; background: #6A5F92; }
+.streak .dots span.on { background: #FCE7A8; }
+.write { position: absolute; left: 18px; right: 18px; bottom: 18px; display: flex; gap: 8px; align-items: center; background: #F6F0E6; border-radius: 20px; padding: 8px 8px 8px 18px; }
+.write input { flex: 1; min-width: 0; border: 0; outline: none; background: transparent; color: #2A2440; font-family: 'Kalam', cursive; font-size: 19px; height: 40px; }
+.write button { width: 44px; height: 44px; border-radius: 14px; border: 0; background: #3A3157; color: #F6F0E6; display: flex; align-items: center; justify-content: center; padding: 0; }
+
+/* The letter */
+.desk { background: #3A3157; padding: 22px 18px 0; }
+.desk .top { display: flex; justify-content: space-between; align-items: center; color: #CFC6E8; font-size: 14px; font-weight: 600; }
+.letter { position: relative; margin-top: 16px; background: #FBF7EF; color: #2A2440; border-radius: 6px; padding: 26px 24px 22px; min-height: 560px; box-shadow: 0 14px 30px rgba(0, 0, 0, 0.3); background-image: repeating-linear-gradient(transparent 0 33px, #EEE6D6 33px 34px); background-position: 0 92px; }
+.letter .date { font-size: 13px; color: #6B6386; font-weight: 600; }
+.letter .dear { font-family: 'Young Serif', serif; font-size: 24px; margin: 10px 0 10px; }
+.letter p { font-family: 'Young Serif', serif; font-size: 17px; line-height: 34px; margin: 0; }
+.letter .quote { font-family: 'Kalam', cursive; font-size: 21px; line-height: 34px; color: #7A2E0E; }
+.letter .sign { font-family: 'Kalam', cursive; font-size: 20px; margin-top: 10px; color: #4B4562; }
+.letter .from { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: #6B6386; margin-top: 6px; }
+.who { width: 22px; height: 22px; border-radius: 11px; color: #FFFFFF; font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; background: #C2410C; }
+.reply { position: absolute; left: 18px; right: 18px; bottom: 18px; display: flex; gap: 8px; }
+.reply .yes { flex: 1; height: 54px; border: 0; border-radius: 27px; background: #FCE7A8; color: #2A2440; font-size: 16px; font-weight: 700; }
+.reply .no { height: 54px; padding: 0 16px; border: 1.5px solid #6A5F92; border-radius: 27px; background: transparent; color: #F6F0E6; font-size: 15px; font-weight: 600; }
+
+/* Check-in */
+.check { background: #F6F0E6; color: #2A2440; padding: 26px 22px 0; }
+.check .top { display: flex; justify-content: space-between; align-items: center; font-size: 14px; color: #6B6386; font-weight: 600; }
+.check .roundl { width: 44px; height: 44px; border-radius: 22px; border: 1.5px solid #D9CFE9; background: #FFFFFF; color: #2A2440; display: flex; align-items: center; justify-content: center; padding: 0; }
+.check h3 { font-family: 'Young Serif', serif; font-weight: 400; font-size: 32px; line-height: 1.1; margin: 18px 0 18px; }
+.moods { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.mood { height: 104px; border-radius: 18px; border: 1.5px solid #E4DCEF; background: #FFFFFF; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; font-size: 14px; font-weight: 600; color: #2A2440; }
+.mood.on { background: #3A3157; border-color: #3A3157; color: #F6F0E6; }
+.mood .face { width: 40px; height: 40px; }
+.check .q { font-family: 'Young Serif', serif; font-size: 20px; margin: 24px 0 10px; }
+.times { display: flex; gap: 8px; flex-wrap: wrap; }
+.pill { height: 40px; padding: 0 16px; border-radius: 20px; border: 1.5px solid #E4DCEF; background: #FFFFFF; font-size: 14px; font-weight: 600; color: #2A2440; }
+.pill.on { background: #3A3157; border-color: #3A3157; color: #F6F0E6; }
+.check .note { margin-top: 24px; background: #FFFFFF; border-radius: 16px; padding: 14px 16px; font-size: 14px; line-height: 1.45; color: #4B4562; }
+.check .note b { color: #2A2440; }
+.go { position: absolute; left: 22px; right: 22px; bottom: 22px; height: 56px; border: 0; border-radius: 28px; background: #3A3157; color: #F6F0E6; font-size: 17px; font-weight: 700; }
+</style>
+</head>
+<body>
+<h1>Letters from your memory</h1>
+<p class="lede">Inspired by Sincerely’s evening letter ritual, made private: nobody else writes to you, your own memory does. Every evening it sends you three letters about things you once wanted to do, quoting your own words and who told you.</p>
+<main>
+
+<section class="screen">
+  <h2>1. Tonight’s letters</h2>
+  <p class="pitch">At 8 pm (or when you choose), three envelopes arrive, each picked for the coming days: something for tonight, the weekend, someday. Open them like post. A small row of dots shows the evenings you opened your letters.</p>
+  <div class="phone dusk">
+    <div class="top"><span>Thursday, 20:00</span><button class="round" aria-label="Everything you remember"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg></button></div>
+    <svg class="moon" width="54" height="54" viewBox="0 0 54 54" aria-hidden="true"><circle cx="27" cy="27" r="20" fill="#FCE7A8"/><circle cx="36" cy="20" r="18" fill="#3A3157"/></svg>
+    <h3>Your memory<br>wrote to you</h3>
+    <p class="sub">Three letters tonight, about things you once wanted to do.</p>
+    <div class="env peach">
+      <svg class="flap" width="346" height="60" viewBox="0 0 346 60" aria-hidden="true"><path d="M0 0 L173 56 L346 0 Z" fill="rgba(42,36,64,0.08)"/></svg>
+      <span class="seal"></span>
+      <div class="stamp"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2A2440" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20l6-10 4 6 3-4 5 8z"/></svg></div>
+      <div class="to">For this weekend</div>
+    </div>
+    <div class="env mint">
+      <svg class="flap" width="346" height="60" viewBox="0 0 346 60" aria-hidden="true"><path d="M0 0 L173 56 L346 0 Z" fill="rgba(42,36,64,0.08)"/></svg>
+      <span class="seal" style="background:#4D7C5F;box-shadow:inset 0 0 0 3px #3A604A"></span>
+      <div class="stamp"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2A2440" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 5v14M17 5v14"/></svg></div>
+      <div class="to">For a quiet evening</div>
+    </div>
+    <div class="env butter opened">
+      <svg class="flap" width="346" height="60" viewBox="0 0 346 60" aria-hidden="true"><path d="M0 60 L173 4 L346 60" fill="none" stroke="rgba(42,36,64,0.25)" stroke-width="1.5"/></svg>
+      <div class="stamp"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2A2440" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 16l20-8-6 12-3-5z"/></svg></div>
+      <div class="to">Someday (opened)</div>
+    </div>
+    <div class="streak"><div class="dots"><span class="on"></span><span class="on"></span><span></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span></div>5 evenings with your letters this week</div>
+    <label class="sr" for="write-1">Write to your memory</label>
+    <div class="write"><input id="write-1" placeholder="Tell your memory something…"><button aria-label="Remember"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button></div>
+  </div>
+</section>
+
+<section class="screen">
+  <h2>2. An opened letter</h2>
+  <p class="pitch">Your memory writes like a friend who kept your notes: what it is, your own words from back then (handwritten), who told you, and why now. Reply with “Plan it”, “Not now” or let it go for good.</p>
+  <div class="phone desk">
+    <div class="top"><button class="round" aria-label="Back to tonight’s letters"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button><span>1 of 3</span></div>
+    <div class="letter">
+      <div class="date">Thursday evening</div>
+      <div class="dear">Dear Basem,</div>
+      <p>this weekend looks grey, so I thought of the pottery class in Neukölln. In August you wrote to me:</p>
+      <p class="quote">“Lena says the Sunday drop-in is great, try it when it’s grey outside.”</p>
+      <p>It’s on Sundays from 2 to 5 pm, 25 minutes from you. You’ve been carrying this one for nine weeks.</p>
+      <div class="sign">Yours, your memory</div>
+      <div class="from"><span class="who">L</span>Originally Lena’s tip</div>
+    </div>
+    <div class="reply"><button class="yes">Plan it for Sunday</button><button class="no">Not now</button><button class="no" aria-label="Let it go">Let go</button></div>
+  </div>
+</section>
+
+<section class="screen">
+  <h2>3. A small check-in</h2>
+  <p class="pitch">Instead of a mood diary, one question when you open the app with nothing to do: how do you feel, and how much time is there? Your memory answers with one letter right away.</p>
+  <div class="phone check">
+    <div class="top"><button class="roundl" aria-label="Close"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button><span>Saturday, 14:10</span></div>
+    <h3>Nothing planned?<br>How do you feel?</h3>
+    <div class="moods" role="group" aria-label="How you feel">
+      <button class="mood"><svg class="face" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="17" fill="#CDEBDD"/><path d="M13 23q7 5 14 0" fill="none" stroke="#2A2440" stroke-width="2" stroke-linecap="round"/><circle cx="14.5" cy="16" r="1.8" fill="#2A2440"/><circle cx="25.5" cy="16" r="1.8" fill="#2A2440"/></svg>Restless</button>
+      <button class="mood on"><svg class="face" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="17" fill="#FCE7A8"/><path d="M14 24h12" fill="none" stroke="#2A2440" stroke-width="2" stroke-linecap="round"/><path d="M12 17q2.5-2 5 0M23 17q2.5-2 5 0" fill="none" stroke="#2A2440" stroke-width="2" stroke-linecap="round"/></svg>Slow</button>
+      <button class="mood"><svg class="face" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="17" fill="#FFD9C7"/><path d="M13 22q7 7 14 0" fill="#2A2440"/><circle cx="14.5" cy="15" r="1.8" fill="#2A2440"/><circle cx="25.5" cy="15" r="1.8" fill="#2A2440"/></svg>Up for anything</button>
+      <button class="mood"><svg class="face" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="17" fill="#E4DCEF"/><path d="M14 25q6-4 12 0" fill="none" stroke="#2A2440" stroke-width="2" stroke-linecap="round"/><circle cx="14.5" cy="16" r="1.8" fill="#2A2440"/><circle cx="25.5" cy="16" r="1.8" fill="#2A2440"/></svg>A bit low</button>
+      <button class="mood"><svg class="face" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="17" fill="#CDEBDD"/><circle cx="14" cy="17" r="5" fill="none" stroke="#2A2440" stroke-width="2"/><circle cx="26" cy="17" r="5" fill="none" stroke="#2A2440" stroke-width="2"/><path d="M15 27h10" stroke="#2A2440" stroke-width="2" stroke-linecap="round"/></svg>Curious</button>
+      <button class="mood"><svg class="face" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="17" fill="#FFD9C7"/><path d="M12 22q8 9 16 0" fill="none" stroke="#2A2440" stroke-width="2" stroke-linecap="round"/><path d="M12 15q3-3 5 0M23 15q3-3 5 0" fill="none" stroke="#2A2440" stroke-width="2" stroke-linecap="round"/></svg>Social</button>
+    </div>
+    <div class="q">How much time?</div>
+    <div class="times"><button class="pill">An hour</button><button class="pill on">The afternoon</button><button class="pill">All day</button><button class="pill">A few days</button></div>
+    <div class="note"><b>No ideas need to come out of this.</b> If nothing fits, your memory just says so, and that’s fine too.</div>
+    <button class="go">Write me a letter</button>
+  </div>
+</section>
+
+</main>
+</body>
+</html>

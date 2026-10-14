@@ -1,0 +1,244 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap">
+<style>
+#oh-preview .stage{padding:18px 8px;display:flex;justify-content:center}
+#oh-preview .phone{--oh-bg:light-dark(#f5f2e7,#24241f);--oh-ink:light-dark(#292c27,#f3f0e4);--oh-muted:light-dark(#747567,#b7b8a6);--oh-paper:light-dark(#fffef8,#32332b);--oh-line:light-dark(#e0dfd1,#4c4e41);--oh-orange:light-dark(#be481b,#ffb185);--oh-onorange:light-dark(#fffdf5,#45200e);--oh-soft:light-dark(#f9e3c6,#4f3b26);--oh-purple:light-dark(#615092,#c5b8f0);--oh-lilac:light-dark(#e7dff5,#454053);--oh-green:light-dark(#dfe9d6,#364734);width:100%;max-width:410px;min-height:790px;box-sizing:border-box;border:1px solid var(--oh-line);border-radius:28px;background:var(--oh-bg);color:var(--oh-ink);font:400 14px/1.45 ui-rounded,'SF Pro Rounded',system-ui,sans-serif;padding:20px 20px 0;display:flex;flex-direction:column;position:relative;overflow:hidden}
+#oh-preview .phone *{box-sizing:border-box}
+#oh-preview .phone button{font:inherit;color:inherit;min-height:44px}
+#oh-preview .phone button:focus-visible,#oh-preview .phone input:focus-visible,#oh-preview .phone textarea:focus-visible{outline:2px solid var(--oh-purple);outline-offset:3px}
+#oh-preview .phone .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:25px;gap:12px}
+#oh-preview .phone .logo{font:800 34px/.9 ui-rounded,system-ui,sans-serif;letter-spacing:-2.8px;color:var(--oh-orange);transform:rotate(-5deg)}
+#oh-preview .phone .logo small{font-size:11px;font-weight:400;letter-spacing:0;display:block;color:var(--oh-muted);transform:rotate(5deg);margin-top:7px}
+#oh-preview .phone .remember{border:1px solid var(--oh-line);background:var(--oh-paper);border-radius:30px;padding:9px 13px;display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600}
+#oh-preview .phone .main{flex:1;min-width:0}
+#oh-preview .phone .view[hidden],#oh-preview .phone .source[hidden]{display:none}
+#oh-preview .phone h2{font:650 26px/1.16 ui-rounded,system-ui,sans-serif;letter-spacing:-.8px;color:var(--oh-ink);margin:0}
+#oh-preview .phone p{margin:0}
+#oh-preview .phone .greeting{display:grid;grid-template-columns:1fr 82px;gap:10px;align-items:center;margin-bottom:20px}
+#oh-preview .phone .greeting h2 span{position:relative;display:inline-block}
+#oh-preview .phone .greeting h2 span:after{content:'';position:absolute;left:0;bottom:-5px;width:100%;height:7px;border-top:3px solid var(--oh-orange);border-radius:50%;transform:rotate(-2deg)}
+#oh-preview .phone .greeting p{font-size:12px;color:var(--oh-muted);margin-top:15px;max-width:220px;line-height:1.5}
+#oh-preview .phone .companion{width:78px;height:78px;position:relative;transform:rotate(8deg);margin-top:8px}
+#oh-preview .phone .companion .loop{position:absolute;border:2.5px solid var(--oh-purple);background:var(--oh-lilac);border-radius:48% 52% 57% 43%;width:49px;height:62px;left:4px;top:3px;transform:rotate(-33deg)}
+#oh-preview .phone .companion .loop:nth-child(2){left:24px;top:6px;transform:rotate(34deg)}
+#oh-preview .phone .companion .face{position:absolute;width:37px;height:34px;left:22px;top:23px;border-radius:50%;background:var(--oh-lilac);display:flex;justify-content:center;gap:8px;align-items:center}
+#oh-preview .phone .companion .eye{width:4px;height:7px;border-radius:50%;background:var(--oh-purple)}
+#oh-preview .phone .companion .face:after{content:'';position:absolute;bottom:2px;left:15px;width:9px;height:5px;border-bottom:2px solid var(--oh-purple);border-radius:50%}
+#oh-preview .phone .companion:after{content:'✦';position:absolute;top:-12px;right:0;color:var(--oh-orange);font-size:20px}
+#oh-preview .phone .moods{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:24px}
+#oh-preview .phone .moods button{border:1px solid var(--oh-line);border-radius:13px;background:var(--oh-paper);padding:12px 10px;text-align:left;display:flex;align-items:center;gap:8px;font-size:12px}
+#oh-preview .phone .moods button[aria-pressed=true]{border-color:var(--oh-purple);color:var(--oh-purple);background:var(--oh-lilac)}
+#oh-preview .phone .section-title{font-size:12px;font-weight:600;color:var(--oh-muted);margin-bottom:11px;display:flex;align-items:center;gap:7px}
+#oh-preview .phone .suggestion{background:var(--oh-paper);border:1px solid var(--oh-line);border-radius:22px;padding:19px;position:relative}
+#oh-preview .phone .suggestion:before{content:'';position:absolute;top:-6px;right:30px;width:45px;height:10px;border-radius:2px;transform:rotate(5deg);background:var(--oh-soft)}
+#oh-preview .phone .idea-head{display:flex;gap:13px;align-items:center;margin-bottom:17px}
+#oh-preview .phone .idea-symbol{flex-shrink:0;width:51px;height:58px;border-radius:46% 54% 42% 58%;background:var(--oh-soft);color:var(--oh-orange);display:grid;place-items:center;transform:rotate(-6deg)}
+#oh-preview .phone .idea-symbol svg{width:27px;height:27px;stroke-width:1.7}
+#oh-preview .phone .idea-kind{font-size:10px;color:var(--oh-muted);letter-spacing:.3px;margin-bottom:5px}
+#oh-preview .phone .idea-title{font:650 19px/1.18 ui-rounded,system-ui,sans-serif;letter-spacing:-.45px;margin:0;color:var(--oh-ink)}
+#oh-preview .phone .reason{font-size:13px;line-height:1.6;color:var(--oh-muted)}
+#oh-preview .phone .quote{margin:15px 0;border-left:2px solid var(--oh-purple);padding-left:11px;font-size:13px;line-height:1.55;color:var(--oh-purple)}
+#oh-preview .phone .quote small{display:block;font:400 10px/1.5 ui-rounded,system-ui,sans-serif;color:var(--oh-muted);margin-top:5px}
+#oh-preview .phone .primary{background:var(--oh-orange);color:var(--oh-onorange);border:0;padding:13px 15px;border-radius:12px;font-weight:600;font-size:13px;display:flex;align-items:center;justify-content:center;gap:8px}
+#oh-preview .phone .suggestion .primary{width:100%}
+#oh-preview .phone .another{display:flex;justify-content:center;margin:10px 0 14px}
+#oh-preview .phone .text-action{background:transparent;border:0;color:var(--oh-purple);font-size:12px;padding:9px 5px;display:flex;gap:7px;align-items:center}
+#oh-preview .phone .future-peek{display:flex;align-items:center;gap:11px;border:0;background:var(--oh-green);border-radius:13px;padding:12px;width:100%;text-align:left;font-size:12px;margin-bottom:16px}
+#oh-preview .phone .future-peek span{flex:1}#oh-preview .phone .future-peek small{display:block;font-size:10px}
+#oh-preview .phone nav{display:flex;gap:4px;justify-content:space-around;border-top:1px solid var(--oh-line);padding:11px 0 14px;margin-top:14px;background:var(--oh-bg)}
+#oh-preview .phone nav button{border:0;background:transparent;flex:1;display:flex;align-items:center;flex-direction:column;gap:4px;font-size:10px;color:var(--oh-muted);padding:4px}
+#oh-preview .phone nav button[aria-pressed=true]{color:var(--oh-orange);font-weight:600}
+#oh-preview .phone nav button[aria-pressed=true] svg{background:var(--oh-soft);box-shadow:0 0 0 7px var(--oh-soft);border-radius:6px;margin-bottom:3px}
+#oh-preview .phone .sub{font-size:13px;color:var(--oh-muted);line-height:1.55;margin:12px 0 23px}
+#oh-preview .phone .saved-list{display:grid;gap:11px}
+#oh-preview .phone .saved-item{display:flex;gap:13px;align-items:center;width:100%;border:1px solid var(--oh-line);background:var(--oh-paper);border-radius:16px;padding:15px;text-align:left}
+#oh-preview .phone .saved-item span{flex:1;min-width:0}
+#oh-preview .phone .saved-item strong{display:block;font-size:14px;font-weight:600}
+#oh-preview .phone .saved-item small{display:block;font-size:11px;color:var(--oh-muted);margin-top:5px}
+#oh-preview .phone .saved-item>svg{color:var(--oh-purple);flex-shrink:0}
+#oh-preview .phone .toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+#oh-preview .phone .detail h2{font-size:28px;line-height:1.15;margin:13px 0 18px}
+#oh-preview .phone .detail .body-note{font-size:15px;line-height:1.7;white-space:pre-line;margin:12px 0 24px}
+#oh-preview .phone .detail .detail-reason{background:var(--oh-lilac);color:var(--oh-purple);border-radius:15px;padding:15px;font-size:13px;line-height:1.6;margin-bottom:20px}
+#oh-preview .phone .source{padding:16px;border:1px solid var(--oh-line);background:var(--oh-paper);border-radius:12px;font-size:13px;line-height:1.65;white-space:pre-line;margin-bottom:22px}
+#oh-preview .phone .source-label{font-size:10px;color:var(--oh-muted);margin-bottom:8px;display:block}
+#oh-preview .phone .detail .primary{width:100%;margin-top:17px}
+#oh-preview .phone .capture label{font-size:12px;display:block;margin:20px 0 8px;color:var(--oh-muted)}
+#oh-preview .phone input,#oh-preview .phone textarea{font:400 16px/1.5 ui-rounded,system-ui,sans-serif;display:block;width:100%;min-width:0;border:1px solid var(--oh-line);background:var(--oh-paper);color:var(--oh-ink);padding:13px;border-radius:12px}
+#oh-preview .phone textarea{min-height:145px;resize:vertical}
+#oh-preview .phone input::placeholder,#oh-preview .phone textarea::placeholder{color:var(--oh-muted);opacity:1}
+#oh-preview .phone .capture .primary{width:100%;margin-top:25px}
+#oh-preview .phone .feedback{font-size:12px;color:var(--oh-purple);margin:15px 0;min-height:18px}
+#oh-preview .phone .future-empty{background:var(--oh-green);padding:23px;border-radius:25px;font-size:15px;line-height:1.6;transform:rotate(-1deg);margin-top:28px}
+#oh-preview .phone .future-empty strong{font-size:20px;font-weight:600;display:block;margin:10px 0}
+@media(max-width:360px){#oh-preview .stage{padding:8px 0}#oh-preview .phone{padding:18px 15px 0;border-radius:20px}#oh-preview .phone h2{font-size:24px}#oh-preview .phone .greeting{grid-template-columns:1fr 68px}#oh-preview .phone .companion{transform:scale(.84) rotate(8deg);transform-origin:right center}#oh-preview .phone .moods button{padding:10px 8px;font-size:11px}#oh-preview .phone .suggestion{padding:16px}}
+#oh-preview .phone{--oh-bg:light-dark(#f5f1e3,#292820);--oh-ink:light-dark(#24251e,#f7f1de);--oh-muted:light-dark(#68695b,#c2bda9);--oh-paper:light-dark(#fffefa,#36352d);--oh-line:light-dark(#e0ddcc,#555243);--oh-orange:light-dark(#f57908,#ffad59);--oh-onorange:light-dark(#242117,#30200d);--oh-soft:light-dark(#ffead1,#51402b);--oh-purple:light-dark(#7560c0,#c1acef);--oh-lilac:light-dark(#f0ebfa,#443c54);--oh-green:light-dark(#eee8d7,#38392d);font-family:'Nunito',ui-rounded,system-ui,sans-serif;padding:23px 23px 0;border-radius:32px;min-height:810px}
+#oh-preview .phone .top{margin-bottom:12px}
+#oh-preview .phone .logo{font:900 33px/1 'Nunito',ui-rounded,system-ui,sans-serif;letter-spacing:-1.8px;color:var(--oh-ink);transform:rotate(-6deg)}
+#oh-preview .phone .logo small{font-size:11px;letter-spacing:.1px;font-weight:600}
+#oh-preview .phone .remember{border:0;background:var(--oh-paper);font-size:12px;padding:10px 14px}
+#oh-preview .phone h2{font-family:'Nunito',ui-rounded,system-ui,sans-serif;font-weight:900;letter-spacing:-1.1px;color:var(--oh-orange)}
+#oh-preview .phone .greeting{position:relative;display:block;text-align:center;margin:27px 0 24px;padding:0 14px}
+#oh-preview .phone .greeting h2{font-size:35px;line-height:1.12}
+#oh-preview .phone .greeting p{max-width:265px;margin:19px auto 0;font-size:13px;line-height:1.5}
+#oh-preview .phone .greeting h2 span:after{bottom:-7px;height:6px;border-top-width:3px;border-bottom:2px solid var(--oh-orange);transform:rotate(-3deg);width:96%;left:3%}
+#oh-preview .phone .companion{position:absolute;right:-11px;top:39px;width:26px;height:26px;transform:rotate(13deg);margin:0}
+#oh-preview .phone .companion .loop{width:24px;height:27px;left:0;top:0;border:3px solid var(--oh-purple);background:transparent;transform:rotate(-25deg);border-radius:47% 50% 42% 59%}
+#oh-preview .phone .companion .loop:nth-child(2){width:13px;height:15px;left:6px;top:6px;transform:rotate(-25deg);border-bottom-color:transparent}
+#oh-preview .phone .companion .face{display:none}
+#oh-preview .phone .companion:after{content:'✧';font-size:31px;font-weight:800;right:326px;top:1px;color:var(--oh-orange)}
+#oh-preview .phone .moods{display:flex;flex-wrap:wrap;justify-content:center;gap:7px;margin:0 0 25px}
+#oh-preview .phone .moods button{justify-content:center;border:1px solid var(--oh-line);border-radius:24px;font-size:12px;padding:9px 13px;min-height:39px;background:transparent;font-weight:700}
+#oh-preview .phone .moods button[aria-pressed=true]{background:var(--oh-soft);border-color:var(--oh-orange);color:var(--oh-ink)}
+#oh-preview .phone .section-title{font:700 13px/1.3 'Nunito',sans-serif;color:var(--oh-ink);gap:8px;margin:0 0 13px 4px}
+#oh-preview .phone .section-title svg{color:var(--oh-orange);transform:rotate(-9deg)}
+#oh-preview .phone .suggestion{border:0;border-radius:23px 26px 21px 25px;padding:22px 21px 19px;box-shadow:0 5px 0 -1px var(--oh-line)}
+#oh-preview .phone .suggestion:before{content:'a note from past you';font:700 11px/1 'Nunito',sans-serif;top:-9px;right:17px;width:auto;height:auto;padding:6px 10px;background:var(--oh-soft);color:var(--oh-ink);transform:rotate(4deg)}
+#oh-preview .phone .idea-head{gap:12px;margin:4px 0 13px}
+#oh-preview .phone .idea-symbol{background:transparent;border:2px solid var(--oh-ink);border-radius:42% 51% 46% 42%;width:48px;height:51px;color:var(--oh-ink);transform:rotate(-9deg)}
+#oh-preview .phone .idea-symbol svg{stroke-width:1.9;color:var(--oh-orange);width:28px;height:28px}
+#oh-preview .phone .idea-kind{font-size:11px;font-weight:600}
+#oh-preview .phone .idea-title{font:900 22px/1.15 'Nunito',sans-serif;letter-spacing:-.5px}
+#oh-preview .phone .reason{font-size:13px;line-height:1.6}
+#oh-preview .phone .quote{padding:12px 0 12px 13px;border-left:3px solid var(--oh-purple);font:700 15px/1.5 'Nunito',sans-serif;margin:16px 0 19px;color:var(--oh-ink)}
+#oh-preview .phone .quote small{font:600 11px/1.4 'Nunito',sans-serif;color:var(--oh-muted)}
+#oh-preview .phone .primary{border-radius:26px;font:800 14px/1.4 'Nunito',sans-serif;padding:14px 16px}
+#oh-preview .phone .another{margin:10px 0 12px}
+#oh-preview .phone .text-action{font:700 13px/1.4 'Nunito',sans-serif;color:var(--oh-ink)}
+#oh-preview .phone .another .text-action{color:var(--oh-muted)}
+#oh-preview .phone .future-peek{background:transparent;border:1px dashed var(--oh-line);border-radius:16px;padding:13px 12px;font-weight:800;margin-bottom:3px}
+#oh-preview .phone .future-peek>svg:first-child{color:var(--oh-purple);transform:rotate(-12deg);width:24px;height:24px}
+#oh-preview .phone .future-peek small{font-size:11px;font-weight:500;color:var(--oh-muted);margin-top:3px}
+#oh-preview .phone nav{padding-top:15px;margin-top:16px}
+#oh-preview .phone nav button{font-size:11px;font-weight:700;gap:7px}
+#oh-preview .phone nav button[aria-pressed=true]{color:var(--oh-ink)}
+#oh-preview .phone nav button[aria-pressed=true] svg{background:transparent;box-shadow:none;color:var(--oh-orange);margin:0}
+#oh-preview .phone nav svg{width:23px;height:23px;stroke-width:1.8}
+#oh-preview .phone .saved-item{border:0;border-radius:20px;padding:18px 16px}
+#oh-preview .phone .saved-item strong{font-weight:800;font-size:15px}
+#oh-preview .phone .saved-item>svg{color:var(--oh-orange)}
+#oh-preview .phone .source-label{font-size:11px}
+#oh-preview .phone .detail h2{font-size:31px;color:var(--oh-ink)}
+#oh-preview .phone .detail-reason{background:var(--oh-soft);color:var(--oh-ink)}
+#oh-preview .phone .source{border:0;border-radius:19px}
+#oh-preview .phone .capture h2{font-size:33px}
+#oh-preview .phone input,#oh-preview .phone textarea{border:0;border-radius:18px;font-family:'Nunito',sans-serif;padding:16px}
+#oh-preview .phone .capture textarea{min-height:210px}
+#oh-preview .phone .future-empty{background:var(--oh-paper);border-radius:24px;box-shadow:0 4px 0 var(--oh-line);font-size:14px}
+#oh-preview .phone .future-empty strong{font-weight:900;color:var(--oh-orange)}
+@media(max-width:380px){#oh-preview .phone{padding:20px 17px 0}#oh-preview .phone .greeting h2{font-size:31px}#oh-preview .phone .companion{right:-8px;transform:scale(.8)}#oh-preview .phone .companion:after{right:270px}#oh-preview .phone .moods button{padding:9px 10px}#oh-preview .phone .suggestion{padding:21px 17px 17px}}
+#oh-preview .phone .page-intro{position:relative;padding:22px 0 0;margin-bottom:22px}
+#oh-preview .phone .page-intro h2{font-size:33px;line-height:1.13}
+#oh-preview .phone .page-intro .sub{max-width:280px;margin:13px 0 0}
+#oh-preview .phone .page-intro:after{content:'✧';position:absolute;right:7px;top:24px;font-size:37px;color:var(--oh-purple);transform:rotate(14deg)}
+#oh-preview .phone .search-wrap{display:flex;align-items:center;gap:10px;background:var(--oh-paper);border-radius:25px;padding:0 15px;margin-bottom:21px;color:var(--oh-muted)}
+#oh-preview .phone .search-wrap input{background:transparent;padding:12px 0;font-size:14px;border-radius:0;min-width:0}
+#oh-preview .phone .shelf-label{font-size:11px;font-weight:800;color:var(--oh-muted);letter-spacing:.7px;text-transform:uppercase;margin:0 0 12px}
+#oh-preview .phone .memory-list{gap:12px}
+#oh-preview .phone .memory-list .saved-item{display:grid;grid-template-columns:30px 1fr 15px;align-items:start;padding:17px 16px;background:var(--oh-paper);box-shadow:0 3px 0 -1px var(--oh-line);border-radius:19px 23px 20px 18px}
+#oh-preview .phone .saved-item .memory-copy{display:block;font-size:12px;line-height:1.5;color:var(--oh-muted);margin-top:7px;font-weight:500}
+#oh-preview .phone .saved-item .memory-context{font-size:10px;letter-spacing:.4px;text-transform:uppercase;color:var(--oh-purple);font-weight:800;margin:0 0 6px}
+#oh-preview .phone .saved-item>svg:first-child{width:24px;height:27px;transform:rotate(-9deg);margin-top:4px}
+#oh-preview .phone .saved-item>svg:last-child{width:15px;margin-top:5px;color:var(--oh-muted)}
+#oh-preview .phone .empty-search{padding:20px 8px;text-align:center;font-size:14px;color:var(--oh-muted)}
+#oh-preview .phone .future .page-intro{padding-right:44px}
+#oh-preview .phone .future .page-intro:after{content:'✳';top:31px;color:var(--oh-orange)}
+#oh-preview .phone .future-intro{font-size:13px;color:var(--oh-purple);border-left:2px solid var(--oh-purple);padding:3px 0 3px 13px;margin:0 0 27px;max-width:310px;line-height:1.55}
+#oh-preview .phone .future-list{gap:21px;padding:5px 3px 12px}
+#oh-preview .phone .future-list .saved-item{display:block;position:relative;padding:26px 23px 23px;border-radius:6px 23px 20px 19px;box-shadow:0 4px 0 -1px var(--oh-line)}
+#oh-preview .phone .future-list .saved-item:before{content:'';position:absolute;width:65px;height:15px;top:-6px;left:24px;transform:rotate(-5deg);background:var(--oh-soft)}
+#oh-preview .phone .future-list .saved-item>svg:first-child{width:32px;height:32px;margin-bottom:12px;color:var(--oh-purple)}
+#oh-preview .phone .future-list .saved-item>svg:last-child{position:absolute;bottom:24px;right:21px;color:var(--oh-orange)}
+#oh-preview .phone .future-list .saved-item strong{font-size:23px;line-height:1.2;max-width:250px;letter-spacing:-.5px}
+#oh-preview .phone .future-list .memory-copy{font-size:13px;max-width:260px;padding-right:12px;margin-top:12px}
+#oh-preview .phone .future-list .memory-context{color:var(--oh-muted);margin:0 0 10px}
+#oh-preview .phone .future-footer{text-align:center;font-size:13px;font-style:italic;color:var(--oh-muted);margin:16px 0}
+#oh-preview .phone .detail .toolbar{margin:2px 0 17px}
+#oh-preview .phone .letter{background:var(--oh-paper);border-radius:5px 24px 22px 23px;padding:25px 22px 20px;box-shadow:0 4px 0 -1px var(--oh-line);position:relative;margin:10px 0 23px}
+#oh-preview .phone .letter:before{content:'';position:absolute;top:-6px;right:29px;width:58px;height:14px;background:var(--oh-soft);transform:rotate(6deg)}
+#oh-preview .phone .letter-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:19px}
+#oh-preview .phone .letter-top .source-label{max-width:120px;text-align:right;font-size:11px;letter-spacing:.7px;line-height:1.6}
+#oh-preview .phone .detail h2{font-size:28px;line-height:1.15;margin:0 0 19px;overflow-wrap:anywhere}
+#oh-preview .phone .detail .body-note{font-size:15px;line-height:1.8;margin:0 0 20px}
+#oh-preview .phone .signoff{font-size:13px;color:var(--oh-purple);font-style:italic;font-weight:700;display:flex;align-items:center;gap:8px}
+#oh-preview .phone .why-title{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:800;margin-bottom:7px;color:var(--oh-purple)}
+#oh-preview .phone .detail .detail-reason{background:transparent;padding:0 3px;font-size:13px;color:var(--oh-muted);margin:0 0 12px}
+#oh-preview .phone .detail [data-source]{font-size:12px;color:var(--oh-purple)}
+#oh-preview .phone .detail .primary{margin-top:12px}
+#oh-preview .phone .remove-someday{margin:7px auto 0;font-size:12px;color:var(--oh-muted)}
+#oh-preview .phone .capture .toolbar{margin:0 0 18px}
+#oh-preview .phone .capture .sub{margin-bottom:20px}
+#oh-preview .phone .writing-paper{background:var(--oh-paper);border-radius:22px 24px 6px 22px;padding:22px 20px 8px;box-shadow:0 4px 0 -1px var(--oh-line);position:relative}
+#oh-preview .phone .writing-paper label{margin:0 0 7px;font-size:11px;color:var(--oh-purple);font-weight:800;letter-spacing:.3px}
+#oh-preview .phone .writing-paper input{font-size:22px;font-weight:800;padding:4px 0 17px;border-radius:0;border-bottom:1px solid var(--oh-line);margin-bottom:20px}
+#oh-preview .phone .writing-paper textarea{padding:3px 0 16px;min-height:177px;border-radius:0;font-size:15px;line-height:1.8;resize:vertical}
+#oh-preview .phone .writing-paper input::placeholder{font-size:20px;font-weight:700}
+#oh-preview .phone .capture-tip{font-size:12px;color:var(--oh-muted);margin:17px 3px 0;line-height:1.5}
+#oh-preview .phone .capture .primary{margin-top:20px}
+#oh-preview .phone .capture-error{color:var(--oh-purple);font-size:12px;margin-top:12px}
+#oh-preview .phone .view[hidden],#oh-preview .phone [hidden]{display:none!important}
+@media(max-width:380px){#oh-preview .phone .page-intro h2{font-size:30px}#oh-preview .phone .letter{padding:23px 17px}#oh-preview .phone .writing-paper{padding:22px 17px 8px}}
+</style>
+<div id="oh-preview"><div class="stage viz-dotted-background"><div class="phone" aria-label="Oh memory companion theme">
+<header class="top"><div class="logo">oh!<small>your little memory</small></div><button type="button" class="remember cursor-interaction" data-capture><i data-lucide="plus" aria-hidden="true"></i>Remember this</button></header>
+<main class="main">
+<section class="view today">
+<div class="greeting"><div><h2>A little spark<br><span>for today.</span></h2><p>You’ve had some lovely ideas.<br>Let’s bring one back.</p></div><div class="companion" aria-hidden="true"><b class="loop"></b><b class="loop"></b><span class="face"></span></div></div>
+<div class="moods" aria-label="What are you in the mood for?"><button type="button" class="cursor-interaction" data-mood="quiet" aria-pressed="false"><i data-lucide="moon" aria-hidden="true"></i>A quiet evening</button><button type="button" class="cursor-interaction" data-mood="out" aria-pressed="false"><i data-lucide="footprints" aria-hidden="true"></i>Go somewhere</button><button type="button" class="cursor-interaction" data-mood="together" aria-pressed="false"><i data-lucide="heart" aria-hidden="true"></i>With someone</button><button type="button" class="cursor-interaction" data-mood="any" aria-pressed="true"><i data-lucide="shuffle" aria-hidden="true"></i>Surprise me</button></div>
+<div class="section-title"><i data-lucide="corner-down-right" aria-hidden="true"></i>You tucked this away…</div>
+<article class="suggestion"><div class="idea-head"><div class="idea-symbol"></div><div><p class="idea-kind"></p><h3 class="idea-title"></h3></div></div><p class="reason"></p><blockquote class="quote"><span></span><small>Your saved note</small></blockquote><button type="button" class="primary cursor-interaction" data-open>Oh, I forgot about this<i data-lucide="arrow-up-right" aria-hidden="true"></i></button></article>
+<div class="another"><button type="button" class="text-action cursor-interaction" data-another><i data-lucide="refresh-cw" aria-hidden="true"></i>Something else?</button></div>
+<button type="button" class="future-peek cursor-interaction" data-future><i data-lucide="bookmark" aria-hidden="true"></i><span>A little room for someday<small>Keep a possibility for when the time feels right.</small></span><i data-lucide="chevron-right" aria-hidden="true"></i></button>
+</section>
+<section class="view memories" hidden>
+<div class="page-intro"><h2>Little things.<br>Very you.</h2><p class="sub">The places, plans, and passing thoughts you wanted to keep.</p></div>
+<label class="search-wrap"><i data-lucide="search" aria-hidden="true"></i><input type="search" data-search aria-label="Search your memory" placeholder="Something you remember…"></label>
+<p class="shelf-label">Tucked away for later</p><div class="saved-list memory-list"></div><p class="empty-search" hidden>No little memory by that name.<br>Try another word.</p><p class="feedback" aria-live="polite"></p></section>
+<section class="view future" hidden>
+<div class="page-intro"><h2>One day.<br>Maybe soon.</h2><p class="sub">A few things to look forward to.</p></div>
+<p class="future-intro">You don’t need a date for everything.<br>Sometimes wanting to is enough.</p><div class="saved-list future-list"></div><div class="future-empty"><i data-lucide="sprout" aria-hidden="true"></i><strong>Leave a little room.</strong>Keep a memory for someday, and it’ll be waiting here.</div><p class="future-footer">Whenever life makes a little room.</p></section>
+<section class="view detail" hidden>
+<div class="toolbar"><button type="button" class="text-action cursor-interaction" data-back><i data-lucide="arrow-left" aria-hidden="true"></i>Back</button><button type="button" class="text-action cursor-interaction" data-edit><i data-lucide="pencil" aria-hidden="true"></i>Edit note</button></div>
+<article class="letter"><div class="letter-top"><div class="idea-symbol detail-symbol"></div><span class="source-label">A LITTLE NOTE<br>FROM PAST YOU</span></div><h2></h2><p class="body-note"></p><p class="signoff"><i data-lucide="heart" aria-hidden="true"></i>Something worth remembering.</p></article>
+<p class="why-title"><i data-lucide="sparkles" aria-hidden="true"></i>A little connection</p><div class="detail-reason"></div><button type="button" class="text-action cursor-interaction" data-source aria-expanded="false"><i data-lucide="notebook-pen" aria-hidden="true"></i>See the original note<i data-lucide="chevron-down" aria-hidden="true"></i></button><div class="source" hidden></div><button type="button" class="primary cursor-interaction" data-keep><i data-lucide="bookmark" aria-hidden="true"></i><span>Keep for someday</span></button><button type="button" class="text-action remove-someday cursor-interaction" data-remove hidden>Take out of Someday</button><p class="feedback" aria-live="polite"></p></section>
+<section class="view capture" hidden><form novalidate>
+<div class="toolbar"><button type="button" class="text-action cursor-interaction" data-cancel><i data-lucide="arrow-left" aria-hidden="true"></i>Back</button><span class="source-label">A NOTE TO FUTURE YOU</span></div>
+<h2>I’ll hold<br>that thought.</h2><p class="sub">Before it slips your mind.</p>
+<div class="writing-paper"><label for="oh-title">What caught your attention?</label><input id="oh-title" name="title" required maxlength="200" placeholder="That pottery workshop…"><label for="oh-note">A little context · optional</label><textarea id="oh-note" name="note" maxlength="2000" placeholder="Why did you want to keep it? Who would you go with?&#10;&#10;A few words are enough."></textarea></div>
+<p class="capture-tip">P.S. Leave yourself a clue. Future you might forget why this felt special.</p><p class="capture-error" role="alert" hidden>Give this thought a few words first.</p><button type="button" data-save class="primary cursor-interaction"><i data-lucide="bookmark-plus" aria-hidden="true"></i><span>Remember this</span></button></form></section>
+</main>
+<nav aria-label="Main navigation"><button type="button" class="cursor-interaction" data-nav="today" aria-pressed="true"><i data-lucide="sparkles" aria-hidden="true"></i>A little nudge</button><button type="button" class="cursor-interaction" data-nav="memories" aria-pressed="false"><i data-lucide="notebook" aria-hidden="true"></i>My memory</button><button type="button" class="cursor-interaction" data-nav="future" aria-pressed="false"><i data-lucide="sprout" aria-hidden="true"></i>Someday</button></nav>
+</div></div></div>
+<script>
+(()=>{
+const root=document.getElementById('oh-preview'),phone=root.querySelector('.phone'),form=phone.querySelector('form');
+const memories=[
+{id:'pottery',title:'That pottery workshop',kind:'A small adventure',icon:'hand',moods:['out','together'],quote:'“A beginner pottery afternoon. This could be fun to try together.”',note:'A beginner pottery workshop. I liked the idea of making something with my hands, and thought it could be a nice afternoon together.\n\nCheck the workshop dates before making plans.',reason:'You saved this as something to try together. It might be a good starting point for your next free afternoon.',source:'Your original note\n\n“A beginner pottery afternoon. This could be fun to try together. Check the dates.”'},
+{id:'film',title:'Perfect Days, finally',kind:'For a quiet evening',icon:'clapperboard',moods:['quiet'],quote:'“Keep this for a night when I want something gentle.”',note:'I wanted to watch Perfect Days on a quiet evening. Put the phone away, make tea, and give it the whole evening.',reason:'You kept this specifically for a quiet night. It fits the kind of evening you’re thinking about.',source:'Your original note\n\n“Perfect Days. Keep this for a night when I want something gentle.”'},
+{id:'lake',title:'An afternoon by the lake',kind:'A change of scenery',icon:'waves',moods:['out','together'],quote:'“Bring a book. No schedule. Just us and some fresh air.”',note:'Take a book, a blanket, and something to eat. Leave the afternoon open. Check the weather before heading out.',reason:'Your note was about fresh air and an unplanned afternoon together. This might be the kind of break you wanted.',source:'Your original note\n\n“Bring a book. No schedule. Just us and some fresh air.”'},
+{id:'pasta',title:'Try the miso butter pasta',kind:'A small kitchen experiment',icon:'cooking-pot',moods:['quiet','together'],quote:'“Try making this on a slow evening. Looks worth a go.”',note:'Find the recipe I saved and try making miso butter pasta. Something to cook for the pleasure of it.',reason:'You saved this for a slow evening. It could turn staying in into something you’ve been wanting to try.',source:'Your original note\n\n“Miso butter pasta — try making this on a slow evening. Looks worth a go.”'}
+];
+let mood='any',selected='pottery',current='memories',back='memories',detailId=null,kept=new Set(['pottery','lake']),editing=null,captureBack='memories';
+function icons(){if(globalThis.lucide)lucide.createIcons({attrs:{width:17,height:17}});}
+function icon(name){const i=document.createElement('i');i.dataset.lucide=name;i.setAttribute('aria-hidden','true');return i;}
+function show(name){current=name;phone.querySelectorAll('.view').forEach(view=>view.hidden=!view.classList.contains(name));phone.querySelectorAll('[data-nav]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.nav===name)));if(name==='memories'||name==='future')renderLists();phone.querySelector('[data-capture]').hidden=name==='capture';}
+function matches(){return memories.filter(item=>mood==='any'||item.moods.includes(mood));}
+function suggest(){const item=memories.find(m=>m.id===selected)||memories[0];phone.querySelector('.suggestion .idea-symbol').replaceChildren(icon(item.icon));phone.querySelector('.suggestion .idea-kind').textContent=item.kind;phone.querySelector('.suggestion .idea-title').textContent=item.title;phone.querySelector('.suggestion .reason').textContent=item.reason;phone.querySelector('.quote span').textContent=item.quote;phone.querySelectorAll('[data-mood]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.mood===mood)));icons();}
+function advance(){const candidates=matches();const index=candidates.findIndex(i=>i.id===selected);selected=candidates[(index+1)%candidates.length].id;suggest();}
+function detail(id){const item=memories.find(i=>i.id===id);if(!item)return;if(current!=='detail'&&current!=='capture')back=current;detailId=id;phone.querySelector('.detail h2').textContent=item.title;phone.querySelector('.detail-symbol').replaceChildren(icon(item.icon));phone.querySelector('.detail-reason').textContent=item.reason;phone.querySelector('.body-note').textContent=item.note||'You kept the title as a reminder. Add your own context when you are ready.';phone.querySelector('.source').textContent=item.source;phone.querySelector('.source').hidden=true;phone.querySelector('[data-source]').setAttribute('aria-expanded','false');phone.querySelector('.detail .feedback').textContent='';updateKeep();show('detail');icons();}
+function updateKeep(){const button=phone.querySelector('[data-keep]');button.querySelector('span').textContent=kept.has(detailId)?'Waiting in Someday':'Keep for someday';button.disabled=kept.has(detailId);phone.querySelector('[data-remove]').hidden=!kept.has(detailId);}
+function renderLists(){const query=phone.querySelector('[data-search]').value.trim().toLowerCase();const found=memories.filter(i=>(i.title+' '+i.note+' '+i.kind).toLowerCase().includes(query));for(const [selector,items] of [['.memory-list',found],['.future-list',memories.filter(i=>kept.has(i.id))]]){const list=phone.querySelector(selector);list.replaceChildren();items.forEach(item=>{const button=document.createElement('button');button.type='button';button.className='saved-item cursor-interaction';const text=document.createElement('span'),strong=document.createElement('strong'),small=document.createElement('small'),excerpt=document.createElement('span');strong.textContent=item.title;small.textContent=item.kind;small.className='memory-context';excerpt.className='memory-copy';excerpt.textContent=item.quote;text.append(small,strong,excerpt);button.append(icon(item.icon),text,icon('arrow-up-right'));button.addEventListener('click',()=>detail(item.id));list.append(button);});}phone.querySelector('.empty-search').hidden=found.length>0;phone.querySelector('.future-empty').hidden=kept.size>0;icons();}
+phone.querySelector('[data-search]').addEventListener('input',renderLists);
+phone.querySelectorAll('[data-mood]').forEach(button=>button.addEventListener('click',()=>{mood=button.dataset.mood;selected=matches()[0].id;suggest();}));
+phone.querySelector('[data-another]').addEventListener('click',advance);phone.querySelector('[data-open]').addEventListener('click',()=>detail(selected));
+phone.querySelectorAll('[data-nav]').forEach(button=>button.addEventListener('click',()=>show(button.dataset.nav)));phone.querySelector('[data-future]').addEventListener('click',()=>show('future'));phone.querySelector('[data-back]').addEventListener('click',()=>show(back));
+phone.querySelector('[data-source]').addEventListener('click',()=>{const source=phone.querySelector('.source');source.hidden=!source.hidden;phone.querySelector('[data-source]').setAttribute('aria-expanded',String(!source.hidden));});
+phone.querySelector('[data-keep]').addEventListener('click',()=>{kept.add(detailId);updateKeep();phone.querySelector('.detail .feedback').textContent='A possibility, not a deadline. You’ll find it in Someday.';});
+phone.querySelector('[data-remove]').addEventListener('click',()=>{kept.delete(detailId);updateKeep();phone.querySelector('.detail .feedback').textContent='Still safe in My memory. Just a little less on your someday list.';});
+function capture(id=null){editing=id;captureBack=current;form.reset();const item=memories.find(i=>i.id===id);phone.querySelector('.capture h2').textContent=item?'A little more to remember.':'I’ll hold that thought.';phone.querySelector('[data-save] span').textContent=item?'Keep these changes':'Remember this';phone.querySelector('.capture-error').hidden=true;if(item){form.elements.title.value=item.title;form.elements.note.value=item.note;}show('capture');}
+phone.querySelector('[data-capture]').addEventListener('click',()=>capture());phone.querySelector('[data-edit]').addEventListener('click',()=>capture(detailId));phone.querySelector('[data-cancel]').addEventListener('click',()=>show(captureBack));
+form.addEventListener('submit',e=>e.preventDefault());
+phone.querySelector('[data-save]').addEventListener('click',()=>{const title=form.elements.title.value.trim();if(!title){phone.querySelector('.capture-error').hidden=false;form.elements.title.focus();return;}const note=form.elements.note.value.trim();const item=memories.find(i=>i.id===editing);const quote=note?'“'+note.slice(0,150)+'”':'“'+title+'”';if(item){Object.assign(item,{title,note,quote,reason:'You added a little more to this memory. Your latest words are here whenever you need them.',source:'Your saved note\n\n'+(note||title)});detail(item.id);phone.querySelector('.detail .feedback').textContent='Your note has been updated.';}else{memories.unshift({id:'new-'+Date.now(),title,note,quote,kind:'A thought you just kept',icon:'bookmark',moods:[],reason:'You just saved this. It’s here whenever you want to come back to it.',source:'Your saved note\n\n'+(note||title)});phone.querySelector('[data-search]').value='';show('memories');phone.querySelector('.memories .feedback').textContent='Tucked away. You can let go of that thought now.';}form.reset();suggest();});
+const design={appearance:'Light',companion:true};function appearance(){phone.style.colorScheme=design.appearance==='System'?'inherit':design.appearance.toLowerCase();phone.querySelector('.companion').style.visibility=design.companion?'visible':'hidden';}appearance();suggest();show('memories');
+if(globalThis.Tweak){const tweak=new Tweak({container:phone,onChange:appearance});tweak.addSelect(design,'appearance',{label:'Appearance',options:['Light','Dark','System']});tweak.addToggle(design,'companion',{label:'Hand-drawn accents'});}
+})();
+</script>
