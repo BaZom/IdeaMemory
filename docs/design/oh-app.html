@@ -87,6 +87,28 @@ h3.head { font: 900 33px/1.12 'Nunito', sans-serif; letter-spacing: -1.1px; colo
 .tag { color: var(--purple); }
 .tagform { display: flex; gap: 8px; margin-top: 8px; }
 .tagform input { flex: 1; min-width: 0; border: 0; border-radius: 19px; background: var(--paper); padding: 8px 14px; font-size: 16px; outline: none; }
+.flag { display: block; font-style: normal; font-size: 11px; font-weight: 800; color: var(--orange); }
+.badge { display: inline-flex; align-items: center; gap: 5px; background: var(--soft); color: var(--ink); border-radius: 10px; padding: 2px 8px; }
+.badge svg { width: 13px; height: 13px; color: var(--orange); }
+.nextup { display: block; width: 100%; text-align: left; border: 0; margin-bottom: 4px; }
+.block { background: var(--paper); border-radius: 20px; padding: 14px 16px; margin-top: 12px; box-shadow: 0 3px 0 -1px var(--line); }
+.block h5 { display: flex; align-items: center; gap: 8px; margin: 0 0 10px; font: 800 14px/1.3 'Nunito', sans-serif; }
+.block h5 svg { color: var(--orange); }
+.block .mini, .mini { font-size: 12px; font-weight: 700; color: var(--muted); margin: 12px 0 7px; }
+.when-row { display: flex; gap: 8px; align-items: stretch; }
+.timebox { display: flex; align-items: center; gap: 6px; border: 1px solid var(--line); border-radius: 26px; padding: 0 12px; }
+.timebox input { border: 0; background: transparent; font-size: 16px; font-weight: 800; outline: none; }
+.plain { width: 100%; border: 0; border-radius: 12px; background: var(--bg); padding: 10px 12px; font-size: 16px; outline: none; resize: none; }
+.todo { display: flex; align-items: center; gap: 10px; width: 100%; border: 0; background: transparent; padding: 8px 2px; text-align: left; font-size: 15px; font-weight: 600; min-height: 40px; }
+.todo svg { color: var(--purple); width: 20px; height: 20px; }
+.todo.done span { text-decoration: line-through; color: var(--muted); }
+.todo.done svg { color: var(--orange); }
+details.from summary { display: flex; align-items: center; gap: 8px; font: 800 14px/1.3 'Nunito', sans-serif; cursor: pointer; list-style: none; min-height: 28px; }
+details.from summary::-webkit-details-marker { display: none; }
+details.from summary svg { color: var(--orange); }
+.history { display: flex; align-items: flex-start; gap: 7px; font-size: 12.5px; font-weight: 700; color: var(--muted); margin: 0 0 12px; }
+.history svg { flex: none; margin-top: 1px; }
+nav button { font-size: 10.5px; }
 .dates { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .dates label { font-size: 12px; font-weight: 700; color: var(--muted); display: grid; gap: 4px; }
 .dates input { border: 0; border-radius: 12px; background: var(--paper); padding: 10px; font-size: 16px; }
@@ -198,17 +220,17 @@ const MOODS = {
 };
 
 const SEED = () => [
-  { id: 'pottery', title: 'That pottery workshop', note: 'Lena says the Sunday drop-in is great. Something to make with our hands.\n\nCheck the workshop dates before making plans.', kind: 'activity', moods: ['out', 'together'], who: 'Lena', days: 63, dur: 'evening', plan: { when: 'date', date: addDays(5) } },
+  { id: 'pottery', title: 'That pottery workshop', note: 'Lena says the Sunday drop-in is great. Something to make with our hands.\n\nCheck the workshop dates before making plans.', kind: 'activity', moods: ['out', 'together'], who: 'Lena', days: 63, dur: 'evening', plan: { when: 'date', date: addDays(5), time: '14:00', remind: 'morning', where: 'Kiln Studio, Weserstraße 52, Neukölln', people: ['Lena'], todo: [{ t: 'Book a spot for the drop-in', done: true }, { t: 'Ask Lena if she is in', done: true }], bring: 'Old clothes or an apron' } },
   { id: 'perfect', title: 'Perfect Days, finally', note: 'Keep this for a night when I want something gentle. Put the phone away, make tea, give it the whole evening.', kind: 'film', moods: ['quiet'], who: 'Max', days: 49, dur: 'evening' , tags: ['japan', 'slow cinema'] },
   { id: 'ramen', title: 'Ramen place in Kreuzberg', note: 'Rich tonkotsu broth. Go early, no reservations. Perfect when it rains.', kind: 'food', moods: ['out', 'together'], who: 'Lena', days: 20, dur: 'short', link: { url: 'https://maps.google.com/?q=ramen+kreuzberg', site: 'maps.google.com', name: 'Cocolo Ramen, Kreuzberg' } , tags: ['rainy day', 'japan'] },
   { id: 'lake', title: 'An afternoon by the lake', note: 'Bring a book, a blanket, something to eat. No schedule. Just fresh air.', kind: 'place', moods: ['out', 'together'], who: null, days: 150, dur: 'day' , tags: ['summer'] },
   { id: 'miso', title: 'Try the miso butter pasta', note: 'Try making this on a slow evening. Looks worth a go.', kind: 'food', moods: ['quiet', 'together'], who: null, days: 3, dur: 'evening', link: { url: 'https://example-recipes.com/miso-butter-pasta', site: 'example-recipes.com', name: 'Miso butter pasta' } , tags: ['cooking', 'japan'] },
   { id: 'tomorrow', title: 'Tomorrow, and Tomorrow, and Tomorrow', note: 'The novel about friends who make video games. Lena couldn’t stop talking about it.', kind: 'book', moods: ['quiet'], who: 'Lena', days: 40, dur: 'short' },
-  { id: 'lisbon', title: 'Long weekend in Lisbon', note: 'Tram 28, pastéis de nata in Belém, a sunset at a miradouro. Autumn is supposed to be lovely.', kind: 'trip', moods: ['together'], who: null, days: 14, dur: 'days', plan: { when: 'date', date: addDays(40) } },
+  { id: 'lisbon', title: 'Long weekend in Lisbon', note: 'Tram 28, pastéis de nata in Belém, a sunset at a miradouro. Autumn is supposed to be lovely.', kind: 'trip', moods: ['together'], who: null, days: 14, dur: 'days', plan: { when: 'date', date: addDays(40), time: '', remind: 'evening', where: 'Lisbon, Portugal', people: ['Lena'], todo: [{ t: 'Book flights', done: true }, { t: 'Find a place in Alfama', done: true }, { t: 'Tram 28 day pass', done: false }, { t: 'Dinner in Bairro Alto', done: false }], bring: 'Comfortable shoes' } },
   { id: 'sunrise', title: 'Sunrise at the Teufelsberg', note: 'Max says the view over the city at sunrise is unreal. Bring a thermos.', kind: 'place', moods: ['out'], who: 'Max', days: 200, dur: 'short' , tags: ['summer', 'early bird'] },
-  { id: 'jazz', title: 'Jazz night at b-flat', note: 'Tuesday jam sessions. Small room, great vibe.', kind: 'music', moods: ['out', 'together'], who: 'Max', days: 10, dur: 'evening', plan: { when: 'tomorrow', date: addDays(1) } },
+  { id: 'jazz', title: 'Jazz night at b-flat', note: 'Tuesday jam sessions. Small room, great vibe.', kind: 'music', moods: ['out', 'together'], who: 'Max', days: 10, dur: 'evening', plan: { when: 'tomorrow', date: addDays(1), time: '20:30', remind: 'hour', where: 'b-flat, Dircksenstraße 40, Mitte', people: ['Max'], todo: [{ t: 'Check if there is a cover charge', done: false }], bring: 'Cash' } },
   { id: 'bear', title: 'The Bear, season 3', note: 'Finally catch up. One or two episodes at a time.', kind: 'film', moods: ['quiet'], who: null, days: 2, dur: 'short' },
-  { id: 'kayak', title: 'Kayak on the Spree', note: 'Rent a kayak near Treptower Park and paddle into the evening.', kind: 'activity', moods: ['out', 'together'], who: null, days: 95, dur: 'day', plan: { when: 'date', date: addDays(-4) } },
+  { id: 'kayak', title: 'Kayak on the Spree', note: 'Rent a kayak near Treptower Park and paddle into the evening.', kind: 'activity', moods: ['out', 'together'], who: null, days: 95, dur: 'day', plan: { when: 'date', date: addDays(-4), time: '17:00', remind: 'none', where: 'Treptower Park', people: ['Lena'], todo: [], bring: '' } },
   { id: 'pho', title: 'Vietnamese place on Kantstraße', note: 'Mira swears by the pho. Cash only.', kind: 'food', moods: ['out'], who: 'Mira', days: 30, dur: 'short' },
   { id: 'lights', title: 'Festival of Lights', note: 'Buildings all over the city lit up at night. Best after dark, go on a weekday when it is less crowded.', kind: 'event', moods: ['out', 'together'], who: 'Lena', days: 25, dur: 'evening', event: { start: addDays(3), end: addDays(12) } , tags: ['autumn'] },
   { id: 'monet', title: 'Monet exhibition at the Barberini', note: 'The water lilies. Book a time slot online, it sells out on weekends.', kind: 'event', moods: ['out'], who: 'Mira', days: 60, dur: 'day', event: { start: addDays(-40), end: addDays(16) } },
@@ -218,7 +240,7 @@ const SEED = () => [
 const S = {
   view: 'signin', stack: [], user: null, mode: 'signin', memories: [], snoozed: new Set(), shown: null,
   search: '', filter: { kind: null, who: null, mood: null, tag: null }, detail: null, sheet: null, draft: null, ask: { q: '', state: 'idle', results: [] },
-  dark: false, toast: null, planPick: 'tonight', planDate: '', forceNothing: false,
+  dark: false, toast: null, planPick: 'tonight', planDate: '', planId: null,
 };
 
 function addDays(n) { const d = new Date(); d.setDate(d.getDate() + n); return d.toISOString().slice(0, 10); }
@@ -256,6 +278,22 @@ function eventLabel(m) {
   if (end) return `Ends ${inDays(daysUntil(end))}, ${fmtDay(end)}`;
   return 'Happening now';
 }
+function planDefaults(m) { return { time: '', remind: 'morning', where: m.link && ['food', 'place'].includes(m.kind) ? m.link.name : '', people: [], todo: [], bring: '' }; }
+function planWhen(p) { return planLabel(p) + (p.time ? `, ${p.time}` : ''); }
+function readiness(p) {
+  const n = (p.todo || []).length, done = (p.todo || []).filter(x => x.done).length;
+  if (!n) return '';
+  return done === n ? 'ready' : `${n - done} ${n - done === 1 ? 'thing' : 'things'} to sort out`;
+}
+// A plan whose day has passed becomes a line of history on its memory.
+function settle() {
+  for (const m of S.memories) {
+    if (m.plan && m.plan.date < TODAY()) {
+      m.history = [...(m.history || []), { date: m.plan.date, people: m.plan.people || [] }];
+      m.plan = null;
+    }
+  }
+}
 function whenBox(date) {
   const d = new Date(date + 'T12:00');
   return `<div class="when">${d.toLocaleDateString('en-GB', { weekday: 'short' }).toUpperCase()}<b>${d.getDate()}</b></div>`;
@@ -287,8 +325,8 @@ function header() {
     <div style="display:flex;gap:8px"><button class="pill-btn" data-a="remember">${ic('plus')}Remember this</button><button class="round-btn" data-a="account" aria-label="Account">${ic('user-round')}</button></div></div>`;
 }
 function navBar() {
-  const t = S.view === 'today', m = S.view === 'memory';
-  return `<nav aria-label="Main"><button class="${t ? 'on' : ''}" data-a="home" aria-pressed="${t}">${ic('sparkles')}A little nudge</button><button class="${m ? 'on' : ''}" data-a="memory" aria-pressed="${m}">${ic('notebook')}My memory</button></nav>`;
+  const tab = (v, a, icon, label) => `<button class="${S.view === v ? 'on' : ''}" data-a="${a}" aria-pressed="${S.view === v}">${ic(icon)}${label}</button>`;
+  return `<nav aria-label="Main">${tab('today', 'home', 'sparkles', 'A little nudge')}${tab('plans', 'plans', 'calendar-heart', 'Planned')}${tab('memory', 'memory', 'notebook', 'My memory')}</nav>`;
 }
 
 function viewSignin() {
@@ -329,8 +367,15 @@ function viewToday() {
   if (!S.memories.length) return viewEmpty();
   const m = current();
   if (m) S.shown = m.id;
-  const reminders = S.memories.filter(x => activePlan(x) && daysUntil(x.plan.date) <= 14).sort((x, y) => x.plan.date.localeCompare(y.plan.date));
-  const soon = S.memories.filter(eventSoon).sort((x, y) => (x.event.start > TODAY() ? x.event.start : x.event.end).localeCompare(y.event.start > TODAY() ? y.event.start : y.event.end));
+  // Worth knowing, in priority order, at most three: plans in the next days, then events that end or start soon.
+  const worth = [];
+  for (const x of S.memories.filter(x => activePlan(x) && daysUntil(x.plan.date) <= 3).sort((a, b) => a.plan.date.localeCompare(b.plan.date)))
+    worth.push({ m: x, kind: 'plan', box: whenBox(x.plan.date), tag: 'Don’t forget', line: `${planWhen(x.plan)}${x.plan.people.length ? `, with ${x.plan.people.join(' and ')}` : ''}` });
+  for (const x of S.memories.filter(x => eventSoon(x) && x.event.end && x.event.start <= TODAY() && daysUntil(x.event.end) <= 21).sort((a, b) => a.event.end.localeCompare(b.event.end)))
+    worth.push({ m: x, kind: 'event', box: whenBox(x.event.end), tag: 'Ends soon', line: eventLabel(x) });
+  for (const x of S.memories.filter(x => eventSoon(x) && x.event.start > TODAY()).sort((a, b) => a.event.start.localeCompare(b.event.start)))
+    worth.push({ m: x, kind: 'event', box: whenBox(x.event.start), tag: 'Starts soon', line: eventLabel(x) });
+  const shownWorth = worth.slice(0, 3);
   let card;
   if (m) {
     card = `<article class="card focus">
@@ -352,25 +397,105 @@ function viewToday() {
   }
   const moodLinks = Object.entries(MOODS).map(([k, v]) => `<button class="chip sm" data-a="browse-mood" data-v="${k}">${ic(v.icon)}${v.label}</button>`).join('')
     + `<button class="chip sm" data-a="browse-mood" data-v="">${ic('notebook')}Everything</button>`;
-  const row = (x, box, line) => `<button class="coming" data-a="open" data-id="${x.id}">${box}<span style="flex:1;min-width:0"><strong>${esc(x.title)}</strong><small>${line}</small></span>${ic('chevron-right')}</button>`;
   return `<div class="scroll">${header()}
     <div style="text-align:center;margin:14px 0 20px">
       <h3 class="head">A little spark<br><span class="squiggle">${greeting()}</span></h3>
-      <p class="sub" style="margin-top:16px">Something you tucked away that fits the next few days.</p>
+      <p class="sub" style="margin-top:16px">Picked from your memory for today or the next few days.</p>
     </div>
     ${card}
+    ${shownWorth.length ? `<p class="label section">${ic('sparkle')}Worth knowing</p>` + shownWorth.map(w => `<button class="coming" data-a="${w.kind === 'plan' ? 'openplan' : 'open'}" data-id="${w.m.id}">${w.box}<span style="flex:1;min-width:0"><em class="flag">${w.tag}</em><strong>${esc(w.m.title)}</strong><small>${w.line}</small></span>${ic('chevron-right')}</button>`).join('')
+      + (S.memories.some(activePlan) ? `<div style="text-align:center"><button class="text-btn" style="color:var(--purple)" data-a="plans">${ic('calendar-heart')}All your plans</button></div>` : '') : ''}
     <div class="pointer">
       <p class="pointer-q">${ic('corner-down-right')}Not what you feel like? Look in your memory:</p>
       <div class="chips">${moodLinks}</div>
     </div>
-    ${reminders.length ? `<p class="label section">${ic('bell')}Don’t forget</p>` + reminders.map(x => row(x, whenBox(x.plan.date), `You planned it for ${daysUntil(x.plan.date) <= 1 ? planLabel(x.plan).toLowerCase() : inDays(daysUntil(x.plan.date))}${x.who ? `, ${esc(x.who)}’s tip` : ''}`)).join('') : ''}
-    ${soon.length ? `<p class="label section">${ic('ticket')}Coming soon, plan ahead</p>` + soon.map(x => row(x, whenBox(x.event.start > TODAY() ? x.event.start : x.event.end), eventLabel(x))).join('') : ''}
   </div>${navBar()}`;
+}
+
+function planRow(m) {
+  const p = m.plan, r = readiness(p);
+  const bits = [p.time, p.people.length ? 'with ' + p.people.join(' and ') : '', r === 'ready' ? '✓ ready' : r].filter(Boolean).join(', ');
+  return `<button class="coming" data-a="openplan" data-id="${m.id}">${whenBox(p.date)}<span style="flex:1;min-width:0"><strong>${esc(m.title)}</strong><small>${esc(bits || planLabel(p))}</small></span>${ic('chevron-right')}</button>`;
+}
+function viewPlans() {
+  const plans = S.memories.filter(activePlan).sort((a, b) => (a.plan.date + a.plan.time).localeCompare(b.plan.date + b.plan.time));
+  const worthPlanning = S.memories.filter(eventSoon);
+  const intro = `<div style="position:relative;padding-top:10px"><h3 class="head">Your plans.</h3>${ic('calendar-heart')}</div>
+    <p class="sub" style="margin:10px 0 18px">Things you decided to do, with everything you need for them.</p>`;
+  if (!plans.length) {
+    return `<div class="scroll">${header()}${intro}
+      <div class="card" style="text-align:center"><div class="companion" style="margin:0 auto 10px"><span class="loop l1"></span><span class="loop l2"></span></div>
+      <h4 class="title">Nothing planned.</h4><p class="sub" style="margin:8px 0 16px">That’s fine, wanting to is enough. When something in your memory feels right, choose “Let’s do it”.</p>
+      <button class="primary" data-a="home">${ic('sparkles')}Find something</button></div>
+      ${worthPlanning.length ? `<p class="label section">${ic('ticket')}Worth planning</p>` + worthPlanning.map(x => `<button class="coming" data-a="open" data-id="${x.id}">${whenBox(x.event.start > TODAY() ? x.event.start : x.event.end)}<span style="flex:1;min-width:0"><strong>${esc(x.title)}</strong><small>${eventLabel(x)}</small></span>${ic('chevron-right')}</button>`).join('') : ''}
+    </div>${navBar()}`;
+  }
+  const [next, ...rest] = plans;
+  const week = rest.filter(m => daysUntil(m.plan.date) <= 7), later = rest.filter(m => daysUntil(m.plan.date) > 7);
+  const r = readiness(next.plan), n = daysUntil(next.plan.date);
+  return `<div class="scroll">${header()}${intro}
+    <p class="label">${ic('corner-down-right')}Next up</p>
+    <button class="card nextup" data-a="openplan" data-id="${next.id}">
+      <span class="tape">${n === 0 ? 'today' : n === 1 ? 'tomorrow' : 'in ' + n + ' days'}</span>
+      <span style="display:flex;gap:12px;align-items:center"><span class="symbol">${ic(KINDS[next.kind].icon)}</span><span><span class="kind" style="display:block">${planWhen(next.plan)}</span><span class="title" style="display:block">${esc(next.title)}</span></span></span>
+      <span class="meta" style="margin-top:14px">${next.plan.where ? `<span>${ic('map-pin')}${esc(next.plan.where.split(',')[0])}</span>` : ''}${next.plan.people.length ? `<span>${ic('users')}${esc(next.plan.people.join(', '))}</span>` : ''}${r ? `<span>${ic(r === 'ready' ? 'circle-check' : 'list-todo')}${r}</span>` : ''}</span>
+    </button>
+    ${week.length ? `<p class="label section">${ic('calendar')}This week</p>` + week.map(planRow).join('') : ''}
+    ${later.length ? `<p class="label section">${ic('calendar-range')}Later</p>` + later.map(planRow).join('') : ''}
+    ${worthPlanning.length ? `<p class="label section">${ic('ticket')}Worth planning</p>` + worthPlanning.map(x => `<button class="coming" data-a="open" data-id="${x.id}">${whenBox(x.event.start > TODAY() ? x.event.start : x.event.end)}<span style="flex:1;min-width:0"><strong>${esc(x.title)}</strong><small>${eventLabel(x)}</small></span>${ic('chevron-right')}</button>`).join('') : ''}
+    <p class="sub" style="text-align:center;margin-top:18px">Every plan starts from something in your memory.</p>
+  </div>${navBar()}`;
+}
+
+function viewPlanPage() {
+  const m = byId(S.planId); if (!m || !activePlan(m)) return viewPlans();
+  const p = m.plan, n = daysUntil(p.date);
+  const known = [...new Set([...S.memories.map(x => x.who), ...S.memories.flatMap(x => x.plan?.people || [])].filter(Boolean))].filter(x => !p.people.includes(x));
+  const remind = { none: 'No reminder', hour: '1 hour before', evening: 'The evening before', morning: 'The morning of' };
+  return `<div class="scroll">
+    <div class="top"><button class="text-btn" data-a="back">${ic('arrow-left')}Back</button><button class="text-btn" data-a="open" data-id="${m.id}">${ic('notebook')}The memory</button></div>
+    <div style="display:flex;gap:12px;align-items:center;margin:4px 0 6px"><div class="symbol">${ic(KINDS[m.kind].icon)}</div><div><p class="kind">Your plan, ${n === 0 ? 'today' : n === 1 ? 'tomorrow' : 'in ' + n + ' days'}</p><h3 class="head" style="font-size:28px;color:var(--ink)">${esc(m.title)}</h3></div></div>
+
+    <section class="block"><h5>${ic('calendar-heart')}When</h5>
+      <div class="when-row"><button class="secondary" style="width:auto;flex:1" data-a="plan" data-id="${m.id}">${fmtDay(p.date)}</button>
+      <label class="timebox">${ic('clock')}<input type="time" id="p-time" value="${esc(p.time)}" aria-label="Time"></label></div>
+      <p class="mini">Reminder</p>
+      <div class="chips">${Object.entries(remind).map(([k, v]) => `<button class="chip sm ${p.remind === k ? 'on' : ''}" data-a="p-remind" data-v="${k}" aria-pressed="${p.remind === k}">${v}</button>`).join('')}</div>
+    </section>
+
+    <section class="block"><h5>${ic('map-pin')}Where</h5>
+      <input class="plain" id="p-where" value="${esc(p.where)}" placeholder="A place or an address" aria-label="Where">
+      ${p.where ? `<a class="text-btn" style="color:var(--purple)" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.where)}" target="_blank" rel="noopener noreferrer">${ic('navigation')}Open in maps</a>` : ''}
+    </section>
+
+    <section class="block"><h5>${ic('users')}Who’s coming</h5>
+      <div class="chips">${p.people.map(x => `<button class="chip sm on" data-a="p-unperson" data-v="${esc(x)}" aria-label="Remove ${esc(x)}">${whoBadge(x)}${esc(x)} ${ic('x')}</button>`).join('')}${known.map(x => `<button class="chip sm" data-a="p-person" data-v="${esc(x)}">${ic('plus')}${esc(x)}</button>`).join('')}</div>
+      <form data-form="p-person" class="tagform"><input id="p-personin" placeholder="Add a name" maxlength="30" aria-label="Add a name"><button class="chip sm" aria-label="Add">${ic('plus')}</button></form>
+    </section>
+
+    <section class="block"><h5>${ic('list-todo')}To sort out</h5>
+      ${p.todo.map((x, i) => `<button class="todo ${x.done ? 'done' : ''}" data-a="p-todo" data-v="${i}" role="checkbox" aria-checked="${x.done}">${ic(x.done ? 'circle-check' : 'circle')}<span>${esc(x.t)}</span></button>`).join('') || '<p class="mini" style="margin-top:0">Nothing yet. Tickets, a table, a lift?</p>'}
+      <form data-form="p-todo" class="tagform"><input id="p-todoin" placeholder="Add something to sort out" maxlength="80" aria-label="Add something to sort out"><button class="chip sm" aria-label="Add">${ic('plus')}</button></form>
+    </section>
+
+    <section class="block"><h5>${ic('backpack')}Bring or remember</h5>
+      <textarea class="plain" id="p-bring" rows="2" placeholder="Cash, a thermos, the tickets…" aria-label="Bring or remember">${esc(p.bring)}</textarea>
+    </section>
+
+    <details class="block from"><summary>${ic('notebook-pen')}From your memory</summary>
+      <blockquote class="quote">“${esc(m.note)}”</blockquote>
+      ${m.who ? `<div class="meta">${whoBadge(m.who)}${esc(m.who)}’s tip</div>` : ''}
+      ${m.link ? `<a class="linkcard" style="margin-top:12px" href="${esc(m.link.url)}" target="_blank" rel="noopener noreferrer">${ic('link')}<span>${esc(m.link.name)}<small>${esc(m.link.site)}</small></span></a>` : ''}
+    </details>
+
+    <button class="secondary" disabled style="opacity:.55;margin-top:6px">${ic('send')}Share an invite <small style="font-weight:700">(coming later)</small></button>
+    <div style="text-align:center;margin-top:6px"><button class="text-btn muted" data-a="unplan" data-id="${m.id}">${ic('feather')}Not anymore</button></div>
+  </div>`;
 }
 
 function memItem(m, forgotten = false) {
   return `<button class="item ${forgotten ? 'forgotten' : ''}" data-a="open" data-id="${m.id}">${ic(KINDS[m.kind].icon)}<div>
-    <p class="kind">${activePlan(m) ? 'Planned: ' + planLabel(m.plan) : eventOpen(m) ? eventLabel(m) : KINDS[m.kind].line}</p><strong>${esc(m.title)}</strong>
+    <p class="kind">${activePlan(m) ? `<span class="badge">${ic('calendar-heart')}Planned: ${planWhen(m.plan)}</span>` : eventOpen(m) ? eventLabel(m) : KINDS[m.kind].line}</p><strong>${esc(m.title)}</strong>
     <span class="q">“${esc(firstSentence(m.note))}”</span>
     <div class="meta">${m.who ? `<span>${whoBadge(m.who)}${esc(m.who)}</span>` : ''}<span>${ic('hourglass')}${forgotten ? 'tucked away ' + age(m.days) + ' ago' : age(m.days)}</span>${m.link ? `<span>${ic('link')}${esc(m.link.site)}</span>` : ''}${(m.tags || []).map(t => `<span class="tag">#${esc(t)}</span>`).join('')}</div>
   </div></button>`;
@@ -395,13 +520,12 @@ function viewMemory() {
     list = `<div class="shelf">${found.length} ${found.length === 1 ? 'memory' : 'memories'} <button class="text-btn" style="padding:0;min-height:0;color:var(--purple)" data-a="clear">Clear</button></div>`
       + (found.length ? found.map(m => memItem(m)).join('') : `<div class="card" style="text-align:center"><p style="font-weight:800">No little memory like that.</p><p class="sub" style="margin:6px 0 14px">Try another word, or ask your memory in your own words.</p><button class="secondary" data-a="ask-with">${ic('sparkles')}Ask your memory</button></div>`);
   } else {
-    const dateOf = m => activePlan(m) ? m.plan.date : (m.event.start > TODAY() ? m.event.start : m.event.end || TODAY());
-    const coming = S.memories.filter(m => activePlan(m) || eventOpen(m)).sort((a, b) => dateOf(a).localeCompare(dateOf(b)));
+    const coming = [];
     const fresh = S.memories.filter(m => !coming.includes(m) && m.days <= 7);
     const forgotten = S.memories.filter(m => !coming.includes(m) && m.days > 90);
     const mind = S.memories.filter(m => !coming.includes(m) && !fresh.includes(m) && !forgotten.includes(m));
     const shelf = (title, note, items, fg) => items.length ? `<div class="shelf">${title} <small>${note}</small></div>` + items.map(m => memItem(m, fg)).join('') : '';
-    list = shelf('Coming up', coming.length, coming) + shelf('New', 'this week', fresh) + shelf('Still on your mind', mind.length, mind) + shelf('Long forgotten', 'maybe now?', forgotten, true);
+    list = shelf('New', 'this week', fresh) + shelf('Still on your mind', mind.length, mind) + shelf('Long forgotten', 'maybe now?', forgotten, true);
   }
   return `<div class="scroll">${header()}
     <div style="position:relative;padding-top:10px"><h3 class="head">Little things.<br>Very you.</h3>${ic('sparkle')}</div>
@@ -449,10 +573,11 @@ function viewDetail() {
       ${m.link ? `<a class="linkcard" href="${esc(m.link.url)}" target="_blank" rel="noopener noreferrer">${ic('link')}<span>${esc(m.link.name)}<small>${esc(m.link.site)}</small></span></a>` : ''}
       <div class="meta" style="margin-bottom:14px">${m.who ? `<span>${whoBadge(m.who)}${esc(m.who)} told you about it</span>` : ''}${m.moods.map(x => `<span>${ic(MOODS[x].icon)}${MOODS[x].label}</span>`).join('')}</div>
       ${(m.tags || []).length ? `<div class="chips" style="margin-bottom:14px">${m.tags.map(t => `<button class="chip sm" data-a="tag-open" data-v="${esc(t)}">#${esc(t)}</button>`).join('')}</div>` : ''}
+      ${(m.history || []).length ? `<p class="history">${ic('history')}Planned before: ${m.history.map(h => fmtDay(h.date) + (h.people.length ? ', with ' + h.people.join(' and ') : '')).join('; ')}</p>` : ''}
       <p class="signoff">${ic('heart')}Something worth remembering.</p>
     </article>
-    ${activePlan(m) ? `<div class="planned">${ic('calendar-heart')}<span style="flex:1">Planned: ${planLabel(m.plan)}</span><button class="text-btn" style="padding:0;min-height:0;color:var(--purple)" data-a="plan" data-id="${m.id}">Change</button></div>
-      <button class="secondary" data-a="unplan" data-id="${m.id}">Not anymore</button>`
+    ${activePlan(m) ? `<div class="planned">${ic('calendar-heart')}<span style="flex:1">Planned: ${planWhen(m.plan)}</span></div>
+      <button class="primary" data-a="openplan" data-id="${m.id}">${ic('calendar-heart')}Open the plan</button>`
       : `<button class="primary" data-a="plan" data-id="${m.id}">${ic('calendar-heart')}Let’s do it</button>`}
     <div style="text-align:center;margin-top:8px"><button class="text-btn muted" data-a="letgo" data-id="${m.id}">${ic('wind')}Let it go</button></div>
   </div>`;
@@ -487,7 +612,8 @@ function viewRemember() {
     <div class="q-label">Who told you? <small>optional</small></div>
     <div class="chips">${people.map(p => `<button class="chip sm ${d.who === p ? 'on' : ''}" data-a="d-who" data-v="${esc(p)}" aria-pressed="${d.who === p}">${whoBadge(p)}${esc(p)}</button>`).join('')}<button class="chip sm" data-a="d-person">${ic('plus')}Someone else</button></div>
     <p class="sub" style="margin:16px 2px 0">P.S. Leave yourself a clue. Future you might forget why this felt special.</p>
-    <div style="margin-top:18px"><button class="primary" data-a="save">${ic('bookmark-plus')}${d.id ? 'Keep these changes' : 'Remember this'}</button></div>
+    <div style="margin-top:18px;display:grid;gap:8px"><button class="primary" data-a="save">${ic('bookmark-plus')}${d.id ? 'Keep these changes' : 'Remember this'}</button>
+    ${d.id ? '' : `<button class="secondary" data-a="save" data-v="plan">${ic('calendar-heart')}Remember &amp; plan it</button>`}</div>
   </div>`;
 }
 
@@ -535,7 +661,8 @@ function render() {
   const pageBg = S.dark ? '#292820' : '#F5F1E3';
   document.body.style.setProperty('--page-bg', pageBg);
   document.querySelector('meta[name=theme-color]').setAttribute('content', pageBg);
-  const views = { signin: viewSignin, today: viewToday, memory: viewMemory, ask: viewAsk, detail: viewDetail, remember: viewRemember, account: viewAccount };
+  settle();
+  const views = { signin: viewSignin, today: viewToday, plans: viewPlans, planpage: viewPlanPage, memory: viewMemory, ask: viewAsk, detail: viewDetail, remember: viewRemember, account: viewAccount };
   const focused = document.activeElement && phone.contains(document.activeElement) ? document.activeElement.id : null;
   const caret = focused && document.activeElement.selectionStart;
   phone.innerHTML = views[S.view]() + sheet() + (S.toast ? `<div class="toast" role="status">${ic(S.toast.icon)}${esc(S.toast.msg)}</div>` : '');
@@ -617,11 +744,19 @@ phone.addEventListener('click', e => {
       const m = byId(S.sheet.id);
       const dateEl = document.getElementById('plan-date');
       const date = { tonight: TODAY(), tomorrow: addDays(1), weekend: weekendDay() }[S.planPick] || dateEl?.value || addDays(7);
-      m.plan = { when: S.planPick, date };
-      S.sheet = null; S.shown = null;
-      toast(`Planned for ${planLabel(m.plan).toLowerCase() === 'tonight' || planLabel(m.plan) === 'Tomorrow' ? planLabel(m.plan).toLowerCase() : planLabel(m.plan)}. I’ll remind you.`, 'bell'); break;
+      const fresh = !activePlan(m);
+      m.plan = { ...(fresh ? planDefaults(m) : m.plan), when: S.planPick, date };
+      S.sheet = null; S.shown = null; S.planId = m.id;
+      if (S.view !== 'planpage') { S.stack.push(S.view); S.view = 'planpage'; }
+      toast(fresh ? `Planned for ${planLabel(m.plan).toLowerCase()}. Add details if you like.` : `Moved to ${planLabel(m.plan).toLowerCase()}.`, 'calendar-heart'); break;
     }
-    case 'unplan': { const m = byId(id); m.plan = null; toast('Back in your memory. No pressure.', 'feather'); break; }
+    case 'unplan': { const m = byId(id); m.plan = null; if (S.view === 'planpage') { S.stack = []; S.view = 'plans'; } toast('Back in your memory. No pressure.', 'feather'); break; }
+    case 'plans': S.stack = []; go('plans', false); break;
+    case 'openplan': S.planId = id; go('planpage'); break;
+    case 'p-remind': byId(S.planId).plan.remind = v; render(); break;
+    case 'p-person': byId(S.planId).plan.people.push(v); render(); break;
+    case 'p-unperson': { const pl = byId(S.planId).plan; pl.people = pl.people.filter(x => x !== v); render(); break; }
+    case 'p-todo': { const t = byId(S.planId).plan.todo[+v]; t.done = !t.done; render(); break; }
     case 'rest': { const m = byId(id); m.plan = null; toast('Let it rest. It’s still in your memory.', 'feather'); break; }
     case 'letgo': S.sheet = { type: 'letgo', id }; render(); break;
     case 'confirm-letgo': { S.memories = S.memories.filter(m => m.id !== S.sheet.id); S.sheet = null; S.stack = []; S.view = 'memory'; toast('Let go. Lighter already.', 'wind'); break; }
@@ -642,9 +777,11 @@ phone.addEventListener('click', e => {
       const fields = { title: d.title.trim(), note: d.note.trim() || d.title.trim(), kind: d.kind || 'other', moods: d.moods, tags: d.tags, who: d.who, link: d.link, event: (d.start || d.end) ? { start: d.start || null, end: d.end || null } : null };
       if (d.id) { Object.assign(byId(d.id), fields); S.detail = d.id; S.stack.pop(); S.view = 'detail'; toast('Your note has been updated.'); }
       else {
-        S.memories.unshift({ id: 'm' + Date.now(), days: 0, dur: 'evening', plan: null, ...fields });
+        const nid = 'm' + Date.now();
+        S.memories.unshift({ id: nid, days: 0, dur: 'evening', plan: null, ...fields });
         S.search = ''; S.filter = { kind: null, who: null, mood: null, tag: null }; S.stack = []; S.view = 'memory';
-        toast('Tucked away. You can let go of that thought now.', 'bookmark-check');
+        if (v === 'plan') { S.planPick = 'tonight'; S.planDate = ''; S.sheet = { type: 'plan', id: nid }; render(); }
+        else toast('Tucked away. You can let go of that thought now.', 'bookmark-check');
       }
       break;
     }
@@ -659,9 +796,13 @@ phone.addEventListener('click', e => {
 });
 phone.addEventListener('input', e => {
   if (e.target.id === 'search') { S.search = e.target.value; render(); }
+  if (e.target.id === 'p-where') { byId(S.planId).plan.where = e.target.value; }
+  if (e.target.id === 'p-bring') { byId(S.planId).plan.bring = e.target.value; }
   if (e.target.id === 'd-title' || e.target.id === 'd-note') { readDraft(); if (S.draft.error && S.draft.title.trim()) { S.draft.error = false; document.getElementById('d-err').hidden = true; } }
 });
 phone.addEventListener('change', e => {
+  if (e.target.id === 'p-time') { byId(S.planId).plan.time = e.target.value; render(); }
+  if (e.target.id === 'p-where') { render(); }
   if (e.target.id === 'd-link') { readDraft(); const url = e.target.value.trim(); if (url) { autofill(url); render(); } else { S.draft.link = null; S.draft.filled = false; render(); } }
 });
 phone.addEventListener('paste', e => {
@@ -678,6 +819,15 @@ phone.addEventListener('submit', e => {
       if (t && !S.draft.tags.includes(t) && S.draft.tags.length < 20) S.draft.tags.push(t);
     }
     render(); document.getElementById('d-tagin')?.focus();
+  }
+  if (e.target.dataset.form === 'p-person') {
+    const n = document.getElementById('p-personin').value.trim(); if (!n) return;
+    const pl = byId(S.planId).plan, name = n[0].toUpperCase() + n.slice(1);
+    if (!pl.people.includes(name)) pl.people.push(name); render(); document.getElementById('p-personin')?.focus();
+  }
+  if (e.target.dataset.form === 'p-todo') {
+    const t = document.getElementById('p-todoin').value.trim(); if (!t) return;
+    byId(S.planId).plan.todo.push({ t, done: false }); render(); document.getElementById('p-todoin')?.focus();
   }
   if (e.target.dataset.form === 'person') {
     const n = document.getElementById('p-name').value.trim(); if (!n) return;
