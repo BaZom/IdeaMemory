@@ -17,7 +17,7 @@ It grows from features that are useful *and* spread on their own:
 - **Save from anywhere:** the phone’s share sheet (Instagram, TikTok, Maps, browser) straight into Oh, right!. The biggest usability unlock.
 - **Send a tip:** “Lena sent you a tip: Ramen in Kreuzberg”. It lands in your friend’s memory with her name on it. Every tip is an invitation, a natural growth loop.
 - **Plan invites (on the roadmap, 017):** the “I’m in / Maybe / Can’t” link. Every plan reaches people who don’t have the app yet.
-- **Shared memory for two (now on the roadmap, 015–017):** couples, friends and trip crews with one pool of “things we want to do”, matches and shared plans. The strongest use case, and the reason to pay (e.g. premium spaces: more groups, trip tools, costs per person).
+- **Shared memory for two (now on the roadmap, 015–018):** couples, friends and trip crews with one pool of “things we want to do”, matches and shared plans. The strongest use case, and the reason to pay (e.g. premium spaces: more groups, trip tools, costs per person).
 - **Context:** weather, weekends, holidays, nearby (“you’re in Kreuzberg; the ramen place is 5 minutes away”).
 
 ## 3. A local discovery layer (later, only if 2 works)
@@ -44,7 +44,7 @@ Rough planning numbers per year, our own estimates, not a forecast. Updated for 
 | Stage | Monthly users | Conditions to get there | Paying spaces | Revenue a year | Running costs a year | Likelihood (personal only → with couples and groups) |
 | --- | --- | --- | --- | --- | --- | --- |
 | **You two** | 2 | You and your partner use it every week | 0 | €0 | €60–180 | very likely → very likely |
-| **Friends** | 20–100 (10–30 spaces) | Tasks 010–017 done, hosting, account recovery | 0 | €0 | €200–500 | likely → likely |
+| **Friends** | 20–100 (10–30 spaces) | Tasks 010–018 done, hosting, account recovery | 0 | €0 | €200–500 | likely → likely |
 | **Niche app** | 5k–15k | App stores; ≥ 15% still using it after 30 days; each space brings ≥ 0.5 new ones | 100–400 | €4k–15k | €2k–5k | 20–30% → 25–35% |
 | **Growing app** | ~100k | Invite loop working; guests on plan links sign up; premium spaces; some marketing | 2.5k–5k | €90k–180k, plus €10k–40k from bookings | €40k–100k | ~5% → ~8% |
 | **Breakout** | 1–3M | A self-spreading loop like Partiful’s; a team of 4–8; funding | 40k–100k | €1.5M–4M | €1M–3M | < 1% → 1–2% |
@@ -56,9 +56,9 @@ Rough planning numbers per year, our own estimates, not a forecast. Updated for 
 | Step | Tasks | Hours | Calendar time |
 | --- | --- | --- | --- |
 | Personal app working | 010–013 | 40–60 | ~2 months |
-| Online and together | 014–017 | 60–90 | ~3 months |
+| Online and together | 014–018 | 70–110 | ~3–4 months |
 | Test with you two and 3–4 couples | — | ~10 | 1–2 months |
-| **Decision point** | | **~110–160** | **~6–7 months** |
+| **Decision point** | | **~120–180** | **~6–8 months** |
 
 ## How to find out which future is real
 

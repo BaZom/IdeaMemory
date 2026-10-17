@@ -36,7 +36,7 @@ flowchart LR
 - **A little nudge:** brings the right memory back for today or soon; a small deck of cards: swipe right for *Let’s do it*, left for *Another time* (it comes back later).
 - **Plan:** the concrete details for the day.
 - **After the day:** back into the memory with a “planned before” line, to be suggested again, planned again or let go.
-- **Together:** share a space with your partner or a group (up to 8). Everyone says *I’d love to* or *Another time* (never a hard no); when you both say yes it’s a match, and you plan it together: find a day, who’s in, who sorts out what. (Designed; planned in roadmap phase 2.)
+- **Together:** share a space with your partner or a group (up to 8). Everyone says *I’d love to* or *Another time* (never a hard no); when you both say yes (or enough people in a group) it’s a match, and you plan it together: find a day, who’s in, who sorts out what. Regular things organise themselves: the app asks the group “Weekly drinks tonight. In?”, and couples get three suggestions before their date night. (Designed; planned in roadmap phase 2.)
 
 Why the app works this way, and what comes next: [roadmap](docs/roadmap.md). Where it could go one day: [vision](docs/vision.md).
 

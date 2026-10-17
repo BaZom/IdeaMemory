@@ -58,7 +58,7 @@ flowchart LR
 
 Two shortcuts: you can open any memory from My memory and plan it directly, and *Remember & plan it* saves and plans in one go.
 
-**Together** (in a shared space), the same flow with one extra step: the nudge shows what the others added; each person says *I’d love to* or *Another time* without seeing the others’ answers first; when you both (or most of a group) say yes, it’s a **match**, and *Plan it together* turns it into a shared plan.
+**Together** (in a shared space), the same flow with one extra step (adding something is suggesting it): the nudge shows what the others added; each person says *I’d love to* or *Another time* without seeing the others’ answers first; when you both (or most of a group) say yes, it’s a **match**, and *Plan it together* turns it into a shared plan.
 
 ```mermaid
 flowchart LR
@@ -94,7 +94,7 @@ flowchart LR
 - **Built:** accounts and manual memories (backend and a first Flutter UI, still the old look).
 - **Designed:** the complete target, including couples and groups ([oh-app.html](design/oh-app.html)); this roadmap and the [decisions](decisions.md) match it.
 - **Next:** 010 (the oh! look in the real app), then 011–013. Start a task by asking for it in chat; security-relevant tasks need the owner’s explicit OK first.
-- **Decision point:** after 017 and a test with 3–4 couples (see the [vision](vision.md) for the four numbers).
+- **Decision point:** after 018 and a test with 3–4 couples (see the [vision](vision.md) for the four numbers).
 
 ## Plan
 
@@ -145,7 +145,7 @@ Security-relevant: yes (new table with ownership) → review before merge.
 
 ### Phase 2: together
 
-Sharing needs everyone on their own phone, so it starts with hosting.
+Sharing needs everyone on their own phone, so it starts with hosting. Regular things (a weekly drink, date night) come last, once matches and plans work.
 
 ### 014 — On our phones
 Goal: open the app on any phone over HTTPS, install it to the home screen, get reminders.
@@ -163,6 +163,7 @@ Done when:
 - start a space (2–8 people) and invite with a link; the invited person signs up or signs in and joins; leave a space; the owner can remove someone or turn the link off
 - space tabs under the header on the nudge and My memory (Just me, each space, + New); My memory, the nudge and Remember work per space; each memory shows who added it; Remember is the round + in the header
 - after signup: “Who do you do things with?” (my partner, friends or family, just me for now); in *Just me*, the invite card once there are “with someone” memories
+- in a shared space Remember says *Suggest to Lena* / *Suggest to the group* (adding is suggesting; there is no separate “propose” feature); *Share with a space* on a Just me memory moves it there (a memory lives in one space)
 - the database only shows a space’s memories to its members (tested with a non-member)
 
 Not now: votes, shared plans, news dots.
@@ -171,9 +172,9 @@ Security-relevant: yes (membership-based access) → review before merge.
 ### 016 — Say yes together
 Goal: find out what you all want to do, without “I don’t know, what do you want?”.
 Done when:
-- in a shared space the deck shows what the others added: *I’d love to* (right) / *Another time* (left); others’ answers stay hidden until you answer
+- in a shared space the deck holds three kinds of cards, each labelled: *Lena’s idea* (to answer), *don’t miss it* (an event starting or ending soon) and *you both want this* (a match that fits now, with *Plan it together*); *I’d love to* (right) / *Another time* (left); others’ answers stay hidden until you answer
 - *Another time* is never a hard no: it comes back after a few weeks, or sooner, warmly (“Back again: Lena still loves this”); after the third time only you are asked “Keep for someday, or hide it for me?”, and hiding can be undone
-- a match (both of a couple, or you and more than half of a group) opens “It’s a match!”; one line on the nudge (“1 match · 3 waiting for Lena”) opens the list; matches also show in Planned
+- a match (both of a couple; in a group, enough people for the idea: 2 unless it says 4+ or 6+) opens “It’s a match!”; one line on the nudge (“1 match · 3 waiting for Lena”) opens the list; matches also show in Planned
 - news counts on the space tabs (“Lena added 2 things”), cleared when you open the space
 
 Not now: notifications for news (later, with 014’s notifications).
@@ -182,7 +183,8 @@ Security-relevant: yes (shared rows) → review before merge.
 ### 017 — Plan together
 Goal: plan a date or a trip together.
 Done when:
-- a plan in a shared space is shared: everyone answers *I’m in / Maybe / Can’t*
+- a plan starts with *Plan it together* (from a match, the match list or any memory); a plan in a shared space is shared: in a group everyone answers *I’m in / Maybe / Can’t*; for a couple the page is lighter (the partner’s “Works for me”, no who’s-in list)
+- ideas marked *needs booking* get the to-do “Book it” when planned
 - *Let everyone pick*: three suggested days, everyone taps what works, someone picks the best one
 - things to sort out can be given to a person; short notes on the plan (no chat; a button opens your own group chat); trips have a day-by-day list
 - an invite link for people without the app: a plan card with *I’m in / Maybe / Can’t*, no account needed, can be turned off
@@ -190,9 +192,20 @@ Done when:
 Not now: costs per person, in-app chat.
 Security-relevant: yes (shared plans, public link) → review before merge.
 
+### 018 — Every week: standing plans and date night
+Goal: the things you do regularly organise themselves.
+Done when:
+- a group can set a standing plan (“Weekly drinks, every Friday 20:00, at …, on from 3 people”); on the day the app asks everyone (“Weekly drinks tonight. In?”), answering is optional and only the *in*s count; at a set time it says “It’s on!” or “Skipped this week” to those who are in
+- on its day the standing plan is the top card of that space’s first page (*I’m in* / *Not tonight*), with an *Ask in WhatsApp* link for people without the app; Planned lists it under *Every week*
+- a couple can set a date day; the day before, the first page shows three suggestions (matches first); you both pick one; the same pick is planned, different picks show both with *Go with Lena’s / Go with mine*
+
+Needs: notifications from 014.
+Not now: rotating hosts, costs, chat.
+Security-relevant: yes (scheduled notifications, shared rows) → review before merge.
+
 ### Phase 3: less typing, better finding (first AI)
 
-### 018 — Save from a link
+### 019 — Save from a link
 Goal: paste a link and most fields fill themselves.
 Done when:
 - the server fetches the page safely (no local or private addresses, size and time limits) and reads title, site, description, image and, where the page states them, event dates
@@ -202,7 +215,7 @@ Done when:
 Not now: AI, screenshots.
 Security-relevant: yes (fetching untrusted URLs) → review before merge.
 
-### 019 — “Fill it in for me” (AI step 1)
+### 020 — “Fill it in for me” (AI step 1)
 Goal: AI suggests kind, “good for”, tags and dates from the link text and your note.
 Done when:
 - suggestions appear as pre-selected chips with “Filled in from the link. Check it?”; nothing is saved without your Save
@@ -211,37 +224,37 @@ Done when:
 Needs owner approval first: provider and model, what is sent, monthly budget.
 Security-relevant: yes → review before merge.
 
-### 020 — Ask your memory (AI step 2)
+### 021 — Ask your memory (AI step 2)
 Goal: find something when you don’t remember the words (“that restaurant Lena mentioned”).
 Done when:
 - a question returns up to three memories from the current space with a short answer in oh!’s voice; it never mentions anything that isn’t saved there
 - retrieval runs only over rows you can see (database search first, embeddings if needed); the answer cites the memories it used
 
-Needs owner approval first (as 019).
+Needs owner approval first (as 020).
 Security-relevant: yes → review before merge.
 
 ### Phase 4: more ways in
 
-### 021 — Save from a screenshot
+### 022 — Save from a screenshot
 Goal: keep a screenshot as the memory’s source and let AI read it.
-Done when: private image storage that follows the memory’s space, the image shows on the memory, deleting the memory deletes the image, AI suggests fields from it (as 019).
+Done when: private image storage that follows the memory’s space, the image shows on the memory, deleting the memory deletes the image, AI suggests fields from it (as 020).
 Security-relevant: yes (private file storage) → review before merge.
 
-### 022 — Smarter nudge (optional AI step 3)
+### 023 — Smarter nudge (optional AI step 3)
 Goal: better order and wording of suggestions once there is real usage (what you planned, what you skipped, what matched).
 Done when: a measurable improvement over the rules from 012 on your own data; the rules remain the fallback.
 
 ### Later, only if needed
 - **Costs per person** on a trip plan.
 - **Save from the phone’s share sheet** (needs an installed app).
-- **In-app chat:** no. Group conversation stays in WhatsApp or Signal.
+- **In-app chat:** not planned; only if testers ask for it after 018. Group conversation stays in WhatsApp or Signal (the plan has short notes and a link to the group chat).
 
 ## When AI comes in, and why
 
 - **Not before phase 3.** The app must be useful without AI: rules can pick suggestions because you gave the details when saving. Without good data AI has nothing to work with, and every call costs money and privacy.
-- **First where it removes typing (019).** Saving has to be fast or nobody saves; AI turns a pasted link or a rough note into filled-in chips. One short call per save, you confirm, nothing else is sent.
-- **Second where words fail (020).** Search needs you to remember the words; asking in your own words fixes that. It only works over your own memories and must cite them, never invent.
-- **Suggestions stay rule-based at first (012).** Rules are explainable (“ends in 3 days”, “on your mind for 7 weeks”) and free. AI can improve the order and wording later (022) once there is usage to learn from.
+- **First where it removes typing (020).** Saving has to be fast or nobody saves; AI turns a pasted link or a rough note into filled-in chips. One short call per save, you confirm, nothing else is sent.
+- **Second where words fail (021).** Search needs you to remember the words; asking in your own words fixes that. It only works over your own memories and must cite them, never invent.
+- **Suggestions stay rule-based at first (012).** Rules are explainable (“ends in 3 days”, “on your mind for 7 weeks”) and free. AI can improve the order and wording later (023) once there is usage to learn from.
 - **Why together comes before AI:** sharing is the reason people bring others in and the clearest reason to pay; AI only makes saving and finding easier. Rules still pick suggestions in shared spaces; matches come from people, not from a model.
 - **Rules for every AI feature:** owner approves provider, model and budget first; calls run on the server, never in the app; only the minimum text is sent, nothing about the account or the other members; no content in logs; the app keeps working when AI is off or down.
 
