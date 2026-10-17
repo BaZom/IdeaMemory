@@ -209,21 +209,129 @@ nav svg { width: 23px !important; height: 23px !important; }
 .loading i { width: 7px; height: 7px; border-radius: 4px; background: var(--purple); animation: blink 1s infinite; }
 .loading i:nth-child(2) { animation-delay: .15s; } .loading i:nth-child(3) { animation-delay: .3s; }
 @keyframes blink { 50% { opacity: .25; } }
-/* one memory, spaces decide: jar, facts, regular days */
-.jar-card { background: var(--lilac); border-radius: 22px 24px 20px 23px; padding: 14px 16px; margin: 14px 0 4px; }
-.jar-row { display: flex; gap: 16px; align-items: center; }
-.jar-card h5 { margin: 0 0 2px; font: 900 18px/1.2 'Nunito', sans-serif; color: var(--purple); }
-.jarwrap { position: relative; width: 66px; height: 82px; flex: none; transform-origin: 50% 90%; }
-.jarwrap .lid { position: absolute; top: 0; left: 9px; right: 9px; height: 10px; background: var(--purple); border-radius: 4px 4px 2px 2px; z-index: 1; }
-.jarwrap .jar { position: absolute; top: 8px; left: 0; right: 0; bottom: 0; border: 2.5px solid var(--purple); border-radius: 12px 12px 24px 24px; background: color-mix(in srgb, var(--paper) 75%, transparent); overflow: hidden; }
-.jar .n { position: absolute; width: 24px; height: 15px; border-radius: 3px; box-shadow: 0 1px 0 rgba(0,0,0,.08); }
-.jar .n0 { left: 6px; bottom: 6px; background: var(--orange); transform: rotate(-12deg); }
-.jar .n1 { left: 28px; bottom: 8px; background: var(--paper); transform: rotate(9deg); }
-.jar .n2 { left: 14px; bottom: 22px; background: #F7C873; transform: rotate(18deg); }
-.jar .n3 { left: 32px; bottom: 26px; background: var(--orange); transform: rotate(-6deg); opacity: .8; }
-.jar .n4 { left: 8px; bottom: 38px; background: var(--paper); transform: rotate(-20deg); }
-.jar .n5 { left: 30px; bottom: 44px; background: #F7C873; transform: rotate(12deg); }
-.jarwrap.shake { animation: shake .65s ease-in-out; }
+/* My memory: small paper notes */
+.note { display: flex; gap: 12px; align-items: flex-start; width: 100%; border: 0; background: var(--paper); border-radius: 18px 22px 19px 17px; box-shadow: 0 3px 0 -1px var(--line); padding: 13px 14px 12px; margin-bottom: 10px; text-align: left; }
+.note:nth-child(odd) { border-radius: 21px 17px 22px 18px; }
+.note-ic { width: 38px; height: 40px; flex: none; border: 2px solid var(--ink); border-radius: 42% 51% 46% 42%; display: grid; place-items: center; transform: rotate(-8deg); }
+.note-ic svg { color: var(--orange); width: 19px; height: 19px; }
+.note-body { flex: 1; min-width: 0; }
+.note-body .kind { display: block; margin: 0 0 1px; }
+.note-body strong { display: block; font-size: 15.5px; font-weight: 900; line-height: 1.25; letter-spacing: -.2px; }
+.note-body em { display: block; font-style: normal; font-size: 12.5px; color: var(--muted); margin: 3px 0 6px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.note-hint { display: inline-flex; align-items: center; gap: 5px; font-size: 11.5px; font-weight: 800; color: var(--purple); }
+.note-hint svg { width: 13px; height: 13px; }
+.note-hint .who { width: 18px; height: 18px; font-size: 9.5px; }
+/* demo tour */
+.tour { display: grid; gap: 6px; margin-bottom: 6px; }
+.tour-step { display: flex; align-items: center; gap: 12px; width: 100%; border: 0; background: var(--paper); border-radius: 16px; padding: 10px 12px; text-align: left; }
+.tour-step > b { width: 26px; height: 26px; border-radius: 13px; background: var(--soft); color: var(--orange); display: grid; place-items: center; font-size: 12px; font-weight: 900; flex: none; }
+.tour-step span { flex: 1; min-width: 0; }
+.tour-step strong { display: block; font-size: 14px; font-weight: 800; }
+.tour-step small { display: block; font-size: 12px; color: var(--muted); }
+/* simple memory list, the partner space */
+.row { display: grid; grid-template-columns: 24px 1fr auto; align-items: center; gap: 10px; width: 100%; border: 0; border-bottom: 1px solid var(--line); background: transparent; padding: 12px 2px; text-align: left; min-height: 52px; }
+.row > svg { color: var(--orange); width: 20px !important; height: 20px !important; }
+.row > .who { width: 24px; height: 24px; }
+.row strong { font-size: 15px; font-weight: 800; line-height: 1.25; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.row .hint { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 700; color: var(--muted); white-space: nowrap; max-width: 150px; overflow: hidden; text-overflow: ellipsis; }
+.row .hint svg { width: 13px; height: 13px; color: var(--purple); }
+.row .hint .who { width: 18px; height: 18px; font-size: 9.5px; }
+.scroll.couple { background: linear-gradient(var(--lilac) 0, transparent 260px); }
+.oneline.private > svg:first-child { color: var(--orange); }
+.oneline.private small { display: inline-flex; gap: 4px; align-items: center; font-size: 11px; }
+.oneline.private small svg { width: 12px; height: 12px; }
+.story { border-left: 2px solid var(--purple); margin-left: 6px; padding-left: 14px; }
+.story-item { display: block; width: 100%; border: 0; background: transparent; text-align: left; padding: 6px 0 10px; }
+.story-item b { display: block; font-size: 12px; color: var(--purple); font-weight: 900; }
+.story-item span { display: inline-flex; gap: 7px; align-items: center; font-size: 15px; font-weight: 800; }
+.story-item svg { color: var(--orange); }
+/* memory first: Oh, right! moments, where the idea came from */
+.ohright { display: flex; align-items: center; gap: 10px; width: 100%; border: 0; background: var(--soft); border-radius: 16px; padding: 11px 13px; margin-bottom: 8px; text-align: left; font-size: 13.5px; font-weight: 700; color: var(--ink); }
+.ohright b { flex: none; font-weight: 900; color: var(--orange); transform: rotate(-4deg); }
+.ohright span { flex: 1; min-width: 0; }
+.from-line { display: flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 800; color: var(--purple); margin: 0 0 3px; }
+.from-line .who { width: 18px; height: 18px; font-size: 9.5px; }
+.from-line svg { width: 13px; height: 13px; }
+.from-line.done { color: var(--muted); margin: 0 0 6px; }
+/* one memory, spaces decide: date night, facts, regular days */
+.tape.go { background: var(--orange); color: var(--onorange); }
+.go-label { font-size: 12px; font-weight: 800; color: var(--muted); margin: 12px 0 6px; }
+.cal-head { display: flex; align-items: center; justify-content: space-between; margin: 4px 0 8px; }
+.cal-head b { font-size: 16px; font-weight: 900; }
+.cal { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+.cal .wd { text-align: center; font-size: 11px; font-weight: 800; color: var(--muted); padding: 2px 0; }
+.cal-d { position: relative; aspect-ratio: 1; border: 0; border-radius: 12px; background: var(--bg); font: 800 14px 'Nunito', sans-serif; color: var(--ink); display: grid; place-items: center; }
+.cal-d:disabled { background: none; color: var(--line); }
+.cal-d.today { box-shadow: inset 0 0 0 2px var(--purple); }
+.cal-d.range { background: var(--soft); border-radius: 4px; }
+.cal-d.on { background: var(--orange); color: var(--onorange); }
+.cal-d i { position: absolute; bottom: 1px; right: 3px; font-style: normal; font-size: 10px; }
+.cal-legend { display: flex; gap: 14px; justify-content: center; font-size: 12px; font-weight: 700; color: var(--muted); margin: 10px 0 12px; }
+.shared { margin-top: 18px; }
+.wstrip { display: flex; align-items: center; gap: 12px; width: 100%; border: 0; border-radius: 18px; padding: 10px 12px; margin: 10px 0 16px; text-align: left; color: var(--ink); background: var(--paper); box-shadow: inset 4px 0 0 var(--purple), 0 3px 0 -1px var(--line); }
+.wstrip .day { flex: none; width: 46px; border-radius: 12px; background: var(--purple); color: #fff; text-align: center; padding: 5px 0 6px; font: 900 11px/1.1 'Nunito', sans-serif; letter-spacing: .3px; }
+.wstrip .day b { display: block; font-size: 17px; }
+.wstrip .t { flex: 1; min-width: 0; }
+.wstrip .t strong { display: block; font-size: 15px; font-weight: 900; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.wstrip .t small { display: block; font-size: 12px; font-weight: 700; color: var(--muted); }
+.wstrip .week { display: flex; gap: 3px; flex: none; }
+.wstrip .week i { width: 7px; height: 7px; border-radius: 50%; background: var(--line); }
+.wstrip .week i.now { background: var(--purple); }
+.wstrip .week i.it { background: var(--orange); transform: scale(1.4); }
+.wstrip.soon { box-shadow: inset 4px 0 0 var(--orange), 0 3px 0 -1px var(--line); background: var(--soft); }
+.wstrip.soon .day { background: var(--orange); }
+.dn-hero { position: relative; overflow: hidden; border-radius: 22px 24px 20px 23px; padding: 16px; margin: 10px 0 18px; background: linear-gradient(135deg, light-dark(#ffe1ea, #4a2632), light-dark(#efe4ff, #33284a)); box-shadow: 0 6px 18px -10px #D6336C; }
+.dn-hero::after { content: '♥'; position: absolute; right: -6px; top: -18px; font-size: 96px; color: #D6336C; opacity: .12; transform: rotate(14deg); }
+.dn-hero .k { font-size: 12px; font-weight: 900; color: #D6336C; display: flex; gap: 6px; align-items: center; }
+.dn-hero .k svg { width: 14px; height: 14px; fill: #D6336C; }
+.dn-hero h5 { margin: 4px 0 2px; font: 900 22px/1.2 'Nunito', sans-serif; letter-spacing: -.3px; }
+.dn-hero p { margin: 0 0 12px; font-size: 13px; font-weight: 700; color: var(--muted); }
+.dn-hero .primary { background: #D6336C; border-color: #D6336C; }
+.suggest-btn { margin-top: 14px; }
+.shared-head { display: flex; align-items: center; gap: 8px; margin: 0 2px 8px; font-size: 14px; font-weight: 900; color: var(--purple); }
+.shared-head small { color: var(--muted); font-weight: 800; }
+.srow { display: flex; align-items: center; gap: 10px; background: var(--paper); border-radius: 16px; padding: 8px 8px 8px 12px; margin-bottom: 8px; box-shadow: 0 3px 0 -1px var(--line); }
+.srow .o { flex: 1; min-width: 0; display: flex; align-items: center; gap: 10px; border: 0; background: none; padding: 4px 0; text-align: left; color: var(--ink); }
+.srow .o svg { color: var(--orange); flex: none; }
+.srow .o b { display: block; font-size: 14.5px; font-weight: 900; line-height: 1.25; }
+.srow .o small { display: block; font-size: 12px; font-weight: 700; color: var(--muted); }
+.srow .o small.d { color: #D6336C; font-weight: 900; }
+.srow .plan { flex: none; width: auto; min-height: 40px; padding: 0 14px; font-size: 13.5px; }
+.go-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.go-row button { width: auto; flex: 1 1 0; min-width: 0; min-height: 46px; padding: 0 10px; font-size: 14px; white-space: nowrap; }
+.spacebar { display: flex; justify-content: flex-end; gap: 8px; margin: 10px 0 2px; }
+.emo { display: inline-flex; align-items: center; gap: 4px; height: 38px; min-width: 38px; padding: 0 10px; border: 0; border-radius: 19px; background: var(--paper); font-size: 18px; color: var(--ink); box-shadow: 0 2px 0 -1px var(--line); }
+.emo small { font: 800 11.5px 'Nunito', sans-serif; color: var(--muted); }
+.emo.near { background: var(--soft); }
+.emo.near small { color: var(--orange); }
+@keyframes bob { 50% { transform: translateY(-3px) rotate(-6deg); } }
+.emo.near .e { display: inline-block; animation: bob 1.6s ease-in-out infinite; }
+.story-pop { text-align: center; padding: 6px 0 4px; position: relative; overflow: hidden; }
+.story-pop .big { font-size: 46px; line-height: 1; display: block; animation: pop .5s cubic-bezier(.3,1.6,.5,1); }
+@keyframes pop { from { transform: scale(.2); opacity: 0; } }
+.story-pop .float { position: absolute; bottom: 0; font-size: 18px; opacity: 0; animation: up 1.8s ease-out forwards; }
+@keyframes up { 0% { transform: translateY(0); opacity: 0; } 15% { opacity: 1; } 100% { transform: translateY(-150px) rotate(var(--r)); opacity: 0; } }
+.story-pop .when { font-size: 13px; font-weight: 800; color: var(--purple); margin: 12px 0 4px; }
+.story-pop h4.title { font-size: 26px; }
+.story-nav { display: flex; align-items: center; justify-content: space-between; margin-top: 16px; }
+@media (prefers-reduced-motion: reduce) { .emo.near .e, .story-pop .big, .story-pop .float { animation: none; } .story-pop .float { display: none; } }
+.next-card { background: var(--lilac); border-radius: 22px 24px 20px 23px; padding: 16px; margin: 14px 0 12px; }
+.next-card h5 { margin: 0 0 10px; font: 900 21px/1.2 'Nunito', sans-serif; color: var(--purple); letter-spacing: -.3px; }
+.next-card .chips { margin: 0; }
+.next-card .chip { background: var(--paper); }
+.next-card .chip.on { background: var(--orange); color: var(--onorange); border-color: var(--orange); }
+.pick { display: flex; align-items: center; gap: 12px; width: 100%; border: 0; background: var(--paper); border-radius: 16px 18px 15px 17px; padding: 11px 12px; margin-top: 8px; text-align: left; color: var(--ink); box-shadow: 0 3px 0 -1px var(--line); }
+.pick .note-ic { margin: 0; }
+.pick span.t { flex: 1; min-width: 0; }
+.pick b { display: block; font-size: 15px; font-weight: 900; line-height: 1.25; }
+.pick small { display: flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 800; color: var(--purple); margin-top: 2px; }
+.pick small svg { width: 13px; height: 13px; }
+.next-plan { display: flex; gap: 12px; align-items: center; width: 100%; border: 0; background: var(--paper); border-radius: 18px; padding: 12px; text-align: left; color: var(--ink); }
+.next-plan span.t { flex: 1; min-width: 0; }
+.next-plan b { display: block; font-size: 17px; font-weight: 900; }
+.next-plan small { display: block; font-size: 12.5px; font-weight: 700; color: var(--muted); }
+.dn-card { background: var(--lilac); border-radius: 22px 24px 20px 23px; padding: 14px 16px; margin: 14px 0 4px; }
+.dn-card .dn-line { margin-bottom: 10px; }
 @keyframes shake { 15% { transform: rotate(-14deg); } 35% { transform: rotate(12deg); } 55% { transform: rotate(-9deg); } 75% { transform: rotate(6deg); } }
 .dn-line { display: flex; align-items: center; gap: 8px; width: 100%; border: 0; background: var(--paper); border-radius: 14px; padding: 9px 12px; margin: 0 0 12px; font-size: 13px; font-weight: 700; text-align: left; color: var(--ink); }
 .dn-line > svg:first-child { color: var(--purple); fill: var(--purple); }
@@ -240,6 +348,11 @@ nav svg { width: 23px !important; height: 23px !important; }
 .picking { display: flex; align-items: center; gap: 10px; background: var(--lilac); color: var(--purple); border-radius: 16px; padding: 11px 13px; margin-top: 12px; font-size: 13px; font-weight: 700; }
 .picking span { flex: 1; }
 .weekly.big { padding: 22px 18px 14px; margin-top: 18px; }
+.weekly.today { border-color: var(--orange); box-shadow: 0 0 0 5px color-mix(in srgb, var(--orange) 18%, transparent), 0 10px 26px -12px var(--orange); }
+.weekly.today .tape { background: var(--orange); color: var(--onorange); }
+.weekly.today .kind { color: var(--orange); }
+.oneline.today { background: var(--orange); color: var(--onorange); }
+.coming.today { outline: 3px solid var(--orange); outline-offset: -3px; }
 .weekly.big h5 { font-size: 24px; margin-bottom: 6px; }
 .streak { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 800; color: var(--muted); margin: 12px 0 0; }
 .streak svg { color: var(--orange); }
@@ -252,7 +365,8 @@ nav svg { width: 23px !important; height: 23px !important; }
 .tabs::-webkit-scrollbar { display: none; }
 .tab { flex: none; border: 0; border-bottom: 3px solid transparent; background: transparent; padding: 10px 0 8px; min-height: 44px; display: inline-flex; align-items: center; gap: 6px; font: 800 14px/1.2 'Nunito', sans-serif; color: var(--muted) !important; white-space: nowrap; }
 .tab.on { color: var(--ink) !important; border-bottom-color: var(--orange); }
-.tab .n { min-width: 18px; height: 18px; border-radius: 9px; padding: 0 5px; background: var(--orange); color: var(--onorange); font-size: 10.5px; font-weight: 900; display: inline-grid; place-items: center; }
+.countdot { flex: none; }
+.countdot, .tab .n { min-width: 18px; height: 18px; border-radius: 9px; padding: 0 5px; background: var(--orange); color: var(--onorange); font-size: 10.5px; font-weight: 900; display: inline-grid; place-items: center; }
 .tab.new { color: var(--purple) !important; }
 .tab.new svg { width: 15px; height: 15px; }
 .deck { position: relative; margin-bottom: 26px; }
@@ -268,6 +382,23 @@ nav svg { width: 23px !important; height: 23px !important; }
 .stamp.later { right: 18px; color: var(--purple); border: 2.5px solid var(--purple); transform: rotate(9deg); }
 .decknote { text-align: center; font-size: 12px; font-weight: 700; color: var(--muted); margin: 0 0 4px; }
 .backline { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 800; color: var(--purple); margin-bottom: 10px; }
+.sent { margin: 4px -22px 16px; }
+.sent .label { margin: 0 22px 8px; }
+.sent-row { display: flex; gap: 10px; overflow-x: auto; padding: 2px 22px 6px; scrollbar-width: none; }
+.sent-card { flex: none; width: 148px; border: 0; background: var(--paper); border-radius: 16px 19px 15px 18px; box-shadow: 0 3px 0 -1px var(--line); padding: 11px 12px; text-align: left; color: var(--ink); }
+.sent-card strong { display: block; font-size: 13.5px; font-weight: 900; line-height: 1.25; margin-bottom: 6px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.sent-card small { display: flex; align-items: center; gap: 5px; font-size: 11.5px; font-weight: 800; color: var(--purple); }
+.sent-card small svg { width: 13px; height: 13px; }
+.sent-card.new { animation: sent .9s ease; }
+@keyframes sent { 0% { transform: translateY(-14px) rotate(-4deg); opacity: 0; } 60% { transform: rotate(2deg); opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .sent-card.new { animation: none; } }
+.add-opt { display: flex; align-items: center; gap: 12px; width: 100%; border: 0; background: var(--bg); border-radius: 16px; padding: 12px 14px; margin-bottom: 8px; text-align: left; color: var(--ink); min-height: 56px; }
+.add-opt .note-ic { margin: 0; }
+.add-opt b { display: block; font-size: 15px; font-weight: 900; }
+.add-opt small { display: block; font-size: 12px; font-weight: 700; color: var(--muted); }
+.add-opt.big { background: var(--orange); color: var(--onorange); min-height: 68px; }
+.add-opt.big small { color: inherit; opacity: .85; }
+.add-opt.big .note-ic { background: var(--paper); color: var(--orange); border-color: var(--paper); }
 .oneline { display: flex; align-items: center; gap: 10px; width: 100%; border: 0; background: var(--paper); border-radius: 16px; padding: 11px 14px; margin-top: 10px; text-align: left; font-size: 13.5px; font-weight: 800; min-height: 48px; }
 .oneline > svg:first-child { color: var(--purple); }
 .oneline span { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -309,7 +440,6 @@ nav svg { width: 23px !important; height: 23px !important; }
 .sb .nm { font-size: 11px; font-weight: 800; max-width: 66px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--muted); }
 .sb.on .nm { color: var(--ink); }
 .sb .dot { position: absolute; top: 0; right: 2px; min-width: 20px; height: 20px; border-radius: 10px; padding: 0 5px; background: var(--orange); color: var(--onorange); font-size: 11px; font-weight: 900; display: grid; place-items: center; box-shadow: 0 0 0 2px var(--bg); }
-.newsline { display: flex; align-items: center; gap: 8px; background: var(--lilac); color: var(--purple); border-radius: 14px; padding: 9px 12px; font-size: 13px; font-weight: 800; margin: 6px 0 0; }
 .invite-card { border: 1.5px dashed var(--purple); border-radius: 22px; padding: 16px; margin-top: 20px; }
 .invite-card h5 { margin: 0 0 4px; font: 900 17px/1.25 'Nunito', sans-serif; color: var(--purple); display: flex; gap: 8px; align-items: center; }
 .welcome-opt { display: flex; align-items: center; gap: 14px; width: 100%; border: 1px solid var(--line); border-radius: 20px; background: var(--paper); padding: 16px; text-align: left; margin-bottom: 10px; min-height: 72px; }
@@ -389,6 +519,7 @@ const KINDS = {
   trip: { label: 'Trips', line: 'A trip, one day', icon: 'plane' },
   event: { label: 'Events', line: 'Something happening', icon: 'ticket' },
   music: { label: 'Music', line: 'Something to listen to', icon: 'music' },
+  gift: { label: 'Gifts', line: 'A gift idea', icon: 'gift' },
   other: { label: 'Other', line: 'A little idea', icon: 'sparkles' },
 };
 // "Good for" hints: they decide where an idea is suggested (date night only shows if you have a space for two).
@@ -400,7 +531,7 @@ const GOOD = {
 };
 const CONDS = { booking: { label: 'Needs booking', icon: 'ticket' }, weather: { label: 'Good weather', icon: 'sun' }, weekend: { label: 'Weekend only', icon: 'calendar' } };
 
-function addDays(n) { const d = new Date(); d.setDate(d.getDate() + n); return d.toISOString().slice(0, 10); }
+function addDays(n) { const d = new Date(); d.setDate(d.getDate() + n); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`; }
 const wd = n => (new Date().getDay() + n) % 7;
 
 // Spaces: your own, spaces for two, and groups. Each type talks and works a little differently.
@@ -409,15 +540,19 @@ const SPACES = {
   me: { name: 'Just me', type: 'me', members: ['you'], icon: 'user-round' },
   us: { name: 'You & Lena', type: 'couple', members: ['you', 'Lena'], icon: 'heart',
     dateNight: { day: wd(2), time: '19:30', turns: true, turn: 'you', planned: null } },
-  mira: { name: 'You & Mira', type: 'couple', members: ['you', 'Mira'], icon: 'heart', offer: true },
+  mira: { name: 'You & Mira', type: 'group', members: ['you', 'Mira'], icon: 'users' },
   regulars: { name: 'The regulars', type: 'group', members: ['you', 'Max', 'Jonas', 'Aylin'], icon: 'users',
-    weekly: { title: 'Drinks at Bar Zentral', day: wd(0), time: '20:00', where: 'Bar Zentral, Weserstraße', min: 3, decide: '17:00', ins: ['Max', 'Jonas'], streak: 4 } },
+    weeklies: [{ id: 'w1', title: 'Drinks at Bar Zentral', day: wd(0), time: '20:00', where: 'Bar Zentral, Weserstraße', min: 3, decide: '17:00', ins: ['Max', 'Jonas'], streak: 4 },
+      { id: 'w2', title: 'Football at Hasenheide', day: wd(3), time: '18:30', where: 'Hasenheide park', min: 6, decide: '15:00', ins: ['Jonas'], streak: 0 }] },
   lisbon: { name: 'Lisbon crew', type: 'group', members: ['you', 'Lena', 'Max', 'Mira'], icon: 'users',
-    slot: { day: wd(1), time: '14:00', planned: null }, news: { n: 2, msg: 'Mira suggested a weekend in Copenhagen' } },
+    news: { n: 2 } },
 };
 
 // One memory per person. Suggesting something puts a card of it into a space; votes are kept per space.
 const SEED = () => [
+  // saved for someone: private, back in time for the occasion
+  { id: 'mug', title: 'A hand-made mug from Kiln Studio', note: 'Lena loved the speckled blue ones at the pottery drop-in. Ask for the big one.', kind: 'gift', forWho: 'Lena', occasion: { label: 'Lena’s birthday', date: addDays(14) }, days: 60, dur: 'short', cost: '€€' },
+  { id: 'hailmary', title: 'Project Hail Mary, for Max', note: 'He keeps asking for a good sci-fi book. This is the one.', kind: 'gift', forWho: 'Max', days: 33, dur: 'short', cost: '€' },
   // your own memory
   { id: 'perfect', title: 'Perfect Days, finally', note: 'Keep this for a night when I want something gentle. Put the phone away, make tea, give it the whole evening.', kind: 'film', good: ['quiet', 'solo'], who: 'Max', days: 49, dur: 'evening', tags: ['japan', 'slow cinema'] },
   { id: 'tomorrow', title: 'Tomorrow, and Tomorrow, and Tomorrow', note: 'The novel about friends who make video games. Lena couldn’t stop talking about it.', kind: 'book', good: ['solo'], who: 'Lena', days: 40, dur: 'short' },
@@ -434,10 +569,13 @@ const SEED = () => [
     shares: ['us'], votes: { us: { you: 'yes', Lena: 'yes' } }, history: [{ date: addDays(-24), people: ['Lena'], space: 'us' }] },
   { id: 'pho', title: 'Vietnamese place on Kantstraße', note: 'Mira swears by the pho. Cash only.', kind: 'food', good: ['friends'], who: 'Mira', days: 30, dur: 'short', cost: '€',
     shares: ['mira'], votes: { mira: { you: 'yes', Mira: 'yes' } } },
-  { id: 'erhard', title: 'Anna Erhard live', note: 'Saw her video, would love to hear it live. Tickets go on sale soon.', kind: 'music', good: ['date', 'friends'], who: null, days: 8, dur: 'evening', event: { start: addDays(70) } },
+  { id: 'erhard', title: 'Anna Erhard live', note: 'Saw her video, would love to hear it live. Tickets go on sale soon.', kind: 'music', good: ['date', 'friends'], who: null, days: 8, dur: 'evening', event: { start: addDays(70) },
+    shares: ['us'], votes: { us: { you: 'yes', Lena: 'yes' } } },
+  { id: 'baltic', by: 'Lena', title: 'Road trip to the Baltic coast', note: 'Three days, small towns, fish rolls, a cold swim if we dare.', kind: 'trip', good: ['date'], days: 50, dur: 'days', cost: '€€',
+    shares: ['us'], votes: { us: { Lena: 'yes', you: 'yes' } } },
   // Lena's ideas in You & Lena
   { id: 'lake', by: 'Lena', title: 'An afternoon by the lake', note: 'Bring a book, a blanket, something to eat. No schedule. Just fresh air.', kind: 'place', good: ['date'], days: 150, dur: 'day', weather: true, cost: '€',
-    shares: ['us'], votes: { us: { Lena: 'yes', you: 'yes' } } },
+    shares: ['us'], votes: { us: { Lena: 'yes', you: 'yes' } }, history: [{ date: addDays(-365), people: ['Lena'], space: 'us' }] },
   { id: 'wine', by: 'Lena', title: 'Candlelit wine bar in Neukölln', note: 'Tiny place, natural wine, candles everywhere. Found it on Instagram. Perfect for a proper date night.', kind: 'food', good: ['date'], days: 12, dur: 'evening', booking: true, cost: '€€', link: { url: 'https://maps.google.com/?q=wine+bar+neukoelln', site: 'maps.google.com', name: 'Weinbar Rossi, Neukölln' },
     shares: ['us'], votes: { us: { Lena: 'yes' } } },
   { id: 'games', by: 'Lena', title: 'Board game café', note: 'Hundreds of games and good cake. Rainy Sunday material.', kind: 'activity', good: ['date', 'friends'], days: 34, dur: 'evening', cost: '€',
@@ -456,12 +594,14 @@ const SEED = () => [
   { id: 'bowling', by: 'Jonas', title: 'Bowling night', note: 'Old-school lanes in Wedding, cheap beer, terrible shoes.', kind: 'activity', good: ['friends'], days: 7, dur: 'evening', min: 4, booking: true, cost: '€',
     shares: ['regulars'], votes: { regulars: { Jonas: 'yes', Aylin: 'yes' } } },
   { id: 'quiz', by: 'Aylin', title: 'Pub quiz on Tuesdays', note: 'We would win the music round. Probably only that one.', kind: 'activity', good: ['friends'], days: 11, dur: 'evening', cost: '€',
-    shares: ['regulars'], votes: { regulars: { Aylin: 'yes', Max: 'yes' } } },
+    shares: ['regulars'], votes: { regulars: { Aylin: 'yes', Max: 'yes' } },
+    plan: { space: 'regulars', by: 'Aylin', when: 'date', date: addDays(3), time: '19:30', remind: 'morning', where: 'The Oak, Lenaustraße', people: [], rsvp: { Aylin: 'in', Max: 'in', Jonas: null, you: null }, notes: [], todo: [{ t: 'Reserve a table', done: false, who: 'Aylin' }], bring: '' } },
   // Lisbon crew
   { id: 'escape', by: 'Max', title: 'Escape room: the submarine', note: 'The hardest one in the city. Four people is ideal.', kind: 'activity', good: ['friends'], days: 9, dur: 'evening', min: 4, booking: true, cost: '€€',
     shares: ['lisbon'], votes: { lisbon: { Max: 'yes', Mira: 'yes' } } },
   { id: 'karaoke', by: 'Mira', title: 'Karaoke booth in Mitte', note: 'Private rooms, you pay by the hour. I already have a song list.', kind: 'music', good: ['friends'], days: 15, dur: 'evening', cost: '€€',
-    shares: ['lisbon'], votes: { lisbon: { Mira: 'yes', Lena: 'yes', Max: 'later' } } },
+    shares: ['lisbon'], votes: { lisbon: { Mira: 'yes', Lena: 'yes', Max: 'later', you: 'yes' } },
+    plan: { space: 'lisbon', by: 'Mira', when: 'date', date: addDays(9), time: '21:00', remind: 'morning', where: 'Karaoke booth, Torstraße', people: [], rsvp: { Mira: 'in', Lena: 'in', Max: null, you: null }, notes: [], todo: [{ t: 'Book a room', done: true, who: 'Mira' }], bring: '' } },
   { id: 'bbq', by: 'Lena', title: 'Barbecue at the Tempelhofer Feld', note: 'Everyone brings one thing. Frisbee optional.', kind: 'place', good: ['friends'], days: 40, dur: 'day', weather: true, cost: '€', tags: ['summer'],
     shares: ['lisbon'], votes: { lisbon: { Lena: 'yes', Max: 'yes', Mira: 'yes' } } },
   { id: 'cph', by: 'Mira', title: 'A weekend in Copenhagen', note: 'Night train from Berlin, bikes, cinnamon buns, the harbour baths.', kind: 'trip', good: ['friends'], days: 1, dur: 'days', cost: '€€€',
@@ -477,8 +617,12 @@ function seedAll() { return SEED().map(m => ({ by: 'you', good: [], tags: [], sh
 
 const S = {
   view: 'signin', stack: [], user: null, mode: 'signin', memories: [], snoozed: new Set(),
-  search: '', filter: { kind: null, who: null, good: null, tag: null }, detail: null, sheet: null, draft: null, ask: { q: '', state: 'idle', results: [] },
-  dark: false, toast: null, planPick: 'tonight', planDate: '', planId: null, space: 'us', hinted: false, notif: null, news: null, picking: false, showDeck: false,
+  search: '', filter: { kind: null, who: null, good: null, tag: null, forWho: null }, detail: null, sheet: null, draft: null, ask: { q: '', state: 'idle', results: [] },
+  dark: false, toast: null, planPick: 'tonight', planDate: '', planId: null, space: 'us', hinted: false, notif: null, picking: false, showDeck: false,
+  memWhere: null, drawSeen: [], ctx: { rain: true },   // demo context: a rainy evening
+  // Dates to remember: just reminders, yearly. Gift ideas are optional.
+  dates: [{ id: 'd1', who: 'Lena', label: 'Lena’s birthday', date: addDays(14) }, { id: 'd2', who: 'Lena', label: 'Your anniversary', date: addDays(52) },
+    { id: 'd3', who: 'Mom', label: 'Mom’s birthday', date: addDays(27) }, { id: 'd4', who: 'Max', label: 'Max’s birthday', date: addDays(68) }],
 };
 
 function esc(s) { return String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]); }
@@ -495,7 +639,11 @@ function byId(id) { return S.memories.find(m => m.id === id); }
 function sp(k = S.space) { return SPACES[k]; }
 function isShared(k = S.space) { return !!sp(k) && sp(k).type !== 'me' && sp(k).members.length > 1; }
 function others(k = S.space) { return sp(k).members.filter(x => x !== 'you'); }
+// Your memory: what you saved, plus every idea from others you said "I'd love to" to.
 function mine() { return S.memories.filter(m => m.by === 'you'); }
+function viaSpace(m) { return m.by === 'you' ? null : m.shares.find(k => isShared(k) && vt(m, k).you === 'yes') || m.shares[0]; }
+// The space an idea belongs to when you act on it: the one you are in, or for someone else's idea, where it came from.
+function ctxSpace(m) { return isShared(S.space) && m.shares.includes(S.space) ? S.space : m.by !== 'you' ? viaSpace(m) : null; }
 function ideas(k = S.space) { return S.memories.filter(m => m.shares.includes(k)); }
 function vt(m, k = S.space) { return (m.votes[k] ||= {}); }
 function nm(x) { return x === 'you' ? 'You' : x; }
@@ -511,18 +659,27 @@ function matchLine(m, k = S.space) {
   const all = sp(k).members, yes = yesOf(m, k);
   return sp(k).type === 'couple' ? 'You both want this' : yes.length === all.length ? 'Everyone wants this' : `${joinNames(yes)} want this`;
 }
-function jar(k = S.space) { return ideas(k).filter(m => isMatch(m, k) && !activePlan(m) && !m.event && m.dur !== 'days'); }
+function bothWant(k = S.space) { return ideas(k).filter(m => isMatch(m, k) && !activePlan(m) && !m.event && m.dur !== 'days'); }
 function weekday(n) { return ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][n]; }
+// Date night on a fixed day, or flexible (this week / every two weeks): then the one who draws picks the day.
+function dnDay(dn) { return dn.flex ? null : nextOn(dn.day); }
+function dnRule(dn) { return dn.flex ? (dn.every === 2 ? 'Every two weeks, any day' : 'Once a week, any day') : `Every ${weekday(dn.day)}`; }
 function nextOn(day) { return addDays((day - new Date().getDay() + 7) % 7); }
-function weeklyToday(k = S.space) { const w = sp(k)?.weekly; return !!w && w.day === new Date().getDay(); }
-function badge(k) { const v = SPACES[k]; return (v.news?.n || 0) + (weeklyToday(k) && !v.weekly.answered ? 1 : 0); }
+// A space can have up to three weekly things.
+function weeklies(k = S.space) { return sp(k)?.weeklies || []; }
+function wById(k, id) { return weeklies(k).find(w => w.id === id); }
+function isToday(w) { return w.day === new Date().getDay(); }
+function weeklyToday(k = S.space) { return weeklies(k).some(isToday); }
+function nextWeekly(k) { return weeklies(k).filter(w => !isToday(w)).sort((a, b) => daysUntil(nextOn(a.day)) - daysUntil(nextOn(b.day)))[0]; }
+function badge(k) { const v = SPACES[k]; return (v.news?.n || 0) + weeklies(k).filter(w => isToday(w) && !w.answered).length; }
 // The few facts a card needs so others can decide at a glance.
 function facts(m, skipEvent = false) {
   const f = [];
   if (m.event && eventOpen(m) && !skipEvent) f.push([ic('ticket'), eventLabel(m)]);
   if (m.link && ['food', 'place'].includes(m.kind)) f.push([ic('map-pin'), m.link.name.split(',')[0]]);
   if (m.cost) f.push([ic('wallet'), m.cost]);
-  if (m.booking) f.push([ic('ticket'), 'needs booking']);
+  if (m.decideBy && daysUntil(m.decideBy) >= 0) f.push([ic('alarm-clock'), `decide by ${fmtDay(m.decideBy)}`]);
+  else if (m.booking) f.push([ic('ticket'), 'needs booking']);
   if (m.weather) f.push([ic('sun'), 'good weather']);
   if (m.weekend) f.push([ic('calendar'), 'weekends']);
   if ((m.min || 0) > 2) f.push([ic('users'), `${m.min}+ people`]);
@@ -532,7 +689,10 @@ function facts(m, skipEvent = false) {
 // --- dates and plans ---------------------------------------------------------------
 const TODAY = () => addDays(0);
 function daysUntil(date) { return Math.round((new Date(date + 'T12:00') - new Date(TODAY() + 'T12:00')) / 86400000); }
+function fmtLong(date) { const d = new Date(date + 'T12:00'); return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', ...(d.getFullYear() !== new Date().getFullYear() ? { year: 'numeric' } : {}) }); }
 function fmtDay(date) { return new Date(date + 'T12:00').toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' }); }
+function occLabel(who, what) { return /^(your|our) /i.test(what) || /anniversary/i.test(what) ? (/^(your|our) /i.test(what) ? what[0].toUpperCase() + what.slice(1) : 'Your ' + what.toLowerCase()) : `${who}’s ${what.toLowerCase()}`; }
+function nextOcc(date) { const t = TODAY(), y = +t.slice(0, 4), s = `${y}${date.slice(4)}`; return s >= t ? s : `${y + 1}${date.slice(4)}`; }
 function inDays(n) { return n === 0 ? 'today' : n === 1 ? 'tomorrow' : `in ${n} days`; }
 function activePlan(m) { return !!(m.plan && m.plan.date >= TODAY()); }
 function planLabel(p) {
@@ -556,7 +716,7 @@ function eventLabel(m) {
   return 'Happening now';
 }
 function planDefaults(m, k = 'me') {
-  const p = { space: k, time: '', remind: 'morning', where: m.link && ['food', 'place'].includes(m.kind) ? m.link.name : '', people: [], todo: m.booking ? [{ t: 'Book it', done: false, who: null }] : [], bring: '' };
+  const p = { space: k, time: { food: '19:30', film: '20:00', music: '20:00', place: '14:00', activity: '18:00' }[m.kind] || '', remind: 'morning', where: m.link && ['food', 'place'].includes(m.kind) ? m.link.name : '', people: [], todo: m.booking ? [{ t: 'Book it', done: false, who: null }] : [], bring: '' };
   if (isShared(k)) { p.rsvp = Object.fromEntries(sp(k).members.map(x => [x, x === 'you' ? 'in' : null])); p.notes = []; }
   if (m.kind === 'trip') p.days = [{ label: 'Day 1', items: [] }, { label: 'Day 2', items: [] }];
   return p;
@@ -591,6 +751,7 @@ function whenBox(date) {
 }
 function weekendDay() { const d = new Date().getDay(); return addDays(d === 6 || d === 0 ? 0 : 6 - d); }
 function greeting() {
+  if (S.ctx.rain) return 'for a rainy evening.';
   const now = new Date(), h = now.getHours(), day = now.getDay();
   const part = h < 5 ? 'tonight' : h < 11 ? 'this morning' : h < 17 ? 'this afternoon' : h < 22 ? 'this evening' : 'tonight';
   if ((day === 0 || day === 6) && h >= 9 && h < 17) return `for your ${now.toLocaleDateString('en-GB', { weekday: 'long' })}.`;
@@ -602,36 +763,59 @@ let toastTimer;
 function toast(msg, icon = 'check') { S.toast = { msg, icon }; render(); clearTimeout(toastTimer); toastTimer = setTimeout(() => { S.toast = null; render(); }, 2600); }
 function laterToast(msg, icon) { S.toast = { msg, icon }; clearTimeout(toastTimer); toastTimer = setTimeout(() => { S.toast = null; render(); }, 3000); }
 
+// --- smart: why something fits now -----------------------------------------------
+function why(m) {
+  if (S.ctx.rain && m.good.includes('quiet')) return { score: 4, icon: 'cloud-rain', text: 'Rainy evening: a good one for staying in' };
+  if (S.ctx.rain && m.weather) return { score: -3, icon: 'cloud-rain', text: 'Better on a dry day' };
+  if (m.days > 90) return { score: 2, icon: 'hourglass', text: `You’ve wanted this for ${age(m.days)}` };
+  if (m.who) return { score: 1, icon: 'message-circle-heart', text: `${m.who} told you about it` };
+  return { score: 0, icon: 'sparkles', text: 'Something new for you' };
+}
+// "Oh, right!" moments: things saved for an occasion, and your own events that end or start soon.
+function ohMoments() {
+  const out = [];
+  for (const d of upcoming().filter(d => daysUntil(d.next) <= 21)) {
+    const g = giftsFor(d.who)[0];
+    out.push(`<button class="ohright" ${g ? `data-a="open" data-id="${g.id}"` : `data-a="date-open" data-v="${d.id}"`}><b>Oh, right!</b><span>${esc(d.label)} is ${inDays(daysUntil(d.next))}.${g ? ' You saved a gift idea.' : ''}</span>${ic('chevron-right')}</button>`);
+  }
+  for (const m of mine().filter(m => m.by === 'you' && eventSoon(m)))
+    out.push(`<button class="ohright" data-a="open" data-id="${m.id}"><b>Oh, right!</b><span>${esc(m.title)}: ${eventLabel(m).toLowerCase()}.</span>${ic('chevron-right')}</button>`);
+  return out.slice(0, 2).join('');
+}
+
 // --- the deck ------------------------------------------------------------------------
 // Just me: your own things that fit today or soon. Shared: ideas the others suggested that you haven't answered yet,
-// and events not to miss. Matches leave the deck: for two they go into the jar, for groups into "ready to plan".
+// and events not to miss. Matches leave the deck into “You both want” / “Ready to plan”.
 function pool(k = S.space) {
-  if (!isShared(k)) return mine().filter(m => !activePlan(m) && !m.event && m.dur !== 'days' && !S.snoozed.has(m.id) && !m.hidden).sort((a, b) => b.days - a.days);
+  if (!isShared(k)) return S.memories.filter(m => m.by === 'you' && m.kind !== 'gift' && !activePlan(m) && !m.event && m.dur !== 'days' && !S.snoozed.has(m.id) && !m.hidden).sort((a, b) => why(b).score - why(a).score || b.days - a.days);
   if (S.picking) {
     // Picking for an open slot: everything doable that day you haven't said yes to yet; most yeses first.
     return ideas(k).filter(m => !activePlan(m) && !m.event && m.dur !== 'days' && vt(m, k).you !== 'yes').sort((a, b) => yesOf(b, k).length - yesOf(a, k).length);
   }
-  return ideas(k).filter(m => {
-    if (activePlan(m) || S.snoozed.has(m.id) || m.hidden) return false;
+  const newOnes = ideas(k).filter(m => {
+    if (S.snoozed.has(m.id) || m.hidden || isGo(m, k)) return false;
     const v = vt(m, k).you;
+    if (activePlan(m)) return m.plan.space === k && canJoin(m) && !v;
     if (m.event) return eventSoon(m) && !v;
     return !v || (v === 'later' && m.back);
   }).sort((a, b) => (a.event ? 0 : 1) - (b.event ? 0 : 1) || b.days - a.days);
+  const go = ideas(k).filter(m => isGo(m, k) && !S.snoozed.has(m.id))
+    .sort((a, b) => fitScore(b, goTimes(b, k)[0]?.[0]) - fitScore(a, goTimes(a, k)[0]?.[0]));
+  return newOnes.filter(m => m.by !== 'you');
 }
 
 // --- views -----------------------------------------------------------------
 function header() {
   return `<div class="top"><button class="logo small" data-a="home" aria-label="Oh, right!, go to A little nudge">oh, <span class="r">right!</span><small>your little memory</small></button>
-    <div style="display:flex;gap:8px;flex:none"><button class="round-btn add-btn" data-a="remember" aria-label="Remember something">${ic('plus')}</button><button class="round-btn" data-a="account" aria-label="Account and spaces">${ic('user-round')}</button></div></div>`;
+    <div style="display:flex;gap:8px;flex:none"><button class="round-btn add-btn" data-a="add" aria-label="Add something">${ic('plus')}</button><button class="round-btn" data-a="account" aria-label="Account and spaces">${ic('user-round')}</button></div></div>`;
 }
 function navBar() {
   const tab = (v, a, icon, label) => `<button class="${S.view === v ? 'on' : ''}" data-a="${a}" aria-pressed="${S.view === v}">${ic(icon)}${label}</button>`;
-  return `<nav aria-label="Main">${tab('today', 'home', 'sparkles', 'A little nudge')}${tab('plans', 'plans', 'calendar-heart', 'Planned')}${isShared() ? tab('memory', 'memory', 'layers', 'Ideas') : tab('memory', 'memory', 'notebook', 'My memory')}</nav>`;
+  return `<nav aria-label="Main">${tab('today', 'home', 'sparkles', 'A little nudge')}${tab('plans', 'plans', 'calendar-heart', 'Planned')}${tab('memory', 'memory', 'notebook', 'My memory')}</nav>`;
 }
 function spacesRow() {
   const tab = ([k, v]) => `<button class="tab ${S.space === k ? 'on' : ''}" data-a="space" data-v="${k}" role="tab" aria-selected="${S.space === k}" aria-label="${esc(v.name)}${badge(k) ? `, ${badge(k)} new` : ''}">${esc(v.name)}${badge(k) ? `<span class="n">${badge(k)}</span>` : ''}</button>`;
-  return `<div class="tabs" role="tablist" aria-label="Your spaces">${Object.entries(SPACES).map(tab).join('')}<button class="tab new" data-a="newspace">${ic('plus')}New</button></div>
-    ${S.news ? `<p class="newsline">${ic('sparkles')}${esc(S.news)}</p>` : ''}`;
+  return `<div class="tabs" role="tablist" aria-label="Your spaces">${Object.entries(SPACES).map(tab).join('')}<button class="tab new" data-a="newspace">${ic('plus')}New</button></div>`;
 }
 
 function viewSignin() {
@@ -656,8 +840,8 @@ function viewWelcome() {
     <div class="companion big"><span class="loop l1"></span><span class="loop l2"></span></div>
     <h3 class="head" style="text-align:center;margin-top:18px">Who do you do<br><span class="squiggle">things with?</span></h3>
     <p class="sub" style="text-align:center;margin:18px auto 22px;max-width:290px">Your memory is always yours. A space is where you decide what to do together.</p>
-    ${opt('couple', 'heart', 'Just the two of us', 'With your partner or a best friend: a jar of things you both want')}
-    ${opt('group', 'users', 'A group', 'Friends, family, flatmates: ideas, matches and who’s in')}
+    ${opt('couple', 'heart', 'My partner', 'A special space for the two of you: date night, their dates and gifts, your story')}
+    ${opt('group', 'users', 'A group', 'Friends, family, a best friend: ideas, matches and who’s in')}
     ${opt('me', 'user-round', 'Just me for now', 'You can start a space any time')}
     ${w.pick === 'couple' || w.pick === 'group' ? `<form data-form="welcome" style="margin-top:8px">
       <label class="field"><span>${w.pick === 'couple' ? 'Their first name' : 'Name the group'}</span><input id="w-name" maxlength="30" placeholder="${w.pick === 'couple' ? 'Sam' : 'The regulars, Flat 3B…'}"></label>
@@ -666,6 +850,14 @@ function viewWelcome() {
   </div>`;
 }
 function viewEmpty() {
+  if (S.space !== 'me' && !isShared()) {
+    return `<div class="scroll">${header()}${spacesRow()}
+      <div style="text-align:center;margin-top:30px"><div class="companion big"><span class="loop l1"></span><span class="loop l2"></span></div>
+      <h3 class="head" style="margin-top:22px">Waiting for<br><span class="squiggle">${esc(sp().invitee || 'your people')}.</span></h3>
+      <p class="sub" style="margin:18px auto 18px;max-width:280px">They join with the link you sent. In the meantime, suggest something from your memory.</p></div>
+      <button class="secondary" data-a="invite" data-v="space">${ic('link')}Send the link again</button>
+    </div>${navBar()}`;
+  }
   const shared = S.space !== 'me';
   return `<div class="scroll">${header()}${Object.keys(SPACES).length > 1 ? spacesRow() : ''}
     <div style="text-align:center;margin-top:${Object.keys(SPACES).length > 1 ? 24 : 40}px">
@@ -673,18 +865,36 @@ function viewEmpty() {
       <h3 class="head" style="margin-top:22px">${shared ? 'No ideas here' : 'Your memory is'}<br><span class="squiggle">${shared ? 'yet.' : 'empty, for now.'}</span></h3>
       <p class="sub" style="margin:20px auto 0;max-width:280px;font-size:14px">${shared ? `Suggest one thing you’d love to do together. Everyone in ${esc(sp().name)} can say yes to it.` : 'Tell me one thing you’d love to do someday. I’ll keep it and bring it back when you don’t know what to do.'}</p>
     </div>
-    <div style="margin-top:28px"><button class="primary" data-a="remember">${ic(shared ? 'send' : 'bookmark-plus')}${shared ? 'Suggest something' : 'Remember my first thing'}</button></div>
+    <div style="margin-top:28px"><button class="primary" data-a="${isShared() ? 'suggest-new' : 'remember'}">${ic(shared ? 'send' : 'bookmark-plus')}${shared ? 'Suggest something' : 'Remember my first thing'}</button></div>
   </div>${navBar()}`;
 }
 
 // One card of the deck. Shared cards say who suggested it and why, plus a few facts.
+function goCard(m, k, p) {
+  const times = goTimes(m, k), [wi, wt] = fitWhy(m, times[0]?.[0], k), couple = sp(k).type === 'couple', fans = yesOf(m, k);
+  return `<div class="deck">${p.length > 2 ? '<div class="under u2"></div>' : ''}${p.length > 1 ? '<div class="under u1"></div>' : ''}
+    <article class="card focus" data-swipe data-id="${m.id}" aria-label="${esc(m.title)}. ${couple ? 'You both want this' : `${fans.length} are in`}. Swipe right: let’s do it. Swipe left: not now.">
+    <span class="tape go">${couple ? 'you both want this' : `${fans.length} are in`}</span>
+    <span class="stamp yes" aria-hidden="true">${ic('calendar-heart')}Let’s do it</span><span class="stamp later" aria-hidden="true">${ic('clock')}Not now</span>
+    <button class="card-open" data-a="open" data-id="${m.id}" aria-label="Read the note: ${esc(m.title)}">
+      <div style="display:flex;gap:12px;align-items:center;margin-top:2px"><div class="symbol">${ic(KINDS[m.kind].icon)}</div><div><p class="kind">${KINDS[m.kind].line}</p><h4 class="title">${esc(m.title)}</h4></div></div>
+    </button>
+    <p class="backline">${wi}${wt}</p>
+    ${couple ? '' : `<p class="line" style="margin:2px 0 0;display:flex;align-items:center;gap:7px;font-size:13px;font-weight:700">${faces(fans)}${joinNames(fans)}</p>`}
+    <button class="primary" style="margin-top:12px" data-a="go" data-v="other" data-id="${m.id}">${ic('calendar-heart')}Let’s do it</button>
+    <div style="text-align:center"><button class="text-btn muted" data-a="later" data-id="${m.id}">Not now</button></div>
+  </article></div>
+  <p class="decknote">${p.length === 1 ? 'The last one for now' : `${p.length} in the deck`}</p>`;
+}
 function deckCard(m, k, p) {
+  if (isGo(m, k)) return goCard(m, k, p);
   const shared = isShared(k), them = others(k), fans = yesOf(m, k).filter(x => x !== 'you');
   const tape = !shared ? 'a note from past you'
     : m.event ? eventLabel(m).replace(/^./, c => c.toLowerCase()) + ' · don’t miss it'
+    : canJoin(m) ? `${esc(m.plan.by || m.by)} started a plan`
     : S.picking && fans.length ? `${joinNames(fans)} ${fans.length === 1 ? 'is' : 'are'} in`
     : m.by === 'you' ? 'your idea' : `${esc(m.by)}’s idea`;
-  const back = shared && vt(m, k).you === 'later' && fans.length ? `<p class="backline">${ic('rotate-ccw')}Back again: ${joinNames(fans)} ${fans.length === 1 ? 'still loves' : 'still love'} this</p>` : '';
+  const back = !shared ? '' : vt(m, k).you === 'later' && fans.length ? `<p class="backline">${ic('rotate-ccw')}Back again: ${joinNames(fans)} ${fans.length === 1 ? 'still loves' : 'still love'} this</p>` : '';
   const yesLabel = shared ? 'I’d love to' : 'Let’s do it', yesIcon = shared ? 'heart' : 'calendar-heart';
   const f = shared ? facts(m, true) : '';
   return `<div class="deck">${p.length > 2 ? '<div class="under u2"></div>' : ''}${p.length > 1 ? '<div class="under u1"></div>' : ''}
@@ -696,9 +906,9 @@ function deckCard(m, k, p) {
       <div style="display:flex;gap:12px;align-items:center;margin-top:2px"><div class="symbol">${ic(KINDS[m.kind].icon)}</div><div><p class="kind">${KINDS[m.kind].line}</p><h4 class="title">${esc(m.title)}</h4></div></div>
       <blockquote class="quote">${shared && m.by !== 'you' ? `<b class="said">${esc(m.by)}:</b> ` : ''}“${esc(firstSentence(m.note))}”</blockquote>
     </button>
-    ${f ? `<div class="facts">${f}</div>` : ''}
-    ${!shared ? `<div class="meta" style="margin-bottom:16px">${m.who ? `<span>${whoBadge(m.who)}${esc(m.who)}’s tip</span>` : ''}<span>${ic('hourglass')}on your mind for ${age(m.days)}</span></div>` : ''}
-    ${shared && m.by !== 'you' ? `<button class="keep" data-a="keep-mine" data-id="${m.id}" aria-label="Keep in my memory">${ic(m.kept ? 'bookmark-check' : 'bookmark-plus')}${m.kept ? 'In my memory' : 'Keep for me'}</button>` : ''}
+    ${canJoin(m) ? `<p class="backline">${ic('calendar-heart')}${planWhen(m.plan)} · ${joinNames(planPeople(m))} ${planPeople(m).length === 1 ? 'is' : 'are'} in. Say yes to join.</p>` : f ? `<div class="facts">${f}</div>` : ''}
+    ${!shared ? `<p class="backline">${ic(why(m).icon)}${esc(why(m).text)}</p>` : ''}
+    ${shared && m.by !== 'you' ? `<button class="keep" data-a="keep-mine" data-id="${m.id}">${ic(m.kept ? 'bookmark-check' : 'bookmark-plus')}${m.kept ? 'In your memory' : 'Keep in my memory'}</button>` : ''}
     <div class="duo"><button class="primary" data-a="${shared ? 'yes' : 'plan'}" data-id="${m.id}">${ic(yesIcon)}${yesLabel}</button><button class="secondary" data-a="later" data-id="${m.id}">Another time</button></div>
   </article></div>
   <p class="decknote">${p.length === 1 ? 'The last one for now' : `${p.length} in the deck`}${S.hinted ? '' : ' · swipe right for yes, left for another time'}</p>`;
@@ -710,54 +920,173 @@ function deckOrEmpty(k) {
     <div class="companion" style="margin:0 auto 10px"><span class="loop l1"></span><span class="loop l2"></span></div>
     <h4 class="title">${isShared(k) ? 'You’re all caught up.' : 'That’s all for now.'}</h4>
     <p class="sub" style="margin:8px 0 16px">${isShared(k) ? `When ${others(k).length === 1 ? esc(others(k)[0]) : 'someone'} suggests something new, it lands here first.` : S.snoozed.size ? 'The rest will come back another time.' : 'Everything else is planned or has its own date.'}</p>
-    <button class="primary" data-a="remember">${ic(isShared(k) ? 'send' : 'plus')}${isShared(k) ? 'Suggest something' : 'Add something'}</button>
+    <button class="primary" data-a="${isShared() ? 'suggest-new' : 'remember'}">${ic(isShared(k) ? 'send' : 'plus')}${isShared(k) ? 'Suggest something' : 'Add something'}</button>
   </div>`;
 }
 function soonLine() {
-  const soonPlan = S.memories.filter(x => activePlan(x) && !x.plan.poll && daysUntil(x.plan.date) <= 3 && (S.space === 'me' || x.plan.space === S.space)).sort((a, b) => (a.plan.date + a.plan.time).localeCompare(b.plan.date + b.plan.time))[0];
+  const soonPlan = S.memories.filter(x => myPlan(x) && !x.plan.poll && daysUntil(x.plan.date) <= 3 && (S.space === 'me' || x.plan.space === S.space)).sort((a, b) => (a.plan.date + a.plan.time).localeCompare(b.plan.date + b.plan.time))[0];
   return soonPlan ? `<button class="oneline soon" data-a="openplan" data-id="${soonPlan.id}">${ic('calendar-heart')}<span>${planWhen(soonPlan.plan)} · ${esc(soonPlan.title)}</span>${ic('chevron-right')}</button>` : '';
 }
-function browseLink() { return `<div class="browse"><button class="text-btn" style="color:var(--purple)" data-a="memory">${isShared() ? 'See all ideas' : 'Not this? Browse your memory'} ${ic('chevron-right')}</button></div>`; }
+function browseLink() { return isShared() ? ''
+  : `<div class="browse"><button class="text-btn" style="color:var(--purple)" data-a="memory">Not this? Browse your memory ${ic('chevron-right')}</button></div>`; }
+// Dates to remember: a person, an occasion, a day. Only a reminder; a gift idea is optional.
+function upcoming(who) { return S.dates.filter(d => !who || d.who === who).map(d => ({ ...d, next: nextOcc(d.date) })).sort((a, b) => a.next.localeCompare(b.next)); }
+function giftsFor(p) { return mine().filter(m => m.forWho === p); }
+function dateItem(d) {
+  const g = giftsFor(d.who).length;
+  return `<button class="note" data-a="date-open" data-v="${d.id}"><span class="note-ic">${ic('cake')}</span><span class="note-body">
+    <small class="kind">A date to remember</small><strong>${esc(d.label)}</strong>
+    <em>${fmtLong(d.next)}, ${inDays(daysUntil(d.next))}</em><span class="note-hint">${g ? `${ic('gift')}${g} gift ${g === 1 ? 'idea' : 'ideas'} saved` : `${ic('bell')}I’ll remind you two weeks before`}</span></span></button>`;
+}
+function dateLine(d) { return `<button class="dn-line" style="width:100%;border:0;text-align:left" data-a="date-open" data-v="${d.id}">${ic('cake')}<span><b>${esc(d.label)}</b> · ${fmtLong(d.next)}, ${inDays(daysUntil(d.next))}</span></button>`; }
+// What you suggested in this space and how it's going. Matches move on to “You both want” / “Ready to plan”.
+function sentStrip(k) {
+  const couple = sp(k).type === 'couple', p = others(k)[0];
+  const list = ideas(k).filter(m => m.by === 'you' && !isMatch(m, k) && !activePlan(m)).sort((a, b) => a.days - b.days);
+  if (!list.length) return '';
+  const status = m => couple ? (vt(m, k)[p] === 'later' ? `${ic('clock')}${esc(p)}: another time` : `${ic('hourglass')}waiting for ${esc(p)}`)
+    : `${ic('users')}${yesOf(m, k).length} of ${sp(k).members.length} in`;
+  return `<div class="sent"><p class="label">${ic('send')}You suggested <small>${list.length}</small></p><div class="sent-row">${list.map(m =>
+    `<button class="sent-card ${S.justSent === m.id ? 'new' : ''}" data-a="open" data-id="${m.id}"><strong>${esc(m.title)}</strong><small>${status(m)}</small></button>`).join('')}</div></div>`;
+}
+// The partner space: things you keep for them (private), and your story together.
+function forPartnerLine(k) {
+  const p = others(k)[0], occ = upcoming(p)[0];
+  return `<button class="oneline private" data-a="for-partner">${ic('gift')}<span>For ${esc(p)}${occ ? ` · ${esc(occ.label.replace(`${p}’s `, ''))} ${inDays(daysUntil(occ.next))}` : ' · add their birthday'}</span><small>${ic('lock')}only you</small></button>`;
+}
+function storyLine(k) {
+  const items = S.memories.flatMap(m => (m.history || []).filter(h => h.space === k).map(h => ({ m, h })));
+  if (!items.length) return '';
+  const year = items.find(({ h }) => Math.abs(daysUntil(h.date) + 365) <= 3);
+  return `<button class="oneline" data-a="story">${ic('book-heart')}<span>${year ? `One year ago: ${esc(year.m.title)}` : `Our story · ${items.length} ${items.length === 1 ? 'thing' : 'things'} done together`}</span>${ic('chevron-right')}</button>`;
+}
 
-// The jar: everything you two both want. Draw one when you can't decide; date night uses it too.
-function jarCard(k) {
-  const v = sp(k), j = jar(k), dn = v.dateNight;
-  const notes = j.slice(0, 6).map((_, i) => `<i class="n n${i}"></i>`).join('');
-  let head = '';
-  if (dn) {
-    const day = nextOn(dn.day), planned = dn.planned && byId(dn.planned) && activePlan(byId(dn.planned)) ? byId(dn.planned) : null;
-    head = planned
-      ? `<button class="dn-line" data-a="openplan" data-id="${planned.id}">${ic('heart')}<span><b>Date night ${daysUntil(day) === 0 ? 'tonight' : fmtDay(day)}:</b> ${planned.plan.surprise === 'you' ? `${esc(planned.title)} <small>(a surprise for ${esc(others(k)[0])})</small>` : esc(planned.title)}</span>${ic('chevron-right')}</button>`
-      : `<p class="dn-line">${ic('heart')}<span><b>Next date night: ${daysUntil(day) === 0 ? 'tonight' : fmtDay(day)}</b> · nothing planned yet${dn.turns ? ` · ${dn.turn === 'you' ? 'your turn to plan' : `${esc(others(k)[0])}’s turn`}` : ''}</span></p>`;
-  }
-  return `<section class="jar-card">${head}
-    <div class="jar-row"><div class="jarwrap" id="jar"><span class="lid"></span><div class="jar">${notes}</div></div>
-    <div style="flex:1;min-width:0"><h5>Our jar</h5><p class="sub">${j.length ? `${j.length} ${j.length === 1 ? 'thing' : 'things'} you both want` : 'Empty for now. Say yes to ideas below and the ones you both want land here.'}</p>
-    ${j.length ? `<button class="primary" style="margin-top:10px" data-a="draw">${ic('shuffle')}Draw ${dn && !(dn.planned && byId(dn.planned) && activePlan(byId(dn.planned))) ? 'for date night' : 'a date'}</button>` : ''}</div></div>
-    ${dn ? `<button class="text-btn muted" style="padding:6px 0 0;min-height:0" data-a="dn-settings">${ic('settings-2')}Every ${weekday(dn.day)}${dn.turns ? ', taking turns' : ''} · change</button>` : ''}
+// --- the space page: one deck. New ideas to answer, and things you all want with "Let's do it: tonight / Sat / Mon ♥".
+function fits(m, when) {
+  if (m.event && !eventOpen(m)) return false;
+  if (when === 'tonight' || when === 'week' || when === 'dn') return m.dur !== 'day' && m.dur !== 'days' && !(when === 'tonight' && (m.weekend || (S.ctx.rain && m.weather)));
+  return m.dur !== 'days';
+}
+function fitScore(m, when) { return (m.event && m.event.end ? 4 : 0) + (S.ctx.rain && when === 'tonight' && m.good.includes('quiet') ? 3 : 0) + (when === 'dn' && m.good.includes('date') ? 2 : 0) + m.days / 100; }
+function fitWhy(m, when, k) {
+  if (m.event && m.event.end && eventOpen(m)) return [ic('ticket'), `Ends ${fmtDay(m.event.end)}`];
+  if (S.ctx.rain && when === 'tonight' && m.good.includes('quiet')) return [ic('cloud-rain'), 'Rainy tonight: a cozy one'];
+  if (when === 'dn' && m.good.includes('date')) return [ic('heart'), 'Made for date night'];
+  if (m.weather) return [ic('sun'), 'Nice if the sun’s out'];
+  if (m.dur === 'day') return [ic('sun'), 'Takes the day'];
+  if (m.days > 60) return [ic('hourglass'), `Wanted for ${age(m.days)}`];
+  return [ic('message-circle-heart'), m.by === 'you' ? 'You suggested it' : `${esc(m.by)} suggested it`];
+}
+// The times a card offers, best first. Date night leads when it is coming up and still open.
+function goTimes(m, k) {
+  const v = sp(k), dn = v.dateNight, sat = weekday(new Date(weekendDay() + 'T12:00').getDay()).slice(0, 3);
+  const all = v.type === 'couple'
+    ? [['tonight', 'Tonight'], ['weekend', sat], ...(dn && dnOpen(k) ? [['dn', `${dn.flex ? 'Date night' : weekday(dn.day).slice(0, 3)} ♥`]] : [])]
+    : [['week', 'This week'], ['weekend', sat]];
+  if (m.event?.start && daysUntil(m.event.start) > 0) return [['event', `${fmtDay(m.event.start)}`]];
+  const ok = all.filter(([w]) => fits(m, w));
+  const dnSoon = dn && dnOpen(k) && (dn.flex || daysUntil(nextOn(dn.day)) <= 3);
+  return ok.sort((a, b) => (b[0] === 'dn' && dnSoon) - (a[0] === 'dn' && dnSoon));
+}
+function isGo(m, k) { return isShared(k) && isMatch(m, k) && !activePlan(m) && vt(m, k).you === 'yes'; }
+// Date night stands out: what's planned, or "pick something from your shared space".
+function dnHero(k) {
+  const dn = sp(k).dateNight; if (!dn) return '';
+  const p = others(k)[0], planned = dnOpen(k) ? null : byId(dn.planned), day = dnDay(dn);
+  const when = planned ? planWhen(planned.plan) : day ? `${daysUntil(day) === 0 ? 'Tonight' : fmtDay(day)}, ${dn.time}` : dn.every === 2 ? 'In the next two weeks' : 'This week';
+  const turn = dn.turns ? (dn.turn === 'you' ? ' · your turn to surprise' : ` · ${esc(p)}’s turn`) : '';
+  return `<section class="dn-hero"><span class="k">${ic('heart')}Date night</span>
+    <h5>${planned ? esc(planned.title) : when}</h5>
+    <p>${planned ? `${when}${planned.plan.surprise === 'you' ? ` · a surprise for ${esc(p)}` : ''}` : `Nothing planned yet${turn}`}</p>
+    ${planned ? `<button class="secondary" data-a="openplan" data-id="${planned.id}">${ic('calendar-heart')}Open the plan</button>`
+      : `<button class="primary" data-a="dn-pick">${ic('heart')}Plan date night</button>`}
   </section>`;
 }
+// The shared space: what you both said yes to. Planned ones first (with their date), then the rest, each with "Plan".
+function sharedSpace(k) {
+  const couple = sp(k).type === 'couple';
+  const planned = S.memories.filter(m => activePlan(m) && m.plan.space === k).sort((a, b) => canJoin(b) - canJoin(a) || a.plan.date.localeCompare(b.plan.date));
+  const want = ideas(k).filter(m => isMatch(m, k) && !activePlan(m)).sort((a, b) => fitScore(b, 'weekend') - fitScore(a, 'weekend'));
+  const all = [...planned, ...want], show = S.sharedAll ? all : all.slice(0, 5);
+  const row = m => { const [, wt] = fitWhy(m, 'weekend', k), dnPlan = couple && sp(k).dateNight?.planned === m.id;
+    const sub = canJoin(m) ? `<small class="d">${esc(m.plan.by || m.by)} started · ${planWhen(m.plan)}</small>`
+      : activePlan(m) ? `<small class="d">${dnPlan ? '♥ Date night · ' : ''}${m.plan.surprise === 'you' ? 'Your surprise · ' : ''}${planWhen(m.plan)}</small>`
+      : couple ? `<small>${wt}</small>` : `<small>${joinNames(yesOf(m, k))} ${yesOf(m, k).length === 1 ? 'is' : 'are'} in</small>`;
+    const btn = canJoin(m) ? `<button class="primary plan" data-a="join-plan" data-id="${m.id}">${ic('hand')}Join</button>`
+      : activePlan(m) ? `<button class="secondary plan" data-a="openplan" data-id="${m.id}">Open</button>`
+      : `<button class="primary plan" data-a="go" data-v="other" data-id="${m.id}">${ic('calendar-heart')}Plan</button>`;
+    const more = activePlan(m) ? planMore(m, k) : '';
+    return `<div class="srow"><button class="o" data-a="${activePlan(m) ? 'openplan' : 'open'}" data-id="${m.id}">${ic(KINDS[m.kind].icon)}<span><b>${esc(m.title)}</b>${sub}${more}</span></button>${btn}</div>`; };
+  return `<section class="shared"><p class="shared-head">${ic(couple ? 'heart' : 'users')}${couple ? 'Your shared space' : 'Ready together'} <small>${want.length} ${couple ? 'you both want' : 'ready to plan'}${planned.length ? ` · ${planned.length} planned` : ''}</small></p>
+    ${all.length ? show.map(row).join('') + (all.length > 5 ? `<div class="browse" style="margin-top:4px"><button class="text-btn muted" data-a="shared-all">${S.sharedAll ? 'Show less' : `Show all ${all.length}`}</button></div>` : '')
+      : `<p class="mini">${couple ? 'When you both say yes to something' : 'When enough of you say yes to something'}, it lands here. Plan it now or whenever you like.</p>`}
+  </section>`;
+}
+// A little more about a plan: where, and who's in.
+function planMore(m, k) {
+  const p = m.plan, ins = p.rsvp ? Object.keys(p.rsvp).filter(x => p.rsvp[x] === 'in') : ['you', ...(p.people || [])];
+  const where = p.where ? esc(p.where.split(',')[0]) : '';
+  return `<small style="display:flex;align-items:center;gap:6px;margin-top:3px">${where ? `${ic('map-pin')}${where} · ` : ''}${faces(ins)}${ins.length} in</small>`;
+}
+// Your own suggestions in this space and how they are going.
+function sentLink(k) {
+  const n = ideas(k).filter(m => m.by === 'you' && !isMatch(m, k) && !activePlan(m)).length;
+  return n ? `<div class="browse"><button class="text-btn" style="color:var(--purple)" data-a="sent">${ic('send')}You suggested ${n} · see how it’s going ${ic('chevron-right')}</button></div>` : '';
+}
+// The next plan here, as one slim line (or one to join).
+function planLine(k) {
+  const next = S.memories.filter(m => activePlan(m) && m.plan.space === k).sort((a, b) => (a.plan.date + a.plan.time).localeCompare(b.plan.date + b.plan.time))[0];
+  if (!next) return '';
+  return canJoin(next) ? `<button class="oneline soon" data-a="open" data-id="${next.id}">${ic('hand')}<span>${esc(next.plan.by || next.by)} started: ${esc(next.title)} · ${planWhen(next.plan)}</span><b class="countdot">Join</b></button>`
+    : `<button class="oneline soon" data-a="openplan" data-id="${next.id}">${ic('calendar-heart')}<span><small class="muted" style="display:block;font-weight:800;font-size:11.5px">${next.plan.surprise === 'you' ? `Planned · your surprise for ${esc(others(k)[0])}` : 'Planned together'} · ${planWhen(next.plan)}</small>${esc(next.title)}</span>${ic('chevron-right')}</button>`;
+}
+// The partner space: special days as emojis, For Lena, and Our story behind a heart.
+function emojiFor(label) { return /birthday/i.test(label) ? '🎂' : /anniversary/i.test(label) ? '💍' : /first/i.test(label) ? '💌' : '🎉'; }
+function spaceBar(k) {
+  const p = others(k)[0], days = upcoming(p).slice(0, 3);
+  return `<div class="spacebar">${days.map(d => { const n = daysUntil(d.next);
+      return `<button class="emo ${n <= 21 ? 'near' : ''}" data-a="date-open" data-v="${d.id}" aria-label="${esc(d.label)} ${inDays(n)}"><span class="e">${emojiFor(d.label)}</span><small>${n === 0 ? 'today' : n + 'd'}</small></button>`; }).join('')}
+    <button class="emo" data-a="for-partner" aria-label="For ${esc(p)}: dates and gift ideas"><span class="e">🎁</span></button>
+    <button class="emo" data-a="story" aria-label="Our story"><span class="e">❤️</span></button></div>`;
+}
+// Date night: pick something you both want, or let the app surprise you. No second list.
+function dnOpen(k) { const dn = sp(k).dateNight; return !!dn && !(dn.planned && byId(dn.planned) && activePlan(byId(dn.planned))); }
 // A space for two without a date night: offered once, never required.
 function offerCard(k) {
   const v = sp(k); if (!v.offer || v.dateNight) return '';
   return `<section class="invite-card"><h5>${ic('heart')}A regular evening for you two?</h5>
-    <p class="sub" style="margin-bottom:12px">Pick a day and I’ll keep your jar ready for it. Skip any week, no pressure.</p>
+    <p class="sub" style="margin-bottom:12px">Pick a day; you choose from what you both want, or I surprise you. Skip any week, no pressure.</p>
     <div class="duo"><button class="primary" data-a="dn-settings">${ic('calendar-heart')}Pick a day</button><button class="secondary" data-a="offer-no">No thanks</button></div></section>`;
 }
 // A standing plan with a fixed activity: on its day, the space's page is this card.
-function weeklyCard(k) {
-  const w = sp(k).weekly;
+function weeklyCard(k, w) {
   const ins = w.you === 'in' ? ['you', ...w.ins] : w.ins, on = ins.length >= w.min;
-  return `<section class="weekly big"><span class="tape">every ${weekday(w.day)}</span>
+  return `<section class="weekly big today"><span class="tape">today · every ${weekday(w.day)}</span>
     <p class="kind">Tonight, ${w.time}</p>
     <h5>${esc(w.title)}</h5>
     <p class="line">${ic('map-pin')}${esc(w.where)}</p>
     <p class="line">${faces(ins)}<b>${ins.length ? joinNames(ins) + (ins.length === 1 && ins[0] !== 'you' ? ' is' : ' are') + ' in' : 'Nobody yet'}</b></p>
     <p class="status ${on ? 'on' : ''}">${on ? `It’s on! ${ins.length} are in.` : `${w.min - ins.length} more and it’s on. Decided at ${w.decide}.`}</p>
-    ${w.you === 'in' ? `<div class="duo"><button class="secondary" style="border-color:var(--orange)" data-a="w-out">${ic('check')}You’re in · change</button><button class="secondary" data-a="w-share">${ic('message-circle')}Ask in WhatsApp</button></div>`
-      : `<div class="duo"><button class="primary" data-a="w-in">${ic('hand')}I’m in</button><button class="secondary" data-a="w-out">${w.you === 'out' ? 'Not tonight ✓' : 'Not tonight'}</button></div>`}
-    <p class="streak">${ic('flame')}${on ? `${w.streak + 1} weeks in a row` : `${w.streak} weeks in a row so far`}</p>
+    ${w.you === 'in' ? `<div class="duo"><button class="secondary" style="border-color:var(--orange)" data-a="w-out" data-v="${w.id}">${ic('check')}You’re in · change</button><button class="secondary" data-a="w-share">${ic('message-circle')}Ask in WhatsApp</button></div>`
+      : `<div class="duo"><button class="primary" data-a="w-in" data-v="${w.id}">${ic('hand')}I’m in</button><button class="secondary" data-a="w-out" data-v="${w.id}">${w.you === 'out' ? 'Not tonight ✓' : 'Not tonight'}</button></div>`}
+    ${w.streak || on ? `<p class="streak">${ic('flame')}${on ? `${w.streak + 1} ${w.streak ? 'weeks in a row' : 'week so far'}` : `${w.streak} weeks in a row so far`}</p>` : ''}
   </section>`;
+}
+// On its day the weekly thing shows up everywhere, not only in its space.
+function weeklyTodayLines() {
+  return Object.entries(SPACES).flatMap(([k, v]) => weeklies(k).filter(isToday).map(w => `<button class="oneline today" data-a="space" data-v="${k}">${ic('repeat')}<span>Tonight, ${w.time}: ${esc(w.title)} · ${esc(v.name)}</span>${ic('chevron-right')}</button>`)).join('');
+}
+// The weekly thing on the other days: a real card at the top of the group, never hidden.
+// On the other days the weekly thing is a slim strip: always there, never in the way.
+// A small week track counts down to its day (purple dot today, orange dot the day).
+function weeklyNext(k) {
+  const w = nextWeekly(k), day = nextOn(w.day), n = daysUntil(day), more = weeklies(k).filter(x => !isToday(x)).length - 1;
+  const track = Array.from({ length: 7 }, (_, i) => `<i class="${i === 0 ? 'now' : i === n ? 'it' : ''}"></i>`).join('');
+  return `<button class="wstrip ${n === 1 ? 'soon' : ''}" data-a="weekly-list" aria-label="${esc(w.title)}, every ${weekday(w.day)}, ${n === 1 ? 'tomorrow' : 'in ' + n + ' days'}. Change it">
+    <span class="day">${weekday(w.day).slice(0, 3).toUpperCase()}<b>${w.time}</b></span>
+    <span class="t"><strong>${esc(w.title)}</strong><small>Every ${weekday(w.day)} · ${n === 1 ? 'tomorrow' : `in ${n} days`}${w.streak ? ` · ${ic('flame')}${w.streak} weeks` : ''}</small></span>
+    <span class="week" aria-hidden="true">${track}</span>${more > 0 ? `<b class="countdot" style="background:var(--purple);color:#fff">+${more}</b>` : ''}
+  </button>`;
 }
 // An open slot (a group's regular afternoon, say): plan it any time ahead; the first match wins.
 function slotCard(k) {
@@ -772,19 +1101,20 @@ function slotCard(k) {
 function readyLine(k) {
   const ready = ideas(k).filter(x => isMatch(x, k) && !activePlan(x));
   const waiting = ideas(k).filter(x => vt(x, k).you === 'yes' && !isMatch(x, k) && waitingOn(x, k).length && !activePlan(x));
-  const bits = [ready.length ? `${ready.length} ready to plan` : '', waiting.length ? `${waiting.length} waiting for others` : ''].filter(Boolean);
-  return bits.length ? `<button class="oneline" data-a="memory">${ic('heart')}<span>${bits.join(' · ')}</span>${ic('chevron-right')}</button>` : '';
+  const join = ideas(k).filter(x => canJoin(x) && x.plan.space === k);
+  const couple = sp(k).type === 'couple';
+  const bits = [join.length ? `${join.length} ${join.length === 1 ? 'plan' : 'plans'} to join` : '', ready.length ? (couple ? `${ready.length} ${ready.length === 1 ? 'thing' : 'things'} you both want` : `${ready.length} ready to plan`) : ''].filter(Boolean);
+  return bits.length ? `<button class="oneline" data-a="space-ideas">${ic(couple ? 'heart' : 'users')}<span>${bits.join(' · ')}</span>${ic('chevron-right')}</button>` : '';
 }
 
 function viewToday() {
   const k = S.space, v = sp(k);
-  const empty = isShared(k) || k !== 'me' ? !ideas(k).length && !v.weekly && !v.slot : !mine().length;
-  if (empty) return viewEmpty();
+  if (k === 'me' ? !mine().length : !isShared(k)) return viewEmpty();
   const top = `<div class="scroll">${header()}${Object.keys(SPACES).length > 1 ? spacesRow() : ''}`;
   const end = `</div>${navBar()}`;
   if (k === 'me' || !isShared(k)) {
-    return top + `<div style="text-align:center;margin:18px 0 22px"><h3 class="head">A little spark<br><span class="squiggle">${greeting()}</span></h3></div>
-      ${deckOrEmpty(k)}${soonLine()}${inviteCard()}${browseLink()}` + end;
+    return top + `<div style="text-align:center;margin:18px 0 18px"><h3 class="head">A little spark<br><span class="squiggle">${greeting()}</span></h3></div>
+      ${weeklyTodayLines()}${ohMoments()}${ohMoments() || weeklyTodayLines() ? '<div style="height:18px"></div>' : ''}${deckOrEmpty(k)}${soonLine()}${inviteCard()}${browseLink()}` + end;
   }
   if (S.picking) {
     const s = v.slot;
@@ -792,18 +1122,19 @@ function viewToday() {
       <div style="height:18px"></div>${deckOrEmpty(k)}` + end;
   }
   if (v.type === 'couple') {
-    return top + `${offerCard(k)}${jarCard(k)}
-      <p class="label section">${ic('sparkles')}New ideas to answer</p>
-      ${deckOrEmpty(k)}${soonLine()}${browseLink()}` + end;
+    const dn = v.dateNight;
+    return top.replace('<div class="scroll">', '<div class="scroll couple">') + `${spaceBar(k)}${planLine(k).includes('Join') ? planLine(k) : ''}
+      ${dnHero(k)}<p class="label section">${ic('mail')}From ${esc(others(k)[0])}</p>${deckOrEmpty(k)}
+      <button class="secondary suggest-btn" data-a="suggest-new">${ic('send')}Suggest something to ${esc(others(k)[0])}</button>
+      ${sharedSpace(k)}${sentLink(k)}
+      <div class="browse"><button class="text-btn muted" data-a="dn-settings">${ic('heart')}${dn ? `Date night: ${dnRule(dn).toLowerCase()}${dn.turns ? ', taking turns' : ''}` : 'A regular date night? Set it up'}</button></div>` + end;
   }
   // groups: on a standing plan's day, that is the page
-  if (weeklyToday(k) && !S.showDeck) {
-    return top + `${weeklyCard(k)}<div class="browse"><button class="text-btn" style="color:var(--purple)" data-a="show-deck">Other ideas in ${esc(v.name)} ${ic('chevron-right')}</button></div>` + end;
-  }
-  const count = { 2: 'two', 3: 'three', 4: 'four', 5: 'five', 6: 'six', 7: 'seven', 8: 'eight' }[v.members.length];
-  return top + `${v.slot ? slotCard(k) : ''}${weeklyToday(k) ? `<button class="oneline soon" data-a="show-weekly">${ic('repeat')}<span>Tonight: ${esc(v.weekly.title)}</span>${ic('chevron-right')}</button>` : ''}
-    ${v.slot ? '<div style="height:18px"></div>' : `<div style="text-align:center;margin:18px 0 22px"><h3 class="head">Something for<br><span class="squiggle">the ${count} of you.</span></h3></div>`}
-    ${deckOrEmpty(k)}${readyLine(k)}${soonLine()}${browseLink()}` + end;
+  return top + `${weeklies(k).filter(isToday).map(w => weeklyCard(k, w)).join('')}${nextWeekly(k) ? weeklyNext(k) : ''}
+    <p class="label section">${ic('mail')}New from the group</p>${deckOrEmpty(k)}
+    <button class="secondary suggest-btn" data-a="suggest-new">${ic('send')}Suggest something to ${esc(v.name)}</button>
+    ${sharedSpace(k)}${sentLink(k)}
+    ${weeklies(k).length ? '' : `<div class="browse"><button class="text-btn muted" data-a="weekly-setup">${ic('repeat')}Something you do every week? Set it up</button></div>`}` + end;
 }
 function inviteCard() {
   const hasShared = Object.values(SPACES).some(v => v.type !== 'me');
@@ -819,15 +1150,17 @@ function planRow(m) {
   return `<button class="coming" data-a="openplan" data-id="${m.id}">${planBox(p)}<span style="flex:1;min-width:0">${isShared(p.space) ? `<em class="spacebadge">${ic(sp(p.space).icon)}${esc(sp(p.space).name)}</em>` : ''}<strong>${esc(m.title)}</strong><small>${esc(bits || planLabel(p))}</small></span>${ic('chevron-right')}</button>`;
 }
 function viewPlans() {
-  const plans = S.memories.filter(activePlan).sort((a, b) => (a.plan.date + a.plan.time).localeCompare(b.plan.date + b.plan.time));
+  const plans = S.memories.filter(myPlan).sort((a, b) => (a.plan.date + a.plan.time).localeCompare(b.plan.date + b.plan.time));
   const standing = Object.entries(SPACES).flatMap(([k, v]) => [
-    v.weekly ? `<button class="coming" data-a="space" data-v="${k}">${whenBox(nextOn(v.weekly.day))}<span style="flex:1;min-width:0"><em class="spacebadge">${ic(v.icon)}${esc(v.name)}</em><strong>${esc(v.weekly.title)}</strong><small>Every ${weekday(v.weekly.day)}, ${v.weekly.time} · ${(v.weekly.you === 'in' ? 1 : 0) + v.weekly.ins.length} in this week</small></span>${ic('chevron-right')}</button>` : '',
+    ...weeklies(k).map(wk => `<button class="coming ${isToday(wk) ? 'today' : ''}" data-a="space" data-v="${k}">${whenBox(nextOn(wk.day))}<span style="flex:1;min-width:0"><em class="spacebadge">${ic(v.icon)}${esc(v.name)}</em><strong>${esc(wk.title)}</strong><small>Every ${weekday(wk.day)}, ${wk.time} · ${(wk.you === 'in' ? 1 : 0) + wk.ins.length} in this week</small></span>${ic('chevron-right')}</button>`),
     v.slot ? `<button class="coming" data-a="space" data-v="${k}">${whenBox(nextOn(v.slot.day))}<span style="flex:1;min-width:0"><em class="spacebadge">${ic(v.icon)}${esc(v.name)}</em><strong>${weekday(v.slot.day)} afternoon</strong><small>Every ${weekday(v.slot.day)} · ${v.slot.planned ? esc(byId(v.slot.planned).title) : 'pick together'}</small></span>${ic('chevron-right')}</button>` : '',
-    v.dateNight ? `<button class="coming" data-a="space" data-v="${k}">${whenBox(nextOn(v.dateNight.day))}<span style="flex:1;min-width:0"><em class="spacebadge">${ic(v.icon)}${esc(v.name)}</em><strong>Date night</strong><small>Every ${weekday(v.dateNight.day)} · ${v.dateNight.planned ? esc(byId(v.dateNight.planned).title) : 'draw from your jar'}</small></span>${ic('chevron-right')}</button>` : '']).filter(Boolean);
+    v.dateNight ? `<button class="coming" data-a="space" data-v="${k}">${whenBox(v.dateNight.planned && byId(v.dateNight.planned)?.plan ? byId(v.dateNight.planned).plan.date : dnDay(v.dateNight) || addDays(6 - new Date().getDay()))}<span style="flex:1;min-width:0"><em class="spacebadge">${ic(v.icon)}${esc(v.name)}</em><strong>Date night</strong><small>${dnRule(v.dateNight)} · ${v.dateNight.planned ? esc(byId(v.dateNight.planned).title) : 'pick something you both want'}</small></span>${ic('chevron-right')}</button>` : '']).filter(Boolean);
   const weeklyBlock = standing.length ? `<p class="label">${ic('repeat')}Every week</p>` + standing.join('') : '';
   const intro = `<div style="position:relative;padding-top:10px"><h3 class="head">Your plans.</h3>${ic('calendar-heart')}</div>
     <p class="sub" style="margin:10px 0 18px">Everything you decided to do, on your own and together.</p>`;
-  const rest = plans.length ? `<p class="label section">${ic('corner-down-right')}Coming up</p>` + plans.map(planRow).join('') : `<p class="sub" style="margin-top:18px">Nothing else planned. That’s fine, wanting to is enough.</p>`;
+  const open = S.memories.filter(m => canJoin(m)).sort((a, b) => a.plan.date.localeCompare(b.plan.date));
+  const rest = (plans.length ? `<p class="label section">${ic('corner-down-right')}Coming up</p>` + plans.map(planRow).join('') : `<p class="sub" style="margin-top:18px">Nothing else planned. That’s fine, wanting to is enough.</p>`)
+    + (open.length ? `<p class="label section">${ic('eye')}In your groups · not joined</p>` + open.map(planRow).join('') : '');
   return `<div class="scroll">${header()}${intro}${weeklyBlock}${rest}
     <p class="sub" style="text-align:center;margin-top:18px">Every plan starts from an idea.</p>
   </div>${navBar()}`;
@@ -886,8 +1219,10 @@ function viewPlanPage() {
       <button class="text-btn muted" data-a="chat">${ic('message-circle')}Talk it over in your group chat</button>
     </section>` : '';
   return `<div class="scroll">
-    <div class="top"><button class="text-btn" data-a="back">${ic('arrow-left')}Back</button><button class="text-btn" data-a="open" data-id="${m.id}">${ic('notebook')}The idea</button></div>
-    <div style="display:flex;gap:12px;align-items:center;margin:4px 0 6px"><div class="symbol">${ic(KINDS[m.kind].icon)}</div><div>${shared ? `<p class="spacebadge">${ic(sp(k).icon)}${esc(sp(k).name)}</p>` : ''}<p class="kind">${shared ? 'Your plan together' : 'Your plan'}${p.poll ? ', finding a day' : `, ${n === 0 ? 'today' : n === 1 ? 'tomorrow' : 'in ' + n + ' days'}`}</p><h3 class="head" style="font-size:28px;color:var(--ink)">${esc(m.title)}</h3></div></div>
+    ${canJoin(m) ? `<div class="top"><button class="text-btn" data-a="plan-look-back">${ic('arrow-left')}Back</button><button class="text-btn" data-a="open" data-id="${m.id}">${ic('notebook')}The idea</button></div>`
+      : `<div class="top"><button class="text-btn muted" data-a="plan-cancel">${ic('x')}Cancel</button><button class="text-btn" data-a="open" data-id="${m.id}">${ic('notebook')}The idea</button><button class="text-btn" style="color:var(--orange)" data-a="plan-done">${ic('check')}Done</button></div>`}
+    <div style="display:flex;gap:12px;align-items:center;margin:4px 0 6px"><div class="symbol">${ic(KINDS[m.kind].icon)}</div><div>${shared ? `<p class="spacebadge">${ic(sp(k).icon)}${esc(sp(k).name)}</p>` : ''}<p class="kind">${canJoin(m) ? `${esc(p.by || m.by)}’s plan` : shared ? 'Your plan together' : 'Your plan'}${p.poll ? ', finding a day' : `, ${n === 0 ? 'today' : n === 1 ? 'tomorrow' : 'in ' + n + ' days'}`}</p><h3 class="head" style="font-size:28px;color:var(--ink)">${esc(m.title)}</h3></div></div>
+    ${canJoin(m) ? `<div class="planned" style="margin:10px 0 14px">${ic('eye')}<span style="flex:1">You’re looking, not in yet. Join if you like.</span><button class="primary" style="width:auto;min-height:40px;padding:0 16px" data-a="join-here" data-id="${m.id}">${ic('hand')}Join</button></div>` : ''}
     ${p.surprise === 'you' ? `<p class="surprise">${ic('gift')}A surprise for ${esc(partner)}: they only see the day, the time and what to wear. You see everything.</p>` : ''}
     ${when}
     ${who}
@@ -912,80 +1247,66 @@ function viewPlanPage() {
 function bestDay(p) { return p.poll.reduce((a, o) => o.yes.length > a.yes.length ? o : a, p.poll[0]); }
 
 // My memory: everything you saved, with where it is shared.
-function memItem(m, forgotten = false) {
-  const shared = m.shares.filter(k => isShared(k));
-  return `<button class="item ${forgotten ? 'forgotten' : ''}" data-a="open" data-id="${m.id}">${ic(KINDS[m.kind].icon)}<div>
-    <p class="kind">${activePlan(m) ? `<span class="badge">${ic('calendar-heart')}Planned: ${planWhen(m.plan)}</span>` : eventOpen(m) ? eventLabel(m) : KINDS[m.kind].line}</p><strong>${esc(m.title)}</strong>
-    <span class="q">“${esc(firstSentence(m.note))}”</span>
-    <div class="meta">${m.who ? `<span>${whoBadge(m.who)}${esc(m.who)}</span>` : ''}${shared.map(k => `<span class="spacebadge">${ic(sp(k).icon)}${esc(sp(k).name)}${isMatch(m, k) ? ' ♥' : ''}</span>`).join('')}<span>${ic('hourglass')}${forgotten ? 'tucked away ' + age(m.days) + ' ago' : age(m.days)}</span>${(m.tags || []).map(t => `<span class="tag">#${esc(t)}</span>`).join('')}</div>
-  </div></button>`;
+// One small paper note per memory: what it is, a line of your note, and one hint.
+function sentTo(m) { return m.by === 'you' ? m.shares.filter(k => isShared(k)) : []; }
+function shortName(k) { return sp(k).type === 'couple' ? others(k)[0] : sp(k).name.replace(/^You & /, ''); }
+function memItem(m) {
+  const hint = m.forWho ? `${ic('gift')}For ${esc(m.forWho)}${m.occasion ? ' · ' + inDays(daysUntil(m.occasion.date)) : ''}`
+    : activePlan(m) ? `${ic('calendar-heart')}Planned: ${planWhen(m.plan)}`
+    : sentTo(m).length ? `${ic('send')}Suggested to ${joinNames(sentTo(m).map(shortName))} · ${sentTo(m).some(k => isMatch(m, k)) ? 'a match!' : sentTo(m).some(k => yesOf(m, k).length > 1) ? `${Math.max(...sentTo(m).map(k => yesOf(m, k).length))} want it` : 'waiting'}`
+    : m.keptFrom ? `${face(m.who)}${esc(m.who)}’s idea`
+    : eventOpen(m) ? `${ic('ticket')}${esc(eventLabel(m))}`
+    : m.who ? `${whoBadge(m.who)}${esc(m.who)}’s tip` : `${ic('hourglass')}${age(m.days)}`;
+  return `<button class="note" data-a="open" data-id="${m.id}"><span class="note-ic">${ic(KINDS[m.kind].icon)}</span><span class="note-body">
+    <small class="kind">${KINDS[m.kind].line}</small><strong>${esc(m.title)}</strong>
+    <em>“${esc(firstSentence(m.note))}”</em><span class="note-hint">${hint}</span></span></button>`;
 }
 function matchesSearch(m, q) {
-  const hay = [m.title, m.note, m.who, KINDS[m.kind].label, KINDS[m.kind].line, m.link?.site, m.link?.name, ...m.good.map(x => GOOD[x].label), ...(m.tags || [])].join(' ').toLowerCase();
+  const hay = [m.title, m.note, m.who, m.by !== 'you' ? m.by : '', m.forWho, m.occasion?.label, KINDS[m.kind].label, KINDS[m.kind].line, m.link?.site, m.link?.name, ...m.good.map(x => GOOD[x].label), ...(m.tags || [])].join(' ').toLowerCase();
   return q.toLowerCase().split(/\s+/).filter(Boolean).every(w => hay.includes(w));
 }
 function viewMemory() {
-  if (isShared()) return viewIdeas();
   const all = mine();
   if (!all.length) return viewEmpty();
-  const f = S.filter, q = S.search.trim();
-  const people = [...new Set(all.map(m => m.who).filter(Boolean))];
-  const kindChips = Object.entries(KINDS).filter(([k]) => all.some(m => m.kind === k)).map(([k, v]) => `<button class="chip sm ${f.kind === k ? 'on' : ''}" data-a="f" data-t="kind" data-v="${k}" aria-pressed="${f.kind === k}">${ic(v.icon)}${v.label}</button>`).join('');
-  const peopleChips = people.map(p => `<button class="chip sm ${f.who === p ? 'on' : ''}" data-a="f" data-t="who" data-v="${esc(p)}" aria-pressed="${f.who === p}">${whoBadge(p)}${esc(p)}’s tips</button>`).join('');
-  const goodChips = Object.entries(GOOD).map(([k, v]) => `<button class="chip sm ${f.good === k ? 'on' : ''}" data-a="f" data-t="good" data-v="${k}" aria-pressed="${f.good === k}">${ic(v.icon)}${v.label}</button>`).join('');
-  const filtering = q || f.kind || f.who || f.good || f.tag;
-  let list;
-  if (filtering) {
-    const found = all.filter(m => (!q || matchesSearch(m, q)) && (!f.kind || m.kind === f.kind) && (!f.who || m.who === f.who) && (!f.tag || (m.tags || []).includes(f.tag)) && (!f.good || m.good.includes(f.good)));
-    list = `<div class="shelf">${found.length} ${found.length === 1 ? 'memory' : 'memories'} <button class="text-btn" style="padding:0;min-height:0;color:var(--purple)" data-a="clear">Clear</button></div>`
-      + (found.length ? found.map(m => memItem(m)).join('') : `<div class="card" style="text-align:center"><p style="font-weight:800">No little memory like that.</p><p class="sub" style="margin:6px 0 14px">Try another word, or ask your memory in your own words.</p><button class="secondary" data-a="ask-with">${ic('sparkles')}Ask your memory</button></div>`);
-  } else {
-    const fresh = all.filter(m => m.days <= 7), forgotten = all.filter(m => m.days > 90), mind = all.filter(m => !fresh.includes(m) && !forgotten.includes(m));
-    const shelf = (title, note, items, fg) => items.length ? `<div class="shelf">${title} <small>${note}</small></div>` + items.map(m => memItem(m, fg)).join('') : '';
-    list = shelf('New', 'this week', fresh) + shelf('Still on your mind', mind.length, mind) + shelf('Long forgotten', 'maybe now?', forgotten, true);
+  const q = S.search.trim(), cat = S.filter.kind;
+  const cats = Object.entries(KINDS).filter(([k]) => all.some(m => m.kind === k));
+  const chip = (k, label) => `<button class="chip sm ${cat === k ? 'on' : ''}" data-a="cat" data-v="${k ?? ''}" aria-pressed="${cat === k}">${k ? ic(KINDS[k].icon) : ''}${label}</button>`;
+  if (cat === 'dates') {
+    const ds = upcoming().filter(d => !q || `${d.label} ${d.who}`.toLowerCase().includes(q.toLowerCase()));
+    return memPage(all, chip, cats, ds.map(dateItem).join('') + `<button class="secondary" style="margin-top:6px" data-a="date-add">${ic('plus')}Add a date</button>`);
   }
-  return `<div class="scroll">${header()}${Object.keys(SPACES).length > 1 ? spacesRow() : ''}
-    <div style="position:relative;padding-top:16px"><h3 class="head">Little things.<br>Very you.</h3>${ic('sparkle')}</div>
-    <label class="search">${ic('search')}<input id="search" type="search" value="${esc(S.search)}" placeholder="A word, a person, a place…" aria-label="Search your memory"></label>
-    <button class="ask-entry" data-a="ask"><div class="companion"><span class="loop l1"></span><span class="loop l2"></span></div><span><strong>Can’t remember the words?</strong><small>Ask your memory, like you’d ask a friend.</small></span></button>
-    <p class="browse-label">Good for</p><div class="chips scrollx">${goodChips}</div>
-    <p class="browse-label">By kind</p><div class="chips scrollx">${kindChips}</div>
-    <p class="browse-label">By person</p><div class="chips scrollx">${peopleChips}</div>
-    ${list}
+  const list = all.filter(m => (!cat || m.kind === cat) && (!q || matchesSearch(m, q))).sort((a, b) => a.days - b.days);
+  const soon = !cat && !q ? upcoming().find(d => daysUntil(d.next) <= 30) : null;
+  const body = (soon ? `<button class="oneline private" data-a="cat" data-v="dates">${ic('cake')}<span>${esc(soon.label)} ${inDays(daysUntil(soon.next))}</span>${ic('chevron-right')}</button>` : '')
+    + (list.length ? list.map(memItem).join('')
+    : `<div class="card" style="text-align:center;margin-top:6px"><p style="font-weight:800">Nothing ${q ? `with “${esc(q)}”` : 'here'} in your memory.</p><p class="sub" style="margin:6px 0 14px">Describe it in your own words instead?</p><button class="secondary" data-a="ask-with">${ic('sparkles')}Ask your memory</button></div>`);
+  return memPage(all, chip, cats, body);
+}
+function memPage(all, chip, cats, body) {
+  return `<div class="scroll">${header()}
+    <h3 class="head" style="font-size:28px;margin:10px 0 2px">My memory</h3>
+    <p class="sub">${all.length} things, all yours.</p>
+    <label class="search">${ic('search')}<input id="search" type="search" value="${esc(S.search)}" placeholder="Find anything…" aria-label="Search your memory"></label>
+    <div class="chips scrollx" style="margin:0 -22px 12px">${chip(null, 'All')}${cats.map(([k, v]) => chip(k, v.label)).join('')}<button class="chip sm ${S.filter.kind === 'dates' ? 'on' : ''}" data-a="cat" data-v="dates" aria-pressed="${S.filter.kind === 'dates'}">${ic('cake')}Dates</button></div>
+    ${body}
   </div>${navBar()}`;
 }
-// Ideas: what a space is deciding on. No second memory: every card belongs to someone's memory.
-function ideaItem(m, k) {
-  const v = vt(m, k).you, by = m.by === 'you' ? 'Your idea' : `${esc(m.by)}’s idea`;
-  const line = activePlan(m) && m.plan.space === k ? `Planned: ${planWhen(m.plan)}`
-    : isMatch(m, k) ? matchLine(m, k)
-    : v === 'yes' ? `You’d love to · waiting for ${joinNames(waitingOn(m, k))}`
-    : v === 'later' ? 'You said another time'
-    : 'Tap to answer';
-  return `<button class="item" data-a="open" data-id="${m.id}">${face(m.by)}<div><p class="kind">${by}</p><strong>${esc(m.title)}</strong><span class="q">${line}</span>${facts(m) ? `<div class="facts" style="margin:4px 0 0">${facts(m)}</div>` : ''}</div></button>`;
-}
+// Ready to plan: the one list a space needs. Unanswered ideas live in the deck, your own in “You suggested”.
 function viewIdeas() {
-  const k = S.space, v = sp(k), all = ideas(k);
-  const ready = all.filter(m => isMatch(m, k) && !activePlan(m));
-  const planned = all.filter(m => activePlan(m) && m.plan.space === k);
-  const waiting = all.filter(m => vt(m, k).you === 'yes' && !isMatch(m, k) && !activePlan(m));
-  const open = all.filter(m => !vt(m, k).you && !activePlan(m));
-  const resting = all.filter(m => vt(m, k).you === 'later' && !activePlan(m));
-  const done = S.memories.flatMap(m => (m.history || []).filter(h => h.space === k).map(h => ({ m, h })));
-  const sec = (title, note, items) => items.length ? `<div class="shelf">${title} <small>${note}</small></div>` + items.map(m => ideaItem(m, k)).join('') : '';
-  return `<div class="scroll">${header()}${spacesRow()}
-    <div style="position:relative;padding-top:16px"><h3 class="head">${v.type === 'couple' ? 'Ideas for<br>you two.' : 'Ideas for<br>the group.'}</h3></div>
-    <p class="sub" style="margin:10px 0 4px">${faces(v.members)} What ${joinNames(v.members).replace('You', 'you')} suggested. Every idea stays in the memory of whoever saved it.</p>
-    ${sec(v.type === 'couple' ? 'In your jar' : 'Ready to plan', v.type === 'couple' ? 'you both want these' : 'enough of you want these', ready)}
-    ${sec('Planned', '', planned)}
-    ${sec('New for you', 'say yes or another time', open)}
-    ${sec('Waiting for others', 'you said yes', waiting)}
-    ${sec('Resting', 'another time', resting)}
-    ${done.length ? `<div class="shelf">Done together <small>${done.length} so far</small></div>` + done.map(({ m, h }) => `<p class="history">${ic('history')}${fmtDay(h.date)}: ${esc(m.title)}</p>`).join('') : ''}
-    <button class="secondary" style="margin-top:16px" data-a="remember">${ic('send')}Suggest something</button>
-  </div>${navBar()}`;
+  const k = S.space, v = sp(k), all = ideas(k), couple = v.type === 'couple';
+  const ready = all.filter(m => isMatch(m, k) && !activePlan(m)).sort((a, b) => yesOf(b, k).length - yesOf(a, k).length);
+  const join = all.filter(m => canJoin(m) && m.plan.space === k);
+  const pickDn = couple && dnOpen(k);
+  const row = m => `<button class="row" data-a="${pickDn && !canJoin(m) ? 'dn-choose' : 'open'}" data-id="${m.id}">${face(m.by)}<strong>${esc(m.title)}</strong><span class="hint">${canJoin(m) ? `${esc(m.plan.by || nm(m.by))} started a plan · ${planWhen(m.plan)}` : couple ? 'You both want this' : `${joinNames(yesOf(m, k))} ${yesOf(m, k).length === 1 ? 'is' : 'are'} in${(m.min || 0) > 2 ? ` · needs ${m.min}` : ''}`}</span></button>`;
+  return `<div class="scroll">
+    <div class="top"><button class="text-btn" data-a="back">${ic('arrow-left')}Back</button><span class="sub" style="font-weight:700">${esc(v.name)}</span></div>
+    <h3 class="head" style="font-size:28px;margin:6px 0 4px">${couple ? 'You both want' : 'Ready to plan'}</h3>
+    <p class="sub" style="margin-bottom:10px">${faces(v.members)} ${couple ? (pickDn ? `Pick one for date night${sp(k).dateNight.flex ? '' : `, ${fmtDay(nextOn(sp(k).dateNight.day))}`}.` : 'Tap one to start the plan.') : 'Enough of you want these. Anyone can start the plan; the others join.'}</p>
+    ${join.length ? `<div class="shelf">Plans to join <small>${join.length}</small></div>` + join.map(row).join('') : ''}
+    ${ready.length ? (join.length ? `<div class="shelf">Nobody planned yet <small>${ready.length}</small></div>` : '') + ready.map(row).join('')
+      : join.length ? '' : `<p class="mini">Nothing yet. Say <b>I’d love to</b> in the deck; when enough of you want something, it shows up here.</p>`}
+  </div>`;
 }
-
 function viewAsk() {
   const a = S.ask;
   const examples = ['What did Lena recommend?', 'Something cozy for a rainy evening', 'That restaurant I saved', 'Something for date night'];
@@ -1011,17 +1332,18 @@ function viewAsk() {
 // One page for an idea: your own (with where it is shared) or someone else's card (in the space you came from).
 function viewDetail() {
   const m = byId(S.detail); if (!m) return viewToday();
-  const k = isShared(S.space) && m.shares.includes(S.space) ? S.space : null;
+  const k = ctxSpace(m);
   const own = m.by === 'you';
   const votes = k ? `<p class="mini" style="margin-top:0">Who’s up for it in ${esc(sp(k).name)}</p><div class="vote-row" style="margin-bottom:14px">${sp(k).members.map(x => {
       const v = vt(m, k)[x], hidden = x !== 'you' && v && !vt(m, k).you;
       return `<span class="vote ${hidden ? 'wait' : v === 'yes' ? 'yes' : 'wait'}">${face(x)}${nm(x)}${hidden ? ': answered' : v === 'yes' ? ': would love to' : v === 'later' ? ': another time' : ': not yet'}</span>`; }).join('')}</div>` : '';
-  const sharedTo = own && !k ? m.shares.filter(s => isShared(s)) : [];
+  const sharedTo = own ? m.shares.filter(s => isShared(s) && s !== k) : [];
   return `<div class="scroll">
     <div class="top"><button class="text-btn" data-a="back">${ic('arrow-left')}Back</button>${own ? `<button class="text-btn" data-a="edit" data-id="${m.id}">${ic('pencil')}Edit</button>` : ''}</div>
     <article class="letter"><span class="tape"></span>
       <div class="letter-top"><div class="symbol">${ic(KINDS[m.kind].icon)}</div><span class="from">${own ? 'A little note from past you' : `${esc(m.by)}’s idea in ${esc(sp(k || m.shares[0]).name)}`}<br>${m.days < 2 ? age(m.days) : age(m.days) + ' ago'}</span></div>
       <h4>${esc(m.title)}</h4>
+      ${m.forWho ? `<div class="eventline">${ic('gift')}For ${esc(m.forWho)}${m.occasion ? `: ${esc(m.occasion.label)}, ${fmtDay(m.occasion.date)}` : ''}</div>` : ''}
       ${m.event && eventOpen(m) ? `<div class="eventline">${ic('ticket')}${m.event.start && m.event.end ? `${fmtDay(m.event.start)} to ${fmtDay(m.event.end)}` : m.event.start ? fmtDay(m.event.start) : 'Until ' + fmtDay(m.event.end)}</div>` : ''}
       <p class="body">${esc(m.note)}</p>
       ${m.link ? `<a class="linkcard" href="${esc(m.link.url)}" target="_blank" rel="noopener noreferrer">${ic('link')}<span>${esc(m.link.name)}<small>${esc(m.link.site)}</small></span></a>` : ''}
@@ -1029,32 +1351,75 @@ function viewDetail() {
       <div class="meta" style="margin-bottom:14px">${m.who ? `<span>${whoBadge(m.who)}${esc(m.who)} told ${own ? 'you' : esc(m.by)} about it</span>` : ''}${m.good.map(x => `<span>${ic(GOOD[x].icon)}${GOOD[x].label}</span>`).join('')}</div>
       ${(m.history || []).length ? `<p class="history">${ic('history')}Done before: ${m.history.map(h => fmtDay(h.date) + (h.people.length ? ', with ' + joinNames(h.people) : '')).join('; ')}</p>` : ''}
       ${votes}
-      ${sharedTo.length ? `<p class="mini" style="margin-top:0">Suggested to</p><div class="vote-row" style="margin-bottom:14px">${sharedTo.map(s => `<span class="vote ${isMatch(m, s) ? 'yes' : 'wait'}">${ic(sp(s).icon)}${esc(sp(s).name)}${isMatch(m, s) ? ': a match' : yesOf(m, s).length > 1 ? `: ${yesOf(m, s).length} want it` : ': waiting'}</span>`).join('')}</div>` : ''}
+      ${sharedTo.length ? `<p class="mini" style="margin-top:0">${k ? 'Also suggested to' : 'Suggested to'}</p><div class="vote-row" style="margin-bottom:14px">${sharedTo.map(s => `<span class="vote ${isMatch(m, s) ? 'yes' : 'wait'}">${ic(sp(s).icon)}${esc(sp(s).name)}${isMatch(m, s) ? ': a match' : yesOf(m, s).length > 1 ? `: ${yesOf(m, s).length} want it` : ': waiting'}</span>`).join('')}</div>` : ''}
+      ${m.kind === 'gift' ? `<p class="history">${ic('lock')}Gift ideas stay private. I’ll remind you before the day.</p>` : ''}
       ${m.hidden ? `<p class="history">${ic('eye-off')}Hidden from your deck. Only you know. <button class="text-btn" style="padding:0;min-height:0;color:var(--purple)" data-a="unhide" data-id="${m.id}">Show it again</button></p>` : ''}
       <p class="signoff">${ic('heart')}Something worth remembering.</p>
     </article>
     ${k && vt(m, k).you !== 'yes' && !activePlan(m) ? `<div class="duo" style="margin-bottom:8px"><button class="primary" data-a="yes" data-id="${m.id}">${ic('heart')}I’d love to</button><button class="secondary" data-a="later" data-id="${m.id}">Another time</button></div>` : ''}
-    ${activePlan(m) ? `<div class="planned">${ic('calendar-heart')}<span style="flex:1">Planned: ${planWhen(m.plan)}</span></div>
+    ${m.kind === 'gift' ? '' : canJoin(m) ? `<div class="planned">${ic('calendar-heart')}<span style="flex:1">${esc(m.plan.by || 'Someone')} started a plan: ${planWhen(m.plan)}</span></div>
+      <button class="primary" data-a="join-plan" data-id="${m.id}">${ic('hand')}Join the plan</button>`
+      : activePlan(m) ? `<div class="planned">${ic('calendar-heart')}<span style="flex:1">Planned: ${planWhen(m.plan)}</span></div>
       <button class="primary" data-a="openplan" data-id="${m.id}">${ic('calendar-heart')}Open the plan</button>`
-      : `<button class="${k && !isMatch(m, k) ? 'secondary' : 'primary'}" data-a="plan" data-id="${m.id}">${ic('calendar-heart')}${k ? 'Plan it together' : 'Let’s do it'}</button>`}
+      : planButton(m, k, !k || isMatch(m, k))}
     <div style="text-align:center;margin-top:8px">
       ${!own ? `<button class="text-btn" style="color:var(--purple)" data-a="keep-mine" data-id="${m.id}">${ic(m.kept ? 'bookmark-check' : 'bookmark-plus')}${m.kept ? 'In your memory' : 'Keep in my memory'}</button>` : ''}
-      ${own && Object.keys(SPACES).some(s => isShared(s)) ? `<button class="text-btn" style="color:var(--purple)" data-a="suggest" data-id="${m.id}">${ic('send')}Suggest to…</button>` : ''}
+      ${own && m.kind !== 'gift' && Object.keys(SPACES).some(s => isShared(s)) ? `<button class="text-btn" style="color:var(--purple)" data-a="suggest" data-id="${m.id}">${ic('send')}Suggest to…</button>` : ''}
       ${own ? `<button class="text-btn muted" data-a="letgo" data-id="${m.id}">${ic('wind')}Let it go</button>` : ''}
     </div>
   </div>`;
 }
 
+// Most ideas work with whoever comes; only some need a minimum (a 5-a-side, a group table).
+function minPicker(d) {
+  const on = (d.min || 0) > 2;
+  return `<div class="chips"><button class="chip sm ${on ? '' : 'on'}" data-a="d-min" data-v="0" aria-pressed="${!on}">${ic('users')}No, whoever comes</button><button class="chip sm ${on ? 'on' : ''}" data-a="d-min" data-v="${on ? d.min : 4}" aria-pressed="${on}">At least…</button></div>
+    ${on ? `<div style="display:flex;align-items:center;gap:14px;margin-top:10px"><button class="round-btn" data-a="d-min" data-v="${Math.max(3, d.min - 1)}" aria-label="Fewer people">${ic('minus')}</button><b style="font-size:16px">${d.min} people</b><button class="round-btn" data-a="d-min" data-v="${Math.min(20, d.min + 1)}" aria-label="More people">${ic('plus')}</button></div>` : ''}`;
+}
+// Suggesting inside a space: what the others need to know, nothing private.
+function viewSuggest() {
+  const d = S.draft, k = d.to, couple = sp(k).type === 'couple', name = couple ? others(k)[0] : sp(k).name;
+  const chips = (opts, cur, a) => `<div class="chips">${opts.map(([v, icon, label]) => `<button class="chip sm ${cur === v ? 'on' : ''}" data-a="${a}" data-v="${v}" aria-pressed="${cur === v}">${ic(icon)}${label}</button>`).join('')}</div>`;
+  const when = couple ? [['any', 'moon', 'Any evening'], ['weekend', 'calendar', 'A weekend'], ['date', 'calendar-days', 'A fixed date']]
+    : [['any', 'shuffle', 'Flexible'], ['date', 'calendar-days', 'A fixed date'], ['by', 'ticket', 'Decide by…']];
+  return `<div class="scroll">
+    <div class="top"><button class="text-btn" data-a="back">${ic('arrow-left')}Back</button><span class="sub" style="font-weight:700">${faces(sp(k).members)} Suggest to ${esc(name)}</span></div>
+    <h3 class="head" style="margin:6px 0 4px">${couple ? 'What would you<br>two enjoy?' : 'What should<br>we do?'}</h3>
+    <p class="sub" style="margin-bottom:14px">${esc(name)} ${couple ? 'sees' : 'see'} it here. It stays in your memory too, marked as suggested.</p>
+    <div class="paper">
+      <label for="d-title">Your idea</label>
+      <input class="t" id="d-title" value="${esc(d.title)}" placeholder="${couple ? 'That pottery workshop…' : 'Karaoke at Monster Ronson’s…'}" maxlength="200">
+      <label for="d-note">Why ${couple ? 'you two' : 'us'}? optional</label>
+      <textarea id="d-note" placeholder="${couple ? 'You said you wanted to try it…' : 'Last time was so much fun…'}">${esc(d.note)}</textarea>
+      <input class="l" id="d-link" value="${esc(d.link?.url || '')}" placeholder="Paste a link, optional" aria-label="Link">
+    </div>
+    ${d.filled ? `<div class="autofill">${ic('sparkles')}<span style="flex:1">Filled in from the link. Check it?</span></div>` : ''}
+    <div class="error" id="d-err" ${d.error ? '' : 'hidden'}>Give this idea a few words first.</div>
+    <div class="q-label">What is it? <small>optional</small></div>
+    <div class="chips">${Object.entries(KINDS).filter(([x]) => x !== 'gift').map(([x, v]) => `<button class="chip sm ${d.kind === x ? 'on' : ''}" data-a="d-kind" data-v="${x}" aria-pressed="${d.kind === x}">${ic(v.icon)}${v.label}</button>`).join('')}</div>
+    ${couple ? `<div class="q-label">Good for date night?</div>
+    <div class="chips"><button class="chip sm ${d.good.includes('date') ? 'on' : ''}" data-a="d-date" aria-pressed="${d.good.includes('date')}">${ic('heart')}Yes, a date night idea</button></div>`
+    : `<div class="q-label">Does it need a minimum?</div>${minPicker(d)}`}
+    <div class="q-label">When?</div>${chips(when, d.when, 'd-when')}
+    ${d.when === 'date' ? `<div class="dates" style="margin-top:10px"><label>On<input type="date" id="d-start" value="${esc(d.start || '')}"></label></div>` : ''}
+    ${d.when === 'by' ? `<div class="dates" style="margin-top:10px"><label>Decide by<input type="date" id="d-by" value="${esc(d.by || '')}"></label></div><p class="mini" style="margin:8px 2px 0">For things that need booking. I remind everyone before.</p>` : ''}
+    <div class="q-label">${couple ? 'Cost' : 'Cost per person'} <small>optional</small></div>
+    <div class="chips">${['€', '€€', '€€€'].map(c => `<button class="chip sm ${d.cost === c ? 'on' : ''}" data-a="d-cost" data-v="${c}" aria-pressed="${d.cost === c}">${c}</button>`).join('')}</div>
+    <div style="margin-top:18px"><button class="primary" data-a="save">${ic('send')}Suggest to ${esc(name)}</button></div>
+    <div style="text-align:center;margin-top:6px"><button class="text-btn muted" data-a="only-me">${ic('bookmark-plus')}Only keep it in my memory</button></div>
+  </div>`;
+}
 function viewRemember() {
   const d = S.draft;
+  if (d.to) return viewSuggest();
   const people = [...new Set(S.memories.map(m => m.who).filter(Boolean)), ...(d.newPeople || [])];
   const hasCouple = Object.values(SPACES).some(v => v.type === 'couple');
   const sharedSpaces = Object.entries(SPACES).filter(([k]) => isShared(k));
   const toGroup = d.shares.some(k => sp(k).type === 'group');
   return `<div class="scroll">
-    <div class="top"><button class="text-btn" data-a="back">${ic('arrow-left')}Back</button><span class="sub" style="font-weight:700">${d.id ? 'Edit your note' : 'A note to future you'}</span></div>
-    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin:6px 0 4px"><h3 class="head">${d.id ? 'A little more<br>to remember.' : 'I’ll hold<br>that thought.'}</h3><div class="companion" style="transform:rotate(13deg);margin:6px 6px 0 0"><span class="loop l1"></span><span class="loop l2"></span></div></div>
-    <p class="sub" style="margin-bottom:14px">It goes into your memory. Suggest it to a space if you like.</p>
+    <div class="top"><button class="text-btn" data-a="back">${ic('arrow-left')}Back</button><span class="sub" style="font-weight:700">${d.id ? 'Edit your note' : d.planFirst ? 'A plan' : d.kind === 'gift' ? 'A gift idea' : 'A note to future you'}</span></div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin:6px 0 4px"><h3 class="head">${d.id ? 'A little more<br>to remember.' : d.planFirst ? 'What are you<br>up to?' : d.kind === 'gift' ? 'Something they’d<br>love.' : 'I’ll hold<br>that thought.'}</h3><div class="companion" style="transform:rotate(13deg);margin:6px 6px 0 0"><span class="loop l1"></span><span class="loop l2"></span></div></div>
+    <p class="sub" style="margin-bottom:14px">${d.kind === 'gift' && !d.id ? 'Only you see it. I bring it back before the day.' : d.planFirst ? 'Write what it is, then pick the day.' : 'It goes into your memory. Suggest it to a space if you like.'}</p>
     <div class="paper">
       <label for="d-title">What caught your attention?</label>
       <input class="t" id="d-title" value="${esc(d.title)}" placeholder="That pottery workshop…" maxlength="200">
@@ -1068,7 +1433,8 @@ function viewRemember() {
     <div class="chips">${Object.entries(KINDS).map(([k, v]) => `<button class="chip sm ${d.kind === k ? 'on' : ''}" data-a="d-kind" data-v="${k}" aria-pressed="${d.kind === k}">${ic(v.icon)}${v.label}</button>`).join('')}</div>
     ${d.kind === 'event' || d.kind === 'music' ? `<div class="q-label">When is it? <small>optional</small></div>
     <div class="dates"><label>From<input type="date" id="d-start" value="${esc(d.start || '')}"></label><label>Until<input type="date" id="d-end" value="${esc(d.end || '')}"></label></div>` : ''}
-    <div class="q-label">Good for… <small>optional</small></div>
+    <button class="text-btn" style="color:var(--purple);padding:12px 0 0" data-a="d-more">${ic(d.more ? 'chevron-up' : 'chevron-down')}${d.more ? 'Fewer details' : 'More details: good for, booking, cost, tags'}</button>
+    ${d.more ? `<div class="q-label">Good for… <small>optional</small></div>
     <div class="chips">${Object.entries(GOOD).filter(([k]) => k !== 'date' || hasCouple).map(([k, v]) => `<button class="chip sm ${d.good.includes(k) ? 'on' : ''}" data-a="d-good" data-v="${k}" aria-pressed="${d.good.includes(k)}">${ic(v.icon)}${v.label}</button>`).join('')}</div>
     <div class="q-label">Good to know <small>optional</small></div>
     <div class="chips">${Object.entries(CONDS).map(([k, v]) => `<button class="chip sm ${d[k] ? 'on' : ''}" data-a="d-cond" data-v="${k}" aria-pressed="${!!d[k]}">${ic(v.icon)}${v.label}</button>`).join('')}
@@ -1076,19 +1442,36 @@ function viewRemember() {
     <div class="q-label">Your own tags <small>optional</small></div>
     <div class="chips">${d.tags.map(t => `<button class="chip sm on" data-a="d-untag" data-v="${esc(t)}" aria-label="Remove tag ${esc(t)}">#${esc(t)} ${ic('x')}</button>`).join('')}
       ${[...new Set(mine().flatMap(m => m.tags || []))].filter(t => !d.tags.includes(t)).slice(0, 6).map(t => `<button class="chip sm" data-a="d-tag" data-v="${esc(t)}">#${esc(t)}</button>`).join('')}</div>
-    <form data-form="tag" class="tagform"><input id="d-tagin" placeholder="Add a tag, e.g. brunch" maxlength="50" aria-label="New tag"><button class="chip sm" aria-label="Add tag">${ic('plus')}</button></form>
+    <form data-form="tag" class="tagform"><input id="d-tagin" placeholder="Add a tag, e.g. brunch" maxlength="50" aria-label="New tag"><button class="chip sm" aria-label="Add tag">${ic('plus')}</button></form>` : ''}
+    ${d.shares.length && d.id ? '' : `<div class="q-label">For someone? <small>optional</small></div>
+    <div class="chips">${[...new Set([...Object.values(SPACES).flatMap(v => v.members), ...people])].filter(p => p !== 'you').map(p => `<button class="chip sm ${d.forWho === p ? 'on' : ''}" data-a="d-for" data-v="${esc(p)}" aria-pressed="${d.forWho === p}">${ic('gift')}${esc(p)}</button>`).join('')}</div>
+    ${d.forWho ? `<div class="dates" style="margin-top:10px"><label>Occasion<input id="d-occ" value="${esc(d.occLabel || '')}" placeholder="Birthday" maxlength="40" style="font-weight:700"></label><label>Date<input type="date" id="d-occdate" value="${esc(d.occDate || '')}"></label></div>
+      <p class="mini" style="margin:8px 2px 0">I’ll bring it back two weeks before. ${esc(d.forWho)} never sees it.</p>` : ''}`}
     <div class="q-label">Who told you? <small>optional</small></div>
     <div class="chips">${people.map(p => `<button class="chip sm ${d.who === p ? 'on' : ''}" data-a="d-who" data-v="${esc(p)}" aria-pressed="${d.who === p}">${whoBadge(p)}${esc(p)}</button>`).join('')}<button class="chip sm" data-a="d-person">${ic('plus')}Someone else</button></div>
-    ${sharedSpaces.length && !d.id ? `<div class="q-label">Suggest to <small>optional</small></div>
+    ${sharedSpaces.length && !d.id && d.kind !== 'gift' && !d.forWho ? `<div class="q-label">Suggest to <small>optional</small></div>
     <div class="chips">${sharedSpaces.map(([k, v]) => `<button class="chip sm ${d.shares.includes(k) ? 'on' : ''}" data-a="d-share" data-v="${k}" aria-pressed="${d.shares.includes(k)}">${ic(v.icon)}${esc(v.name)}</button>`).join('')}</div>
-    ${toGroup ? `<p class="mini" style="margin:10px 2px 6px">How many people does it need?</p><div class="chips">${[2, 4, 6].map(n => `<button class="chip sm ${(d.min || 2) === n ? 'on' : ''}" data-a="d-min" data-v="${n}" aria-pressed="${(d.min || 2) === n}">${ic('users')}${n}+</button>`).join('')}</div>` : ''}` : ''}
-    <div style="margin-top:18px;display:grid;gap:8px"><button class="primary" data-a="save">${ic(d.shares.length && !d.id ? 'send' : 'bookmark-plus')}${d.id ? 'Keep these changes' : d.shares.length ? 'Save and suggest' : 'Remember this'}</button>
-    ${d.id || d.shares.length ? '' : `<button class="secondary" data-a="save" data-v="plan">${ic('calendar-heart')}Remember &amp; plan it</button>`}</div>
+    ${toGroup ? `<p class="mini" style="margin:10px 2px 6px">Does it need a minimum?</p>${minPicker(d)}` : ''}` : ''}
+    ${d.planFirst ? `<div style="margin-top:18px"><button class="primary" data-a="save" data-v="plan">${ic('calendar-heart')}Save and pick a day</button></div>` : `<div style="margin-top:18px;display:grid;gap:8px"><button class="primary" data-a="save">${ic(d.shares.length && !d.id ? 'send' : 'bookmark-plus')}${d.id ? 'Keep these changes' : d.shares.length ? 'Save and suggest' : 'Remember this'}</button>
+    ${d.id || d.shares.length ? '' : `<button class="secondary" data-a="save" data-v="plan">${ic('calendar-heart')}Remember &amp; plan it</button>`}</div>`}
   </div>`;
 }
 
+// A short tour through every feature of the prototype.
+const TOUR = [
+  ['Oh, right! moments', 'Just me: a birthday gift, an exhibition ending, a rainy-evening deck'],
+  ['From Lena', 'You & Lena: her suggestions as a deck; a yes you both share lands in your shared space'],
+  ['Plan from the shared space', 'You & Lena: Plan opens a calendar; ♥ marks date night (your turn: a surprise)'],
+  ['For Lena and Our story', 'You & Lena: private gift ideas and dates, one year ago today'],
+  ['The weekly thing', 'The regulars: tonight’s drinks, tap I’m in'],
+  ['Start or join a plan', 'Lisbon crew: join Mira’s karaoke plan, or start one for an idea you want'],
+  ['A trip together', 'Lisbon: day by day, who sorts out what, little notes'],
+  ['Find something', 'My memory: tap Films, or search “toilet” and ask'],
+  ['Save a gift', 'Remember something for Max with an occasion'],
+  ['Start a space', 'My partner or a group: they join, set up a weekly thing'],
+];
 function viewAccount() {
-  const type = { me: 'Only you', couple: 'Just the two of you', group: 'A group' };
+  const type = { me: 'Only you', couple: 'My partner', group: 'A group' };
   return `<div class="scroll">
     <div class="top"><button class="text-btn" data-a="back">${ic('arrow-left')}Back</button></div>
     <div style="text-align:center;margin-top:26px">
@@ -1099,6 +1482,9 @@ function viewAccount() {
     <p class="label section">${ic('users')}Your spaces</p>
     ${Object.entries(SPACES).map(([k, v]) => `<button class="switch space-opt" data-a="space" data-v="${k}"><span>${ic(v.icon)} ${esc(v.name)}<small class="muted" style="display:block;font-weight:600;font-size:12px">${type[v.type]}${v.members.length > 1 ? ': ' + joinNames(v.members) : ''}${v.invited ? `, ${v.invited} invited` : ''}</small></span>${v.members.length > 1 ? faces(v.members) : ''}</button>`).join('')}
     <button class="secondary" data-a="newspace">${ic('plus')}Start a space</button>
+    <p class="label section">${ic('compass')}Try the demo</p>
+    <div class="tour">${TOUR.map((t, i) => `<button class="tour-step" data-a="tour" data-v="${i}"><b>${i + 1}</b><span><strong>${t[0]}</strong><small>${t[1]}</small></span>${ic('chevron-right')}</button>`).join('')}</div>
+    <button class="text-btn muted" data-a="reset-demo">${ic('rotate-ccw')}Reset the demo</button>
     <div style="margin-top:22px">
       <button class="switch ${S.dark ? 'on' : ''}" data-a="dark" role="switch" aria-checked="${S.dark}"><span>${ic('moon')} Dark mode</span><span class="knob"></span></button>
       <button class="switch" data-a="signout"><span>${ic('log-out')} Sign out</span>${ic('chevron-right')}</button>
@@ -1121,19 +1507,109 @@ function sheet() {
   }
   if (s.type === 'draw') {
     const m = byId(s.id), k = s.k, dn = sp(k).dateNight, forDn = dn && !(dn.planned && byId(dn.planned) && activePlan(byId(dn.planned)));
-    body = `<div class="celebrate"><p class="sub" style="margin-bottom:10px">${forDn ? `For date night, ${fmtDay(nextOn(dn.day))}:` : 'From your jar:'}</p>
+    body = `<div class="celebrate"><p class="sub" style="margin-bottom:10px">${forDn ? (dn.flex ? 'For date night:' : `For date night, ${fmtDay(nextOn(dn.day))}:`) : 'Something you both want:'}</p>
       <div class="drawn"><span class="tape">you both want this</span><div class="symbol" style="margin:0 auto 10px">${ic(KINDS[m.kind].icon)}</div><h4 class="title">${esc(m.title)}</h4><p class="sub" style="margin-top:6px">${esc(firstSentence(m.note))}</p>${facts(m) ? `<div class="facts" style="justify-content:center;margin:10px 0 0">${facts(m)}</div>` : ''}</div>
       ${forDn && dn.turns && dn.turn === 'you' ? `<p class="note-purple" style="text-align:left;margin-top:14px">It’s your turn. ${esc(others(k)[0])} only sees the time until the day.</p>` : ''}</div>
-      <div class="duo" style="margin-top:16px"><button class="primary" data-a="draw-yes">${ic('calendar-heart')}Let’s do it</button>${s.again ? `<button class="secondary" data-a="close">Not now</button>` : `<button class="secondary" data-a="draw-again">${ic('shuffle')}Draw again</button>`}</div>`;
+      <div class="duo" style="margin-top:16px"><button class="primary" data-a="draw-yes">${ic('calendar-heart')}Let’s do it</button><button class="secondary" data-a="draw-again">${ic('shuffle')}Another one</button></div>
+      ${s.again ? `<p class="mini" style="text-align:center;margin-top:10px">That was everything you both want. Starting over.</p>` : ''}
+      <div style="text-align:center;margin-top:4px"><button class="text-btn muted" data-a="close">Not now</button></div>`;
   }
   if (s.type === 'dn') {
     const v = sp(s.k), dn = v.dateNight || { day: wd(5), time: '19:30', turns: false };
-    const pick = s.day ?? dn.day, turns = s.turns ?? dn.turns;
-    body = `<h4>${v.dateNight ? 'Date night' : 'A regular evening'}</h4><p class="sub" style="margin-bottom:12px">Which day? I’ll keep your jar ready for it and nudge you once, if you like. Skip any week.</p>
-      <div class="chips">${[1, 2, 3, 4, 5, 6, 0].map(n => `<button class="chip sm ${pick === n ? 'on' : ''}" data-a="dn-day" data-v="${n}" aria-pressed="${pick === n}">${weekday(n).slice(0, 3)}</button>`).join('')}</div>
+    const pick = s.day ?? dn.day, turns = s.turns ?? dn.turns, flex = s.flex ?? !!dn.flex, every = s.every ?? dn.every ?? 1;
+    body = `<h4>${v.dateNight ? 'Date night' : 'A regular evening'}</h4><p class="sub" style="margin-bottom:12px">${flex ? 'No fixed day: I nudge you once at the start of the week, and whoever picks the idea picks the day.' : 'Which day? I nudge you once, and you pick from what you both want.'} Skip any week.</p>
+      <div class="chips" style="margin-bottom:10px"><button class="chip sm ${!flex ? 'on' : ''}" data-a="dn-flex" data-v="0" aria-pressed="${!flex}">${ic('calendar-days')}A fixed day</button><button class="chip sm ${flex ? 'on' : ''}" data-a="dn-flex" data-v="1" aria-pressed="${flex}">${ic('shuffle')}Flexible</button></div>
+      ${flex ? `<div class="chips"><button class="chip sm ${every === 1 ? 'on' : ''}" data-a="dn-every" data-v="1" aria-pressed="${every === 1}">Every week</button><button class="chip sm ${every === 2 ? 'on' : ''}" data-a="dn-every" data-v="2" aria-pressed="${every === 2}">Every two weeks</button></div>` : `<div class="chips">${[1, 2, 3, 4, 5, 6, 0].map(n => `<button class="chip sm ${pick === n ? 'on' : ''}" data-a="dn-day" data-v="${n}" aria-pressed="${pick === n}">${weekday(n).slice(0, 3)}</button>`).join('')}</div>`}
       <button class="switch ${turns ? 'on' : ''}" style="margin-top:14px;background:var(--bg)" data-a="dn-turns" role="switch" aria-checked="${turns}"><span>${ic('gift')} Take turns and surprise each other<small class="muted" style="display:block;font-weight:600;font-size:12px">One plans, the other only sees the time.</small></span><span class="knob"></span></button>
-      <button class="primary" style="margin-top:8px" data-a="dn-save">${ic('heart')}Every ${weekday(pick)}</button>
+      <button class="primary" style="margin-top:8px" data-a="dn-save">${ic('heart')}${flex ? (every === 2 ? 'Every two weeks' : 'Once a week') : `Every ${weekday(pick)}`}</button>
       ${v.dateNight ? `<div style="text-align:center;margin-top:6px"><button class="text-btn muted" data-a="dn-off">Turn date night off</button></div>` : ''}`;
+  }
+  if (s.type === 'forp') {
+    const p = others(s.k)[0], items = giftsFor(p);
+    body = `<h4>For ${esc(p)}</h4><p class="sub" style="margin-bottom:12px">${ic('lock')} Only you see this. Dates to remember, and gift ideas if you have some. I remind you two weeks before.</p>
+      ${upcoming(p).map(dateLine).join('')}
+      <button class="text-btn" style="color:var(--purple);padding:4px 0 10px;min-height:0" data-a="date-add" data-v="${esc(p)}">${ic('plus')}Add a date</button>
+      ${items.length ? `<div class="shelf">Gift ideas <small>${items.length}</small></div>` + items.map(memItem).join('') : ''}
+      <button class="secondary" style="margin-top:12px" data-a="for-add" data-v="${esc(p)}">${ic('gift')}Save a gift idea</button>`;
+  }
+  if (s.type === 'date-add') {
+    const people = [...new Set([...Object.values(SPACES).flatMap(v => v.members), ...S.dates.map(d => d.who), ...S.memories.map(m => m.who)].filter(x => x && x !== 'you'))];
+    body = `<h4>A date to remember</h4><p class="sub" style="margin-bottom:12px">Just a reminder. I bring it back two weeks before, every year.</p>
+      <div class="dates" style="margin-bottom:8px"><label>Who<input id="dt-who" list="dt-people" value="${esc(s.who || '')}" placeholder="Mom" maxlength="40" style="font-weight:700"></label><label>What<input id="dt-what" placeholder="Birthday, our first date…" maxlength="40"></label></div>
+      <datalist id="dt-people">${people.map(x => `<option value="${esc(x)}">`).join('')}</datalist>
+      <div class="dates" style="margin-bottom:14px"><label>On<input type="date" id="dt-date"></label></div>
+      <div class="error" id="dt-err" hidden>Who and which day?</div>
+      <button class="primary" data-a="date-save">${ic('cake')}Remember the date</button>`;
+  }
+  if (s.type === 'date') {
+    const d = upcoming().find(x => x.id === s.id), items = giftsFor(d.who);
+    body = `<h4>${esc(d.label)}</h4><p class="sub" style="margin-bottom:12px">${ic('cake')} ${fmtLong(d.next)}, ${inDays(daysUntil(d.next))}. I’ll remind you two weeks before.</p>
+      ${items.length ? `<div class="shelf">Gift ideas for ${esc(d.who)} <small>${items.length}</small></div>` + items.map(memItem).join('') : `<p class="mini">No gift idea yet. No need: the reminder is enough.</p>`}
+      <button class="secondary" style="margin-top:12px" data-a="for-add" data-v="${esc(d.who)}">${ic('gift')}Save a gift idea</button>
+      <div style="text-align:center;margin-top:6px"><button class="text-btn muted" data-a="date-del" data-v="${d.id}">${ic('trash-2')}Remove this date</button></div>`;
+  }
+  if (s.type === 'wlist') {
+    const list = [...weeklies(s.k)].sort((a, b) => daysUntil(nextOn(a.day)) - daysUntil(nextOn(b.day)));
+    body = `<h4>Every week</h4><p class="sub" style="margin-bottom:10px">The regular things in ${esc(sp(s.k).name)}. On each day I ask who’s in.</p>`
+      + list.map(w => `<button class="row" data-a="weekly-setup" data-v="${w.id}">${ic('repeat')}<strong>${esc(w.title)}</strong><span class="hint">${weekday(w.day).slice(0, 3)} ${w.time} · change</span></button>`).join('')
+      + (list.length < 3 ? `<button class="secondary" style="margin-top:12px" data-a="weekly-setup">${ic('plus')}Add another weekly thing</button>` : `<p class="mini" style="text-align:center;margin-top:10px">Three is the most. Stop one to add another.</p>`);
+  }
+  if (s.type === 'weekly') {
+    const w = S.wDraft;
+    body = `<h4>Every week</h4><p class="sub" style="margin-bottom:12px">On the day I ask everyone “${esc(w.title || 'Drinks')} tonight. In?”. Only the yeses count, and at ${w.decide} I say whether it’s on.</p>
+      <form data-form="weekly">
+        <label class="field"><span>What</span><input id="wk-title" maxlength="40" value="${esc(w.title)}" placeholder="Drinks at the usual place" style="background:var(--bg)"></label>
+        <p class="mini" style="margin-top:0">Which day</p>
+        <div class="chips">${[1, 2, 3, 4, 5, 6, 0].map(n => `<button type="button" class="chip sm ${w.day === n ? 'on' : ''}" data-a="wk-day" data-v="${n}" aria-pressed="${w.day === n}">${weekday(n).slice(0, 3)}</button>`).join('')}</div>
+        <div class="dates" style="margin-top:12px"><label>Time<input type="time" id="wk-time" value="${esc(w.time)}"></label><label>Where<input id="wk-where" maxlength="60" value="${esc(w.where)}" placeholder="Bar Zentral"></label></div>
+        <p class="mini">It’s on when enough people are in</p>
+        <div style="display:flex;align-items:center;gap:14px"><button type="button" class="round-btn" data-a="wk-min" data-v="${Math.max(2, w.min - 1)}" aria-label="Fewer people">${ic('minus')}</button><b style="font-size:16px">${w.min} people</b><button type="button" class="round-btn" data-a="wk-min" data-v="${Math.min(20, w.min + 1)}" aria-label="More people">${ic('plus')}</button></div>
+        <button class="primary" style="margin-top:14px">${ic('repeat')}Every ${weekday(w.day)}</button>
+      </form>${s.edit ? `<div style="text-align:center;margin-top:6px"><button class="text-btn muted" data-a="weekly-off">Stop the weekly thing</button></div>` : ''}`;
+  }
+  if (s.type === 'story') {
+    const items = S.memories.flatMap(m => (m.history || []).filter(h => h.space === s.k).map(h => ({ m, h }))).sort((a, b) => b.h.date.localeCompare(a.h.date));
+    if (!items.length) body = `<div class="story-pop"><span class="big">❤️</span><p class="when">Your story starts here</p><p class="sub">Everything you do together lands here, one little moment at a time.</p></div>`;
+    else {
+      const yi = items.findIndex(({ h }) => Math.abs(daysUntil(h.date) + 365) <= 3), i = s.i ?? Math.max(0, yi), { m, h } = items[i];
+      const floats = s.fresh !== false ? ['❤️', '💛', '💜', '❤️', '💕', '💛', '💜'].map((e, n) => `<span class="float" style="left:${8 + n * 13}%;animation-delay:${n * .12}s;--r:${n % 2 ? 18 : -18}deg">${e}</span>`).join('') : '';
+      body = `<div class="story-pop">${floats}<span class="big">${i === yi ? '🥹' : '❤️'}</span>
+        <p class="when">${i === yi ? 'One year ago today' : fmtLong(h.date)}</p>
+        <h4 class="title">${esc(m.title)}</h4><p class="sub">${ic(KINDS[m.kind].icon)} ${h.people.length ? 'with ' + joinNames(h.people) : 'together'}</p></div>
+        <div class="story-nav"><button class="round-btn" data-a="story-step" data-v="${i - 1}" ${i ? '' : 'disabled'} aria-label="Newer">${ic('chevron-left')}</button><small class="muted" style="font-weight:800">${i + 1} of ${items.length} things done together</small><button class="round-btn" data-a="story-step" data-v="${i + 1}" ${i < items.length - 1 ? '' : 'disabled'} aria-label="Older">${ic('chevron-right')}</button></div>`;
+    }
+  }
+  if (s.type === 'when') {
+    const m = byId(s.id), k = s.k, dn = sp(k).dateNight, trip = m.dur === 'days';
+    const [y, mo] = s.month.split('-').map(Number), lead = (new Date(y, mo - 1, 1).getDay() + 6) % 7, n = new Date(y, mo, 0).getDate();
+    const iso = d => `${y}-${String(mo).padStart(2, '0')}-${String(d).padStart(2, '0')}`, thisMonth = TODAY().slice(0, 7);
+    const cells = Array.from({ length: lead }, () => '<span></span>').join('') + Array.from({ length: n }, (_, i) => {
+      const d = iso(i + 1), wd = new Date(d + 'T12:00').getDay();
+      const mark = m.event && (d === m.event.start || d === m.event.end) ? '🎟' : dn && !dn.flex && wd === dn.day && d >= TODAY() ? '♥' : '';
+      const cls = [d === TODAY() ? 'today' : '', d === s.sel || d === s.end ? 'on' : '', trip && s.sel && s.end && d > s.sel && d < s.end ? 'range' : ''].join(' ');
+      return `<button class="cal-d ${cls}" data-a="cal-pick" data-v="${d}" ${d < TODAY() ? 'disabled' : ''} aria-pressed="${d === s.sel || d === s.end}">${i + 1}${mark ? `<i>${mark}</i>` : ''}</button>`; }).join('');
+    const label = s.sel ? fmtDay(s.sel) + (s.end ? ` – ${fmtDay(s.end)}` : '') : '';
+    body = `<h4>${trip ? 'Which days?' : 'Which day?'}</h4><p class="sub" style="margin-bottom:8px">${esc(m.title)}${trip ? '. Tap the first day, then the last.' : ''}</p>
+      <div class="cal-head"><button class="round-btn" data-a="cal-nav" data-v="-1" ${s.month <= thisMonth ? 'disabled' : ''} aria-label="Previous month">${ic('chevron-left')}</button><b>${new Date(y, mo - 1, 15).toLocaleDateString('en-GB', { month: 'long', year: 'numeric' })}</b><button class="round-btn" data-a="cal-nav" data-v="1" aria-label="Next month">${ic('chevron-right')}</button></div>
+      <div class="cal">${['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'].map(w => `<span class="wd">${w}</span>`).join('')}${cells}</div>
+      ${(dn && !dn.flex) || m.event ? `<div class="cal-legend">${dn && !dn.flex ? '<span>♥ your date night</span>' : ''}${m.event ? '<span>🎟 the event</span>' : ''}</div>` : '<div style="height:12px"></div>'}
+      <div style="display:grid;gap:6px"><button class="primary" data-a="cal-ok" ${s.sel ? '' : 'disabled'}>${ic('calendar-heart')}${s.sel ? `Plan it: ${label}` : trip ? 'Pick the days' : 'Pick a day'}</button><button class="text-btn muted" data-a="close">Cancel</button></div>`;
+  }
+  if (s.type === 'dnpick') {
+    const k = s.k, p = others(k)[0], src = s.src || 'both';
+    const both = ideas(k).filter(m => isMatch(m, k) && !activePlan(m) && m.dur !== 'days');
+    const memo = mine().filter(m => m.kind !== 'gift' && !activePlan(m) && m.dur !== 'days' && !(m.shares.includes(k) && isMatch(m, k)))
+      .sort((a, b) => b.good.includes('date') - a.good.includes('date') || b.days - a.days);
+    const list = src === 'both' ? both : memo;
+    const row = m => `<button class="row" data-a="dn-choose" data-id="${m.id}">${ic(KINDS[m.kind].icon)}<strong>${esc(m.title)}</strong><span class="hint">${src === 'both' ? esc(fitWhy(m, 'dn', k)[1]) : m.good.includes('date') ? '♥ a date night idea' : esc(KINDS[m.kind].line)}</span></button>`;
+    body = `<h4>Plan date night</h4><p class="sub" style="margin-bottom:10px">Choose from what you both want, or from your own memory${sp(k).dateNight.flex ? ', then pick the day' : ''}.</p>
+      <div class="seg" style="margin:0 0 10px;background:var(--bg)"><button class="${src === 'both' ? 'on' : ''}" data-a="dn-src" data-v="both">${ic('heart')}You both want · ${both.length}</button><button class="${src === 'memo' ? 'on' : ''}" data-a="dn-src" data-v="memo">${ic('notebook')}My memory · ${memo.length}</button></div>
+      ${src === 'memo' ? `<p class="mini" style="margin:0 2px 6px">${esc(p)} sees it in the plan${sp(k).dateNight.turns && sp(k).dateNight.turn === 'you' ? ' (only the time, if it’s your surprise)' : ''}, and it’s suggested in your space too.</p>` : ''}
+      ${list.map(row).join('') || `<p class="mini">${src === 'both' ? `Nothing you both want yet. Try your memory, or say yes to ${esc(p)}’s ideas.` : 'Nothing in your memory fits a date night yet.'}</p>`}
+      <div style="text-align:center;margin-top:8px"><button class="text-btn muted" data-a="close">Cancel</button></div>`;
+  }
+  if (s.type === 'sent') {
+    body = `<h4>You suggested</h4><p class="sub" style="margin-bottom:6px">Your ideas in ${esc(sp(s.k).name)} and how they are going.</p>${sentStrip(s.k)}`;
   }
   if (s.type === 'suggest') {
     const m = byId(s.id);
@@ -1151,8 +1627,9 @@ function sheet() {
       <h4>${couple ? 'It’s a match!' : 'Enough of you are in!'}</h4>
       <p class="sub" style="margin-bottom:6px">${couple ? 'You both want to' : `${joinNames(yesOf(m, k))} want to`}</p>
       <h4 class="title" style="margin-bottom:18px">${esc(m.title)}</h4></div>
-      <div class="duo"><button class="primary" data-a="plan" data-id="${m.id}">${ic('calendar-heart')}Plan it together</button><button class="secondary" data-a="close">${couple ? 'Into the jar' : 'Later'}</button></div>
-      <p class="sub" style="text-align:center;margin-top:12px">${couple ? 'It’s in your jar now. Draw it any time.' : 'It waits under “ready to plan”.'}</p>`;
+      ${couple ? `<div class="duo"><button class="primary" data-a="plan" data-id="${m.id}">${ic('calendar-heart')}Plan it now</button><button class="secondary" data-a="close">Later</button></div>`
+        : `<div class="duo">${planButton(m, k)}<button class="secondary" data-a="close">Later</button></div>`}
+      <p class="sub" style="text-align:center;margin-top:12px">${couple ? 'It’s in your shared space. Plan it now, or whenever you like.' : 'Start the plan now, or later from “Ready to plan”. The others join and add to it.'}</p>`;
   }
   if (s.type === 'keep') {
     const m = byId(s.id);
@@ -1161,7 +1638,7 @@ function sheet() {
   }
   if (s.type === 'newspace') {
     body = `<h4>A new space</h4><p class="sub" style="margin-bottom:14px">Each of you keeps your own memory. In a space you suggest ideas, say yes and plan together.</p>
-      <div class="seg" style="margin:0 0 14px;background:var(--bg)"><button class="${S.nsType !== 'group' ? 'on' : ''}" data-a="ns-type" data-v="couple">Just the two of us</button><button class="${S.nsType === 'group' ? 'on' : ''}" data-a="ns-type" data-v="group">A group</button></div>
+      <div class="seg" style="margin:0 0 14px;background:var(--bg)"><button class="${S.nsType !== 'group' ? 'on' : ''}" data-a="ns-type" data-v="couple">My partner</button><button class="${S.nsType === 'group' ? 'on' : ''}" data-a="ns-type" data-v="group">A group</button></div>
       <form data-form="newspace"><label class="field"><span>${S.nsType === 'group' ? 'Name the group' : 'Their first name'}</span><input id="ns-name" maxlength="30" placeholder="${S.nsType === 'group' ? 'Flat 3B, Ski trip…' : 'Sam'}" style="background:var(--bg)"></label><button class="primary">${ic('link')}Create and get an invite link</button></form>`;
   }
   if (s.type === 'invite') {
@@ -1173,6 +1650,19 @@ function sheet() {
         <div class="linkbox">${ic('link')}oh-right.app/join/${esc(s.space)}-r4m9x</div>`;
     body += `<div class="duo"><button class="primary" data-a="copylink">${ic('copy')}Copy link</button><button class="secondary" data-a="sharelink">${ic('share')}Share</button></div>
       <p class="note-purple" style="margin-top:14px">The link can be turned off any time.</p>`;
+  }
+  if (s.type === 'add') {
+    const k = S.space, inSpace = isShared(k) && S.view === 'today', couple = inSpace && sp(k).type === 'couple', p = couple ? others(k)[0] : null;
+    const opt = (a, v, icon, title, sub, big) => `<button class="add-opt ${big ? 'big' : ''}" data-a="${a}" ${v ? `data-v="${esc(v)}"` : ''}><span class="note-ic">${ic(icon)}</span><span><b>${title}</b><small>${sub}</small></span></button>`;
+    body = `<h4>Add…</h4><div style="height:6px"></div>` + (inSpace
+      ? opt('suggest-new', '', 'send', `Suggest to ${esc(shortName(k))}`, 'An idea to do together. It stays in your memory too.', true)
+        + opt('remember', '', 'bookmark-plus', 'Something just for me', 'Into your memory, nobody else sees it')
+        + opt('date-add', p || '', 'cake', 'A date to remember', 'A birthday or anniversary. Just a reminder.')
+
+      : opt('remember', '', 'bookmark-plus', 'Something to remember', 'A place, a film, a book, anything', true)
+        + opt('date-add', '', 'cake', 'A date to remember', 'A birthday or anniversary. Just a reminder.')
+
+        + opt('plan-new', '', 'calendar-heart', 'A plan', 'Something you’ll do on a certain day'));
   }
   if (s.type === 'person') {
     body = `<h4>Who told you?</h4><p class="sub" style="margin-bottom:14px">Just a first name is enough.</p>
@@ -1187,7 +1677,7 @@ function render() {
   document.body.style.setProperty('--page-bg', pageBg);
   document.querySelector('meta[name=theme-color]').setAttribute('content', pageBg);
   settle();
-  const views = { welcome: viewWelcome, signin: viewSignin, today: viewToday, plans: viewPlans, planpage: viewPlanPage, memory: viewMemory, ask: viewAsk, detail: viewDetail, remember: viewRemember, account: viewAccount };
+  const views = { ideas: viewIdeas, welcome: viewWelcome, signin: viewSignin, today: viewToday, plans: viewPlans, planpage: viewPlanPage, memory: viewMemory, ask: viewAsk, detail: viewDetail, remember: viewRemember, account: viewAccount };
   const focused = document.activeElement && phone.contains(document.activeElement) ? document.activeElement.id : null;
   const caret = focused && document.activeElement.selectionStart;
   const notif = S.notif ? `<button class="notif" data-a="notif"><span class="app">oh,</span><span style="flex:1;min-width:0"><strong>Oh, right! <em>now</em></strong><small>${esc(S.notif.msg)}</small></span></button>` : '';
@@ -1203,6 +1693,9 @@ function readDraft() {
   if (t) d.title = t.value; if (n) d.note = n.value;
   const st = document.getElementById('d-start'), en = document.getElementById('d-end');
   if (st) d.start = st.value; if (en) d.end = en.value;
+  const by = document.getElementById('d-by'); if (by) d.by = by.value;
+  const oc = document.getElementById('d-occ'), od = document.getElementById('d-occdate');
+  if (oc) d.occLabel = oc.value; if (od) d.occDate = od.value;
 }
 function autofill(url) {
   const u = url.toLowerCase(); const d = S.draft;
@@ -1221,7 +1714,7 @@ function autofill(url) {
   if (guess.booking) d.booking = true;
   d.filled = true;
 }
-function newDraft(extra = {}) { return { id: null, title: '', note: '', kind: null, good: [], tags: [], who: null, link: null, start: '', end: '', booking: false, weather: false, weekend: false, cost: null, min: null, shares: isShared(S.space) ? [S.space] : [], filled: false, error: false, newPeople: [], ...extra }; }
+function newDraft(extra = {}) { return { id: null, title: '', note: '', kind: null, good: [], tags: [], who: null, link: null, start: '', end: '', booking: false, weather: false, weekend: false, cost: null, min: null, shares: [], filled: false, error: false, newPeople: [], ...extra }; }
 
 // --- ask (simulated AI) --------------------------------------------------------
 function answer(q) {
@@ -1244,22 +1737,62 @@ function runAsk(q) {
 }
 
 // --- actions that the others answer ------------------------------------------------
+// Date night: whoever picks plans it for the day (on a surprise turn, the other only sees the time).
+function planDateNight(m, k) {
+  const dn = sp(k).dateNight;
+  if (dn && dn.flex && !(dn.planned && byId(dn.planned) && activePlan(byId(dn.planned)))) openWhen(m, k, { dn: true });
+  else if (dn && !(dn.planned && byId(dn.planned) && activePlan(byId(dn.planned)))) {
+    const surprise = dn.turns && dn.turn === 'you' ? 'you' : null;
+    planIt(m, k, nextOn(dn.day), dn.time, surprise ? { surprise } : {}); dn.planned = m.id; if (dn.turns) dn.turn = dn.turn === 'you' ? others(k)[0] : 'you';
+    S.sheet = null; S.planId = m.id; S.stack.push(S.view); S.view = 'planpage';
+    toast(`Date night ${fmtDay(nextOn(dn.day))}: ${m.title}.${surprise ? ` ${others(k)[0]} only sees the time.` : ''} Add the details here.`, 'heart');
+  } else openWhen(m, k);
+}
+// You pick the day: a small calendar that marks date nights and event days, nothing chosen for you.
+function openWhen(m, k, extra = {}) { const start = m.event?.start && m.event.start > TODAY() ? m.event.start : TODAY(); S.sheet = { type: 'when', id: m.id, k, month: start.slice(0, 7), sel: null, end: null, ...extra }; render(); }
+// Creating or editing a plan can always be cancelled: everything goes back to how it was.
+function snapPlan(m, k = m.plan?.space || 'me') {
+  const pre = S.pre?.id === m.id ? S.pre : { shares: [...m.shares], votes: structuredClone(m.votes) }; S.pre = null;
+  S.planSnap = { id: m.id, k, plan: m.plan ? structuredClone(m.plan) : null, dn: sp(k)?.dateNight ? structuredClone(sp(k).dateNight) : null, shares: pre.shares, votes: pre.votes };
+}
+function undoPre() { const m = S.pre && byId(S.pre.id); if (m) { m.shares = S.pre.shares; m.votes = S.pre.votes; } S.pre = null; }
 function planIt(m, k, date, time, extra = {}) {
-  m.plan = { ...planDefaults(m, k), when: 'date', date, time, ...extra };
+  snapPlan(m, k);
+  m.plan = { ...planDefaults(m, k), by: 'you', when: 'date', date, time, ...extra };
   if (isShared(k)) later(() => { const pl = m.plan; if (!pl?.rsvp) return; others(k).forEach((x, i) => { if (!pl.rsvp[x]) pl.rsvp[x] = i === 2 ? 'maybe' : 'in'; }); }, 2800);
+}
+// Anyone who wants an idea can start its plan. There is one plan per idea: once it exists, the others join it.
+function canPlan(m, k) { return !k || !isShared(k) || m.by === 'you' || vt(m, k).you === 'yes'; }
+function myPlan(m) { return activePlan(m) && !canJoin(m); }
+function canJoin(m) { return activePlan(m) && m.plan.rsvp && m.plan.rsvp.you !== 'in'; }
+function planButton(m, k, primary = true) {
+  if (!canPlan(m, k)) return '';
+  return `<button class="${primary ? 'primary' : 'secondary'}" data-a="plan" data-id="${m.id}">${ic('calendar-heart')}${k && isShared(k) ? 'Start the plan' : 'Let’s do it'}</button>`;
 }
 function onYes(m, k) {
   vt(m, k).you = 'yes'; m.back = false; S.hinted = true;
+  if (canJoin(m) && m.plan.space === k) { m.plan.rsvp.you = 'in'; toast(`You’re in! ${m.title}, ${planWhen(m.plan)}. It’s in Planned.`, 'party-popper'); return; }
   if (isMatch(m, k)) {
     if (S.picking && sp(k).slot) { const s = sp(k).slot; planIt(m, k, nextOn(s.day), s.time); s.planned = m.id; S.picking = false; toast(`${weekday(s.day)} it is: ${m.title}!`, 'party-popper'); return; }
     S.sheet = { type: 'match', id: m.id, k }; render(); return;
   }
   const wait = waitingOn(m, k);
-  toast(wait.length ? `Your yes is saved. ${joinNames(wait)} ${wait.length === 1 ? 'gets' : 'get'} to answer too.` : 'Saved your yes.', 'heart');
+  const n = yesOf(m, k).length, nd = need(m, k);
+  toast(sp(k).type === 'group' ? `${n} of ${nd} in. It needs ${nd - n} more; I’ll tell you when it’s on.` : wait.length ? `Your yes is saved. ${joinNames(wait)} ${wait.length === 1 ? 'gets' : 'get'} to answer too.` : 'Saved your yes.', 'heart');
   if (wait.length && sp(k).type === 'couple') later(() => {
     wait.forEach(x => { vt(m, k)[x] = 'yes'; });
     if (isMatch(m, k) && !S.sheet && ['today', 'memory', 'detail'].includes(S.view)) S.sheet = { type: 'match', id: m.id, k };
   }, 3400);
+}
+
+// Demo: the invited people join a few seconds after the space is created.
+function joinLater(k) {
+  later(() => {
+    const v = SPACES[k]; if (!v || v.members.length > 1) return;
+    const who = v.type === 'couple' ? [v.invitee] : ['Alex', 'Sara'];
+    v.members.push(...who); v.invited = 0; if (v.type === 'couple') v.offer = true;
+    laterToast(`${joinNames(who)} joined ${v.name}! Suggest the first thing you’d love to do together.`, 'party-popper');
+  }, 4200);
 }
 
 // --- events --------------------------------------------------------------------
@@ -1324,23 +1857,85 @@ phone.addEventListener('click', e => {
       S.memories = seedAll();
       go('today', false);
       // The app asks on the day of a standing plan, so nobody has to.
-      setTimeout(() => { if (S.view === 'signin') return; S.notif = { msg: `${SPACES.regulars.weekly.title} tonight at ${SPACES.regulars.weekly.time}. Are you in?`, space: 'regulars' }; render(); setTimeout(() => { S.notif = null; render(); }, 7000); }, 1500);
+      setTimeout(() => { if (S.view === 'signin') return; S.notif = { msg: `${SPACES.regulars.weeklies[0].title} tonight at ${SPACES.regulars.weeklies[0].time}. Are you in?`, space: 'regulars' }; render(); setTimeout(() => { S.notif = null; render(); }, 7000); }, 1500);
       break;
     }
     case 'home': S.stack = []; go('today', false); break;
-    case 'memory': S.stack = []; go('memory', false); break;
+    case 'memory': S.stack = []; S.memWhere = isShared(S.space) ? S.space : null; go('memory', false); break;
+    case 'cat': S.filter.kind = v || null; render(); break;
+    case 'tour': {
+      const go2 = (k, view = 'today') => { S.space = k; S.stack = []; S.sheet = null; S.showDeck = false; S.view = view; render(); phone.querySelector('.scroll')?.scrollTo(0, 0); };
+      S.filter = { kind: null, who: null, good: null, tag: null, forWho: null }; S.search = '';
+      ({ 0: () => go2('me'), 1: () => go2('us'), 2: () => go2('us'), 3: () => { go2('us'); S.sheet = { type: 'forp', k: 'us' }; render(); },
+         4: () => go2('regulars'), 5: () => { go2('lisbon'); S.view = 'ideas'; render(); }, 6: () => { go2('lisbon'); S.planId = 'lisbon'; S.stack = ['today']; S.view = 'planpage'; render(); },
+         7: () => { go2('me', 'memory'); S.filter.kind = 'film'; render(); }, 8: () => { go2('me'); S.draft = newDraft({ forWho: 'Max', shares: [] }); S.stack = ['today']; S.view = 'remember'; render(); },
+         9: () => { go2('me'); S.nsType = 'couple'; S.sheet = { type: 'newspace' }; render(); } })[+v]();
+      break;
+    }
+    case 'reset-demo': location.reload(); break;
+    case 'space-ideas': go('ideas'); break;
+    case 'sent': S.sheet = { type: 'sent', k: S.space }; render(); break;
+    case 'shared-all': S.sharedAll = !S.sharedAll; render(); break;
+    case 'dn-pick': S.sheet = { type: 'dnpick', k: S.space, src: ideas(S.space).some(m => isMatch(m, S.space) && !activePlan(m)) ? 'both' : 'memo' }; render(); break;
+    case 'dn-src': S.sheet.src = v; render(); break;
+    case 'cal-nav': { const [y, mo] = S.sheet.month.split('-').map(Number), d = new Date(y, mo - 1 + +v, 1); S.sheet.month = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`; render(); break; }
+    case 'cal-pick': {
+      const sh = S.sheet, trip = byId(sh.id).dur === 'days';
+      if (trip && sh.sel && !sh.end && v > sh.sel) sh.end = v; else { sh.sel = v; sh.end = null; }
+      render(); break;
+    }
+    case 'cal-ok': {
+      const { id: mid, k, sel, end } = S.sheet, m = byId(mid), dn = sp(k).dateNight;
+      const isDn = dn && dnOpen(k) && !end && (S.sheet.dn || (!dn.flex && new Date(sel + 'T12:00').getDay() === dn.day));
+      const surprise = isDn && dn.turns && dn.turn === 'you' ? 'you' : null;
+      planIt(m, k, sel, isDn ? dn.time : planDefaults(m, k).time || (m.dur === 'days' ? '' : '19:30'), { ...(surprise ? { surprise } : {}), ...(end ? { end, days: Array.from({ length: Math.min(7, daysUntil(end) - daysUntil(sel) + 1) }, (_, i) => ({ label: `Day ${i + 1}`, items: [] })) } : {}) });
+      if (isDn) { dn.planned = m.id; if (dn.turns) dn.turn = dn.turn === 'you' ? others(k)[0] : 'you'; }
+      S.sheet = null; S.planId = mid; S.stack.push(S.view); S.view = 'planpage';
+      toast(`${fmtDay(sel)}${end ? ` – ${fmtDay(end)}` : ''}: ${m.title}.${surprise ? ` A surprise for ${others(k)[0]}.` : isShared(k) ? ` ${joinNames(others(k))} ${others(k).length === 1 ? 'gets' : 'get'} it.` : ' I’ll remind you.'}`, 'calendar-heart'); break;
+    }
+    case 'go': {
+      const m = byId(id), k = S.space;
+      if (v === 'dn') { planDateNight(m, k); break; }
+      if (v === 'other') { openWhen(m, k); break; }
+      if (v === 'event') { planIt(m, k, m.event.start, planDefaults(m, k).time || '19:30'); S.planId = id; S.stack.push(S.view); S.view = 'planpage'; toast(`${fmtDay(m.event.start)}: ${m.title}. ${joinNames(others(k))} ${others(k).length === 1 ? 'gets' : 'get'} it.`, 'calendar-heart'); break; }
+      if (v === 'week') { S.planPick = 'poll'; S.sheet = { type: 'plan', id, k }; render(); break; }
+      planIt(m, k, v === 'tonight' ? TODAY() : weekendDay(), planDefaults(m, k).time || '19:30');
+      S.planId = id; S.stack.push(S.view); S.view = 'planpage';
+      toast(`${v === 'tonight' ? 'Tonight' : fmtDay(weekendDay())}: ${m.title}. ${joinNames(others(k))} ${others(k).length === 1 ? 'gets' : 'get'} it.`, 'calendar-heart'); break;
+    }
+    case 'for-partner': S.sheet = { type: 'forp', k: S.space }; render(); break;
+    case 'for-add': { const p = v || others(S.sheet.k)[0], d0 = upcoming(p)[0]; S.draft = newDraft({ forWho: p, kind: 'gift', occLabel: d0 ? d0.label.replace(`${p}’s `, '') : '', occDate: d0?.next || '' }); go('remember'); break; }
+    case 'date-add': S.sheet = { type: 'date-add', who: v || '', back: S.sheet?.type === 'forp' ? S.sheet : null }; render(); setTimeout(() => document.getElementById(v ? 'dt-what' : 'dt-who')?.focus(), 0); break;
+    case 'date-open': S.sheet = { type: 'date', id: v }; render(); break;
+    case 'date-del': S.dates = S.dates.filter(d => d.id !== v); S.sheet = null; toast('Date removed.', 'feather'); break;
+    case 'date-save': {
+      const who = document.getElementById('dt-who').value.trim(), what = document.getElementById('dt-what').value.trim() || 'birthday', date = document.getElementById('dt-date').value;
+      if (!who || !date) { document.getElementById('dt-err').hidden = false; return; }
+      S.dates.push({ id: 'd' + Date.now(), who, label: occLabel(who, what), date });
+      S.sheet = S.sheet.back; toast(`${occLabel(who, what)}: saved. I’ll remind you in time.`, 'cake'); break;
+    }
+    case 'story': S.sheet = { type: 'story', k: S.space }; render(); break;
+    case 'weekly-list': S.sheet = { type: 'wlist', k: S.space }; render(); break;
+    case 'weekly-setup': { const w = v ? wById(S.space, v) : null; S.wDraft = w ? { title: w.title, day: w.day, time: w.time, where: w.where, min: w.min, decide: w.decide } : { title: '', day: wd(1), time: '20:00', where: '', min: 3, decide: '17:00' }; S.sheet = { type: 'weekly', k: S.space, edit: w?.id || null }; render(); break; }
+    case 'weekly-off': { const k = S.sheet.k, w = wById(k, S.sheet.edit); sp(k).weeklies = weeklies(k).filter(x => x !== w); S.sheet = null; toast(`${w.title}: stopped.`, 'feather'); break; }
+    case 'wk-day': case 'wk-min': {
+      const w = S.wDraft; w.title = document.getElementById('wk-title').value; w.time = document.getElementById('wk-time').value; w.where = document.getElementById('wk-where').value;
+      w[a === 'wk-day' ? 'day' : 'min'] = +v; render(); break;
+    }
+    case 'd-more': S.draft.more = !S.draft.more; render(); break;
     case 'account': go('account'); break;
     case 'back': back(); break;
     case 'open': S.detail = id; go('detail'); break;
     case 'space': {
-      S.news = SPACES[v].news ? `New in ${SPACES[v].name}: ${SPACES[v].news.msg}.` : null; delete SPACES[v].news;
-      S.space = v; S.picking = false; S.showDeck = false; S.search = ''; S.filter = { kind: null, who: null, good: null, tag: null }; S.stack = []; S.sheet = null;
+      delete SPACES[v].news;
+      S.space = v; S.picking = false; S.showDeck = false; S.search = ''; S.filter = { kind: null, who: null, good: null, tag: null, forWho: null }; S.stack = []; S.sheet = null;
+      S.memWhere = isShared(v) ? v : null;
       S.view = S.view === 'memory' ? 'memory' : 'today'; render(); phone.querySelector('.scroll')?.scrollTo(0, 0); break;
     }
-    case 'notif': { const k = S.notif.space; S.notif = null; S.news = null; S.space = k; S.stack = []; S.sheet = null; S.showDeck = false; S.view = 'today'; render(); phone.querySelector('.scroll')?.scrollTo(0, 0); break; }
+    case 'notif': { const k = S.notif.space; S.notif = null; S.space = k; S.stack = []; S.sheet = null; S.showDeck = false; S.view = 'today'; render(); phone.querySelector('.scroll')?.scrollTo(0, 0); break; }
     case 'plan': {
-      const m = byId(id), k = isShared(S.space) && m.shares.includes(S.space) ? S.space : 'me';
-      S.planPick = 'tonight'; S.planDate = ''; S.sheet = { type: 'plan', id, k }; render(); break;
+      const m = byId(id), k = ctxSpace(m) || 'me';
+      openWhen(m, k); break;
     }
     case 'pick': S.planPick = v; render(); break;
     case 'confirm-plan': {
@@ -1349,7 +1944,8 @@ phone.addEventListener('click', e => {
       const poll = S.planPick === 'poll' ? pollDays() : null;
       const date = S.planPick === 'fixed' ? fixed.date : poll ? poll[0].date : { tonight: TODAY(), tomorrow: addDays(1), weekend: weekendDay() }[S.planPick] || dateEl?.value || addDays(7);
       const fresh = !activePlan(m);
-      if (fresh) planIt(m, k, date, ''); else m.plan.date = date;
+      if (fresh) planIt(m, k, date, ''); else { if (S.planSnap?.id !== m.id) snapPlan(m); m.plan.date = date; }
+      if (S.sheet.dn) { const dn = sp(k).dateNight; dn.planned = m.id; if (dn.turns) dn.turn = dn.turn === 'you' ? others(k)[0] : 'you'; }
       if (poll) { m.plan.poll = poll; later(() => { const pl = m.plan; if (!pl?.poll) return; others(k).forEach((x, i) => pl.poll.forEach((o, j) => { if ((j + i) % 3 !== 0 && !o.yes.includes(x)) o.yes.push(x); })); laterToast(`${joinNames(others(k))} picked the days that work.`, 'heart'); }, 3000); }
       else if (m.plan) delete m.plan.poll;
       S.sheet = null; S.planId = m.id;
@@ -1358,15 +1954,24 @@ phone.addEventListener('click', e => {
     }
     case 'unplan': { const m = byId(id); m.plan = null; if (S.view === 'planpage') { S.stack = []; S.view = 'plans'; } toast('Back to being an idea. No pressure.', 'feather'); break; }
     case 'plans': S.stack = []; go('plans', false); break;
-    case 'openplan': S.planId = id; go('planpage'); break;
+    case 'openplan': snapPlan(byId(id)); S.planId = id; go('planpage'); break;
+    case 'plan-cancel': {
+      const sn = S.planSnap, m = sn && byId(sn.id);
+      if (m) { m.plan = sn.plan; m.shares = sn.shares; m.votes = sn.votes; if (sp(sn.k)) { if (sn.dn) sp(sn.k).dateNight = sn.dn; else delete sp(sn.k).dateNight; } }
+      S.planSnap = null; back(); toast('Cancelled. Nothing changed.', 'rotate-ccw'); break;
+    }
+    case 'plan-done': S.planSnap = null; back(); toast('Saved.', 'check'); break;
+    case 'plan-look-back': S.planSnap = null; back(); break;
+    case 'join-here': { const m = byId(id); snapPlan(m); m.plan.rsvp.you = 'in'; render(); toast(`You’re in. ${m.plan.by && m.plan.by !== 'you' ? m.plan.by + ' sees it.' : ''}`, 'party-popper'); break; }
     case 'p-remind': byId(S.planId).plan.remind = v; render(); break;
     case 'p-person': byId(S.planId).plan.people.push(v); render(); break;
     case 'p-unperson': { const pl = byId(S.planId).plan; pl.people = pl.people.filter(x => x !== v); render(); break; }
-    case 'yes': onYes(byId(id), S.space); break;
+    case 'yes': { const m = byId(id); onYes(m, ctxSpace(m) || S.space); break; }
     case 'later': {
       // A soft no: it comes back later; nothing is ever a hard no.
-      const m = byId(id), k = S.space; S.hinted = true;
+      const m = byId(id), k = ctxSpace(m) || S.space; S.hinted = true;
       if (!isShared(k)) { S.snoozed.add(id); toast('Another time. I’ll bring it back in a few days.', 'clock'); break; }
+      if (isGo(m, k)) { S.snoozed.add(id); toast(`Not now. It stays with what you ${sp(k).type === 'couple' ? 'both' : 'all'} want.`, 'clock'); break; }
       if (S.picking) { S.snoozed.add(id); render(); break; }
       vt(m, k).you = 'later'; m.back = false; m.laterCount = (m.laterCount || 0) + 1;
       if (m.laterCount >= 3) { S.sheet = { type: 'keep', id }; render(); break; }
@@ -1379,7 +1984,7 @@ phone.addEventListener('click', e => {
       // Someone else's idea becomes your own memory, with their name as the tip.
       const m = byId(id); if (m.kept) { toast('It’s already in your memory.', 'bookmark-check'); break; }
       const { title, note, kind, good, link, event, cost, booking, weather, weekend, tags } = m;
-      S.memories.push({ id: 'k' + Date.now(), by: 'you', who: m.by, days: 0, dur: m.dur, title, note, kind, good: [...good], link, event, cost, booking, weather, weekend, tags: [...(tags || [])], shares: [], votes: {}, history: [], plan: null });
+      S.memories.push({ id: 'k' + Date.now(), by: 'you', who: m.by, keptFrom: m.id, days: 0, dur: m.dur, title, note, kind, good: [...good], link, event, cost, booking, weather, weekend, tags: [...(tags || [])], shares: [], votes: {}, history: [], plan: null });
       m.kept = true; toast(`Kept in your memory as ${m.by}’s tip.`, 'bookmark-check'); break;
     }
     case 'suggest': S.sheet = { type: 'suggest', id }; render(); break;
@@ -1390,45 +1995,42 @@ phone.addEventListener('click', e => {
       break;
     }
     case 'draw': case 'draw-again': {
-      const k = S.space, j = jar(k); if (!j.length) break;
-      const prev = S.sheet?.id, pick = j.filter(m => m.id !== prev)[Math.floor(Math.random() * Math.max(1, j.length - (prev ? 1 : 0)))] || j[0];
-      const again = a === 'draw-again';
-      S.sheet = null; render();
-      const el = document.getElementById('jar');
-      const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (el && !reduce) el.classList.add('shake');
-      setTimeout(() => { S.sheet = { type: 'draw', id: pick.id, k, again }; render(); }, reduce ? 0 : 650);
+      const k = S.space, j = bothWant(k); if (!j.length) break;
+      // Surprise me: a different one each time until all have been shown, then it starts over.
+      if (a === 'draw') S.drawSeen = [];
+      let left = j.filter(m => !S.drawSeen.includes(m.id));
+      const round = !left.length; if (round) { S.drawSeen = S.sheet?.id ? [S.sheet.id] : []; left = j.filter(m => !S.drawSeen.includes(m.id)); if (!left.length) left = j; }
+      const pick = left[Math.floor(Math.random() * left.length)]; S.drawSeen.push(pick.id);
+      const again = round;
+      S.sheet = { type: 'draw', id: pick.id, k, again }; render();
       break;
     }
-    case 'draw-yes': {
-      const m = byId(S.sheet.id), k = S.sheet.k, dn = sp(k).dateNight;
-      if (dn && !(dn.planned && byId(dn.planned) && activePlan(byId(dn.planned)))) {
-        const surprise = dn.turns && dn.turn === 'you' ? 'you' : null;
-        planIt(m, k, nextOn(dn.day), dn.time, surprise ? { surprise } : {}); dn.planned = m.id; if (dn.turns) dn.turn = dn.turn === 'you' ? others(k)[0] : 'you';
-        S.sheet = null; toast(`Date night ${fmtDay(nextOn(dn.day))}: ${m.title}.${surprise ? ` ${others(k)[0]} gets a surprise.` : ''}`, 'heart');
-      } else { S.planPick = 'tonight'; S.sheet = { type: 'plan', id: m.id, k }; render(); }
-      break;
+    case 'dn-choose': case 'draw-yes': {
+      const m = byId(a === 'dn-choose' ? id : S.sheet?.id), k = S.space; S.sheet = null;
+      if (!m.shares.includes(k)) { S.pre = { id: m.id, shares: [...m.shares], votes: structuredClone(m.votes) }; m.shares.push(k); vt(m, k).you = 'yes'; }
+      planDateNight(m, k); break;
     }
+    case 'story-step': S.sheet.i = +v; S.sheet.fresh = false; render(); break;
     case 'dn-settings': S.sheet = { type: 'dn', k: S.space }; render(); break;
     case 'dn-day': S.sheet.day = +v; render(); break;
+    case 'dn-flex': S.sheet.flex = v === '1'; render(); break;
+    case 'dn-every': S.sheet.every = +v; render(); break;
     case 'dn-turns': S.sheet.turns = !(S.sheet.turns ?? sp(S.sheet.k).dateNight?.turns ?? false); render(); break;
     case 'dn-save': {
       const v2 = sp(S.sheet.k), old = v2.dateNight || { time: '19:30', turn: 'you', planned: null };
-      v2.dateNight = { ...old, day: S.sheet.day ?? old.day ?? wd(5), turns: S.sheet.turns ?? old.turns ?? false };
-      v2.offer = false; S.sheet = null; toast(`Date night: every ${weekday(v2.dateNight.day)}. Skip any week.`, 'heart'); break;
+      v2.dateNight = { ...old, day: S.sheet.day ?? old.day ?? wd(5), turns: S.sheet.turns ?? old.turns ?? false, flex: S.sheet.flex ?? !!old.flex, every: S.sheet.every ?? old.every ?? 1 };
+      v2.offer = false; S.sheet = null; toast(`Date night: ${dnRule(v2.dateNight).toLowerCase()}. Skip any week.`, 'heart'); break;
     }
-    case 'dn-off': { const v2 = sp(S.sheet.k); delete v2.dateNight; S.sheet = null; toast('Date night is off. Your jar stays.', 'feather'); break; }
-    case 'offer-no': sp().offer = false; toast('Okay. You can set it up from your jar any time.', 'feather'); break;
+    case 'dn-off': { const v2 = sp(S.sheet.k); delete v2.dateNight; S.sheet = null; toast('Date night is off.', 'feather'); break; }
+    case 'offer-no': sp().offer = false; toast('Okay. You can set it up at the bottom of this page any time.', 'feather'); break;
     case 'pick-together': S.picking = true; S.snoozed.clear(); render(); phone.querySelector('.scroll')?.scrollTo(0, 0); break;
     case 'pick-done': S.picking = false; render(); break;
-    case 'show-deck': S.showDeck = true; render(); break;
-    case 'show-weekly': S.showDeck = false; render(); phone.querySelector('.scroll')?.scrollTo(0, 0); break;
     case 'w-in': {
-      const w = sp().weekly; w.you = 'in'; w.answered = true;
+      const w = wById(S.space, v); w.you = 'in'; w.answered = true;
       const n = w.ins.length + 1;
       toast(n >= w.min ? `That’s ${n}. ${w.title}: it’s on tonight!` : `You’re in. ${w.min - n} more and it’s on.`, 'party-popper'); break;
     }
-    case 'w-out': { const w = sp().weekly; w.you = w.you === 'in' ? null : 'out'; w.answered = w.you !== null; render(); break; }
+    case 'w-out': { const w = wById(S.space, v); w.you = w.you === 'in' ? null : 'out'; w.answered = w.you !== null; render(); break; }
     case 'w-share': toast('Posts tonight’s “Who’s in?” link in your WhatsApp group.', 'message-circle'); break;
     case 'dismiss-invite': S.inviteDismissed = true; toast('Okay. Start one any time with “New” at the top.', 'feather'); break;
     case 'w-pick': S.welcome.pick = v; render(); setTimeout(() => document.getElementById('w-name')?.focus(), 0); break;
@@ -1438,11 +2040,6 @@ phone.addEventListener('click', e => {
     case 'invite': S.sheet = { type: 'invite', kind: v, space: S.space }; render(); break;
     case 'copylink': case 'sharelink': {
       const kind = S.sheet.kind, planId = S.planId, spaceKey = S.sheet.space; S.sheet = null;
-      if (kind === 'space' && SPACES[spaceKey] && SPACES[spaceKey].members.length === 1) later(() => {
-        const v2 = SPACES[spaceKey], who = v2.invitee || 'Alex';
-        v2.members.push(who); v2.invited = 0; if (v2.type === 'couple') v2.offer = true;
-        laterToast(`${who} joined ${v2.name}! Suggest the first thing you’d love to do together.`, 'party-popper');
-      }, 3600);
       try { navigator.clipboard?.writeText('https://oh-right.app/demo'); } catch {}
       toast(a === 'copylink' ? 'Link copied. Paste it into your chat.' : 'Opens your phone’s share menu.', 'link');
       if (kind === 'plan') later(() => {
@@ -1454,6 +2051,7 @@ phone.addEventListener('click', e => {
     }
     case 'p-day': { const o = byId(S.planId).plan.poll[+v]; o.yes = o.yes.includes('you') ? o.yes.filter(x => x !== 'you') : [...o.yes, 'you']; render(); break; }
     case 'p-pickday': { const m = byId(S.planId), b2 = bestDay(m.plan); m.plan.date = b2.date; delete m.plan.poll; toast(`${fmtDay(b2.date)} it is. Everyone can see it.`, 'calendar-check'); break; }
+    case 'join-plan': { const m = byId(id); snapPlan(m); m.plan.rsvp.you = 'in'; S.planId = id; go('planpage'); toast(`You’re in. ${m.plan.by && m.plan.by !== 'you' ? m.plan.by + ' sees it.' : ''}`, 'party-popper'); break; }
     case 'p-rsvp': byId(S.planId).plan.rsvp.you = v; render(); break;
     case 'p-assign': {
       const m = byId(S.planId), t = m.plan.todo[+v], order = [null, ...sp(m.plan.space).members];
@@ -1463,11 +2061,18 @@ phone.addEventListener('click', e => {
     case 'p-todo': { const t = byId(S.planId).plan.todo[+v]; t.done = !t.done; render(); break; }
     case 'letgo': S.sheet = { type: 'letgo', id }; render(); break;
     case 'confirm-letgo': { S.memories = S.memories.filter(m => m.id !== S.sheet.id); S.sheet = null; S.stack = []; S.view = 'memory'; toast('Let go. Lighter already.', 'wind'); break; }
-    case 'close': S.sheet = null; render(); break;
+    case 'close': undoPre(); S.sheet = null; render(); break;
+    case 'add': S.sheet = { type: 'add' }; render(); break;
     case 'remember': S.draft = newDraft(); go('remember'); break;
+    case 'gift-new': { const d0 = v ? upcoming(v)[0] : null; S.draft = newDraft({ kind: 'gift', forWho: v || null, occLabel: d0 ? d0.label.replace(`${v}’s `, '') : '', occDate: d0?.next || '' }); go('remember'); break; }
+    case 'plan-new': S.draft = newDraft({ planFirst: true }); go('remember'); break;
+    case 'suggest-new': S.draft = newDraft({ to: S.space, shares: [S.space], when: 'any' }); go('remember'); break;
+    case 'd-when': S.draft.when = v; render(); break;
+    case 'only-me': S.draft.to = null; S.draft.shares = []; render(); break;
+    case 'd-date': { const d = S.draft; d.good = d.good.includes('date') ? d.good.filter(x => x !== 'date') : [...d.good, 'date']; render(); break; }
     case 'edit': {
       const m = byId(id);
-      S.draft = newDraft({ id: m.id, title: m.title, note: m.note, kind: m.kind, good: [...m.good], tags: [...(m.tags || [])], who: m.who, link: m.link || null, start: m.event?.start || '', end: m.event?.end || '', booking: !!m.booking, weather: !!m.weather, weekend: !!m.weekend, cost: m.cost || null, min: m.min || null, shares: [...m.shares] });
+      S.draft = newDraft({ id: m.id, title: m.title, note: m.note, kind: m.kind, good: [...m.good], tags: [...(m.tags || [])], who: m.who, link: m.link || null, start: m.event?.start || '', end: m.event?.end || '', booking: !!m.booking, weather: !!m.weather, weekend: !!m.weekend, cost: m.cost || null, min: m.min || null, shares: [...m.shares], forWho: m.forWho || null, occLabel: m.occasion ? m.occasion.label.replace(`${m.forWho}’s `, '') : '', occDate: m.occasion?.date || '' });
       go('remember'); break;
     }
     case 'd-kind': S.draft.kind = S.draft.kind === v ? null : v; render(); break;
@@ -1475,25 +2080,32 @@ phone.addEventListener('click', e => {
     case 'd-cond': S.draft[v] = !S.draft[v]; render(); break;
     case 'd-cost': S.draft.cost = S.draft.cost === v ? null : v; render(); break;
     case 'd-share': { const sh = S.draft.shares; S.draft.shares = sh.includes(v) ? sh.filter(x => x !== v) : [...sh, v]; render(); break; }
-    case 'd-min': S.draft.min = +v; render(); break;
+    case 'd-min': S.draft.min = +v > 2 ? +v : null; render(); break;
     case 'd-tag': if (!S.draft.tags.includes(v)) S.draft.tags.push(v); render(); break;
     case 'd-untag': S.draft.tags = S.draft.tags.filter(t => t !== v); render(); break;
+    case 'd-for': { const d = S.draft; d.forWho = d.forWho === v ? null : v; if (d.forWho) { d.shares = []; const d0 = upcoming(v)[0]; if (d0 && !d.occDate) { d.occLabel = d0.label.replace(`${v}’s `, ''); d.occDate = d0.next; } } render(); break; }
     case 'd-who': S.draft.who = S.draft.who === v ? null : v; render(); break;
     case 'd-person': S.sheet = { type: 'person' }; render(); setTimeout(() => document.getElementById('p-name')?.focus(), 0); break;
     case 'save': {
       const d = S.draft;
       if (!d.title.trim()) { d.error = true; render(); document.getElementById('d-title')?.focus(); return; }
-      const fields = { title: d.title.trim(), note: d.note.trim() || d.title.trim(), kind: d.kind || 'other', good: d.good, tags: d.tags, who: d.who, link: d.link, event: (d.start || d.end) ? { start: d.start || null, end: d.end || null } : null, booking: d.booking, weather: d.weather, weekend: d.weekend, cost: d.cost, min: d.min };
+      if (d.to) { if (d.when === 'weekend') d.weekend = true; if (d.when === 'by') d.booking = true; if (d.when !== 'date') d.start = ''; }
+      const fields = { title: d.title.trim(), note: d.note.trim() || d.title.trim(), kind: d.kind || 'other', good: d.good, tags: d.tags, who: d.who, link: d.link, event: (d.start || d.end) ? { start: d.start || null, end: d.end || null } : null, booking: d.booking, weather: d.weather, weekend: d.weekend, cost: d.cost, min: d.min, decideBy: d.to && d.when === 'by' && d.by ? d.by : null,
+        forWho: d.forWho || null, occasion: d.forWho && d.occDate ? { label: occLabel(d.forWho, d.occLabel?.trim() || 'birthday'), date: d.occDate } : null };
+      if (fields.occasion && !S.dates.some(x => x.who === d.forWho && x.label === fields.occasion.label)) S.dates.push({ id: 'd' + Date.now(), who: d.forWho, ...fields.occasion });
       if (d.id) { Object.assign(byId(d.id), fields); S.detail = d.id; S.stack.pop(); S.view = 'detail'; toast('Your note has been updated.'); break; }
       const nid = 'm' + Date.now();
-      S.memories.unshift({ id: nid, by: 'you', days: 0, dur: 'evening', plan: null, history: [], shares: [...d.shares], votes: Object.fromEntries(d.shares.map(k => [k, { you: 'yes' }])), ...fields });
-      S.search = ''; S.filter = { kind: null, who: null, good: null, tag: null }; S.stack = []; S.view = 'memory';
-      if (v === 'plan') { S.planPick = 'tonight'; S.planDate = ''; S.sheet = { type: 'plan', id: nid, k: 'me' }; render(); }
+      S.memories.unshift({ id: nid, by: 'you', days: 0, dur: 'evening', plan: null, history: [], shares: d.forWho ? [] : [...d.shares], votes: Object.fromEntries(d.shares.map(k => [k, { you: 'yes' }])), ...fields });
+      S.search = ''; S.filter = { kind: null, who: null, good: null, tag: null, forWho: null }; S.stack = [];
+      if (d.to) { S.space = d.to; S.view = 'today'; S.justSent = nid; later(() => { S.justSent = null; }, 1500); toast(`Suggested to ${sp(d.to).type === 'couple' ? others(d.to)[0] : sp(d.to).name}. It’s in your memory too.`, 'send'); break; }
+      S.view = 'memory';
+      if (v === 'plan') openWhen(byId(nid), 'me');
+      else if (d.forWho) toast(`Saved for ${d.forWho}. ${d.occDate ? 'I’ll remind you in time.' : 'Only you can see it.'}`, 'gift');
       else toast(d.shares.length ? `Saved, and suggested to ${joinNames(d.shares.map(k => sp(k).name))}.` : 'Tucked away. You can let go of that thought now.', d.shares.length ? 'send' : 'bookmark-check');
       break;
     }
     case 'f': { const t = b.dataset.t; S.filter[t] = S.filter[t] === v ? null : v; render(); break; }
-    case 'clear': S.search = ''; S.filter = { kind: null, who: null, good: null, tag: null }; render(); break;
+    case 'clear': S.search = ''; S.filter = { kind: null, who: null, good: null, tag: null, forWho: null }; render(); break;
     case 'ask': S.ask = { q: '', state: 'idle', results: [] }; go('ask'); break;
     case 'ask-with': S.ask = { q: S.search, state: 'idle', results: [] }; go('ask'); if (S.search.trim()) runAsk(S.search.trim()); break;
     case 'ask-ex': runAsk(v); break;
@@ -1553,6 +2165,14 @@ phone.addEventListener('submit', e => {
     const n = raw[0].toUpperCase() + raw.slice(1), k = 's' + Date.now();
     SPACES[k] = { name: type === 'couple' ? `You & ${n}` : n, type, members: ['you'], icon: type === 'couple' ? 'heart' : 'users', invited: 1, invitee: type === 'couple' ? n : null };
     S.space = k; S.stack = []; S.view = 'today'; S.sheet = { type: 'invite', kind: 'space', space: k }; render();
+    joinLater(k);
+  }
+  if (form === 'weekly') {
+    const w = S.wDraft; w.title = document.getElementById('wk-title').value.trim() || 'Drinks'; w.time = document.getElementById('wk-time').value || '20:00'; w.where = document.getElementById('wk-where').value.trim() || 'the usual place';
+    const k = S.sheet.k, old = wById(k, S.sheet.edit), list = (sp(k).weeklies ||= []);
+    if (old) Object.assign(old, w); else list.push({ id: 'w' + Date.now(), ...w, ins: [], streak: 0 });
+    S.sheet = null;
+    toast(`Every ${weekday(w.day)}: ${w.title}. ${w.day === new Date().getDay() ? 'That’s today: I’m asking everyone now.' : 'It’s on your page and in Planned. I’ll ask everyone on the day.'}`, 'repeat'); return;
   }
   if (form === 'person') {
     const n = document.getElementById('p-name').value.trim(); if (!n) return;
