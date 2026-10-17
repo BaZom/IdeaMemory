@@ -15,8 +15,8 @@
 
 Every task is checked against these. 2–5 are from 2026-10-14; 1 was added on 2026-10-15.
 
-1. **Oh, right! is for you and your people (owner, 2026-10-15).** Besides *Just me* there are shared spaces (a couple, a group of up to 8). Everyone in a space sees and adds to the same memory, says “I’d love to” or “Not for me”, and plans together. Spaces are visible from the first screen. No public profiles, no big groups, no in-app chat.
-2. **A little nudge recommends from your memory.** It shows things you can do today or very soon: one main suggestion (a swipeable loop of everything that fits), and at most three things worth knowing (plans in the next days, events that end or start soon). Every item says why it is there.
+1. **Oh, right! is for you and your people (owner, 2026-10-15).** Besides *Just me* there are shared spaces (a couple, a group of up to 8). Everyone in a space sees and adds to the same memory, says “I’d love to” or “Another time”, and plans together. Spaces are visible from the first screen, as tabs. Nothing is ever a hard no: *Another time* always comes back later. No public profiles, no big groups, no in-app chat.
+2. **A little nudge recommends from your memory.** It shows things you can do today or very soon as a small deck of cards (swipe right for yes, left for *Another time*), plus one line for the most urgent thing worth knowing (a plan in the next days, or an event that ends or starts soon). The first page stays calm: tabs, headline, the deck and one or two lines; everything else lives in Planned or My memory. Every item says why it is there (owner, 2026-10-17).
 3. **My memory is your database of everything you saved.** Plans live in it too; it must work for someone who forgot the details (browse by kind, person, mood, tags; ask in your own words).
 4. **Plans come from memories, never from nowhere.** The memory keeps the *why* (note, who told you, link); the plan adds the *how* (day and time, reminder, where, who’s coming, what to sort out, what to bring). One active plan per memory; when its day passes it becomes a “planned before” line on the memory. No done status. In a shared space the plan is shared: everyone answers *I’m in / Maybe / Can’t*, can help find a day and takes on things to sort out.
 5. **Saving asks little and infers a lot.** Only the title is required. Every optional detail switches on a feature (kind → icons and browsing, “good for” → suggestions, dates → “coming soon”, who told you → “Lena’s tip”, link → autofill, tags → your own groups). The app fills in what it can and you correct it; missing details are asked for later, at the right moment.
@@ -36,7 +36,7 @@ flowchart LR
     R --> M
     M --> N
     N -- "Let’s do it" --> P
-    N -. "Not now" .-> M
+    N -. "Another time" .-> M
     M -- "plan it" --> P
     R -- "Remember & plan it" --> P
     P --> D
@@ -52,13 +52,13 @@ flowchart LR
 
 - **Remember:** title, plus optional details or a link that fills them in.
 - **My memory:** everything, findable without remembering the words (browse, search, ask).
-- **A little nudge:** suggests what fits now; *Not now* puts it aside for a while; *Let’s do it* decides.
+- **A little nudge:** suggests what fits now; *Another time* puts it aside for a while; *Let’s do it* decides.
 - **Plan:** becomes concrete on its own page; shows up in Planned, and in the nudge’s “worth knowing” as the day comes closer.
 - **After the day:** back in the memory with a history line; the memory may be suggested again later, planned again, or let go.
 
 Two shortcuts: you can open any memory from My memory and plan it directly, and *Remember & plan it* saves and plans in one go.
 
-**Together** (in a shared space), the same flow with one extra step: the nudge shows what the others added; each person says *I’d love to* or *Not for me* without seeing the others’ answers first; when you both (or most of a group) say yes, it’s a **match**, and *Plan it together* turns it into a shared plan.
+**Together** (in a shared space), the same flow with one extra step: the nudge shows what the others added; each person says *I’d love to* or *Another time* without seeing the others’ answers first; when you both (or most of a group) say yes, it’s a **match**, and *Plan it together* turns it into a shared plan.
 
 ```mermaid
 flowchart LR
@@ -70,7 +70,7 @@ flowchart LR
 
     A --> Y
     Y -- "both / most say yes" --> X
-    Y -. "not for me" .-> A
+    Y -. "another time" .-> A
     X -- "Plan it together" --> T
     T --> D
     D -- "planned before" --> A
@@ -126,9 +126,9 @@ Security-relevant: yes (schema change) → review before merge.
 ### 012 — A little nudge (rules)
 Goal: the first page brings back the right memory for today or the next days.
 Done when:
-- a swipeable loop of every memory that fits (doable soon, not planned, no own dates, no multi-day trips), longest-waiting first, each with why
-- *Not now* hides a memory for a few days (stored, so it holds across devices)
-- “Worth knowing”: at most three items (plans in the next 3 days, events ending or starting soon); mood links into My memory
+- a deck of every memory that fits (doable soon, not planned, no own dates, no multi-day trips), longest-waiting first, each with why; drag right for *Let’s do it*, left for *Another time*, with the same two buttons under the card
+- *Another time* hides a memory for a few days (stored, so it holds across devices)
+- one line for the most urgent thing (a plan in the next 3 days, else an event ending or starting within a week); a “Not this? Browse your memory” link
 
 Not now: AI ranking.
 Security-relevant: no.
@@ -161,7 +161,7 @@ Security-relevant: yes → review before merge.
 Goal: share a memory with your partner or a group.
 Done when:
 - start a space (2–8 people) and invite with a link; the invited person signs up or signs in and joins; leave a space; the owner can remove someone or turn the link off
-- the spaces row on the first page (Just me, each space, + New space); My memory, the nudge and Remember work per space; each memory shows who added it
+- space tabs under the header on the nudge and My memory (Just me, each space, + New); My memory, the nudge and Remember work per space; each memory shows who added it; Remember is the round + in the header
 - after signup: “Who do you do things with?” (my partner, friends or family, just me for now); in *Just me*, the invite card once there are “with someone” memories
 - the database only shows a space’s memories to its members (tested with a non-member)
 
@@ -171,9 +171,10 @@ Security-relevant: yes (membership-based access) → review before merge.
 ### 016 — Say yes together
 Goal: find out what you all want to do, without “I don’t know, what do you want?”.
 Done when:
-- in a shared space the nudge shows what the others added, with *I’d love to* / *Not for me*; others’ answers stay hidden until you answer
-- a match (both of a couple, or you and more than half of a group) opens “It’s a match!”; the nudge lists *You both want to* and *Waiting for …*
-- news dots on the spaces row (“Lena added 2 things”), cleared when you open the space
+- in a shared space the deck shows what the others added: *I’d love to* (right) / *Another time* (left); others’ answers stay hidden until you answer
+- *Another time* is never a hard no: it comes back after a few weeks, or sooner, warmly (“Back again: Lena still loves this”); after the third time only you are asked “Keep for someday, or hide it for me?”, and hiding can be undone
+- a match (both of a couple, or you and more than half of a group) opens “It’s a match!”; one line on the nudge (“1 match · 3 waiting for Lena”) opens the list; matches also show in Planned
+- news counts on the space tabs (“Lena added 2 things”), cleared when you open the space
 
 Not now: notifications for news (later, with 014’s notifications).
 Security-relevant: yes (shared rows) → review before merge.

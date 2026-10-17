@@ -209,6 +209,35 @@ nav svg { width: 23px !important; height: 23px !important; }
 .loading i { width: 7px; height: 7px; border-radius: 4px; background: var(--purple); animation: blink 1s infinite; }
 .loading i:nth-child(2) { animation-delay: .15s; } .loading i:nth-child(3) { animation-delay: .3s; }
 @keyframes blink { 50% { opacity: .25; } }
+/* calm first page: space tabs, the deck, one-line summaries */
+.add-btn { background: var(--orange) !important; color: var(--onorange); }
+.add-btn svg { width: 22px; height: 22px; }
+.tabs { display: flex; gap: 20px; overflow-x: auto; scrollbar-width: none; border-bottom: 1px solid var(--line); margin: 4px -22px 0; padding: 0 22px; }
+.tabs::-webkit-scrollbar { display: none; }
+.tab { flex: none; border: 0; border-bottom: 3px solid transparent; background: transparent; padding: 10px 0 8px; min-height: 44px; display: inline-flex; align-items: center; gap: 6px; font: 800 14px/1.2 'Nunito', sans-serif; color: var(--muted) !important; white-space: nowrap; }
+.tab.on { color: var(--ink) !important; border-bottom-color: var(--orange); }
+.tab .n { min-width: 18px; height: 18px; border-radius: 9px; padding: 0 5px; background: var(--orange); color: var(--onorange); font-size: 10.5px; font-weight: 900; display: inline-grid; place-items: center; }
+.tab.new { color: var(--purple) !important; }
+.tab.new svg { width: 15px; height: 15px; }
+.deck { position: relative; margin-bottom: 26px; }
+.deck .under { position: absolute; inset: 0; background: var(--paper); border-radius: 23px 26px 21px 25px; box-shadow: 0 5px 0 -1px var(--line); }
+.deck .u1 { transform: translateY(9px) rotate(2.4deg) scale(.965); opacity: .9; }
+.deck .u2 { transform: translateY(16px) rotate(-2deg) scale(.93); opacity: .75; }
+.deck .card.focus { z-index: 1; will-change: transform; }
+.deck .card.focus.drag { transition: none; }
+.deck .card.focus.spring { transition: transform .25s ease-out; }
+.deck .card.focus.fly { transition: transform .26s ease-in, opacity .26s ease-in; }
+.stamp { position: absolute; top: 22px; z-index: 2; padding: 6px 12px; border-radius: 12px; font: 900 15px/1 'Nunito', sans-serif; opacity: 0; pointer-events: none; display: inline-flex; gap: 6px; align-items: center; }
+.stamp.yes { left: 18px; color: var(--orange); border: 2.5px solid var(--orange); transform: rotate(-10deg); }
+.stamp.later { right: 18px; color: var(--purple); border: 2.5px solid var(--purple); transform: rotate(9deg); }
+.decknote { text-align: center; font-size: 12px; font-weight: 700; color: var(--muted); margin: 0 0 4px; }
+.backline { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 800; color: var(--purple); margin-bottom: 10px; }
+.oneline { display: flex; align-items: center; gap: 10px; width: 100%; border: 0; background: var(--paper); border-radius: 16px; padding: 11px 14px; margin-top: 10px; text-align: left; font-size: 13.5px; font-weight: 800; min-height: 48px; }
+.oneline > svg:first-child { color: var(--purple); }
+.oneline span { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.oneline small { color: var(--muted); font-weight: 700; }
+.oneline.soon > svg:first-child { color: var(--orange); }
+.browse { display: flex; justify-content: center; margin-top: 8px; }
 /* together */
 .spaces-row { display: flex; gap: 12px; overflow-x: auto; scrollbar-width: none; margin: 8px -22px 6px; padding: 4px 22px 2px; }
 .spaces-row::-webkit-scrollbar { display: none; }
@@ -365,6 +394,7 @@ function seedAll() {
     days: [{ label: 'Friday', items: ['Land, drop bags in Alfama', 'Dinner in Bairro Alto'] }, { label: 'Saturday', items: ['Tram 28', 'Pastéis de nata in Belém', 'Sunset at a miradouro'] }, { label: 'Sunday', items: ['LX Factory', 'Fly home'] }] });
   get('lisbon').plan.todo = [{ t: 'Book flights', done: true, who: 'Max' }, { t: 'Find a place in Alfama', done: true, who: 'you' }, { t: 'Tram 28 day pass', done: false, who: null }, { t: 'Dinner in Bairro Alto', done: false, who: 'Lena' }];
   get('kayak').plan.people = ['Lena'];
+  Object.assign(get('games'), { back: true, laterCount: 2 }); get('games').votes.you = 'later';
   return all;
 }
 
@@ -485,7 +515,7 @@ function pool() {
   // Doable tonight or in the next few days: not planned, no own dates (those are in Coming up), no multi-day trips.
   const shared = isShared();
   return mems()
-    .filter(m => !activePlan(m) && !m.event && (shared || m.dur !== 'days') && !S.snoozed.has(m.id) && (!shared || !m.votes.you))
+    .filter(m => !activePlan(m) && !m.event && (shared || m.dur !== 'days') && !S.snoozed.has(m.id) && !m.hidden && (!shared || !m.votes.you || (m.votes.you === 'later' && m.back)))
     .sort((a, b) => b.days - a.days);
 }
 // The suggestions form a loop: swipe or use the arrows; it wraps around at both ends.
@@ -498,7 +528,7 @@ function current() {
 // --- views -----------------------------------------------------------------
 function header() {
   return `<div class="top"><button class="logo small" data-a="home" aria-label="Oh, right!, go to A little nudge">oh, <span class="r">right!</span><small>your little memory</small></button>
-    <div style="display:flex;gap:8px;flex:none"><button class="pill-btn" data-a="remember">${ic('plus')}Remember this</button><button class="space-btn ${isShared() ? '' : 'me'}" data-a="spaces" aria-label="Space: ${esc(sp().name)}. Switch space">${ic(S.space === 'me' ? 'user-round' : sp().icon)}${ic('chevron-down')}</button></div></div>`;
+    <div style="display:flex;gap:8px;flex:none"><button class="round-btn add-btn" data-a="remember" aria-label="Remember something">${ic('plus')}</button><button class="round-btn" data-a="account" aria-label="Account and spaces">${ic('user-round')}</button></div></div>`;
 }
 function navBar() {
   const tab = (v, a, icon, label) => `<button class="${S.view === v ? 'on' : ''}" data-a="${a}" aria-pressed="${S.view === v}">${ic(icon)}${label}</button>`;
@@ -521,14 +551,10 @@ function viewSignin() {
   </div>`;
 }
 
-// The spaces row: always visible on the first page, so you see there is more than your own memory.
+// Spaces as tabs under the header: always visible, so you see there is more than your own memory.
 function spacesRow() {
-  const bubble = ([k, v]) => {
-    const inner = v.members.length > 1 ? faces(v.members.slice(0, 3)) : ic(k === 'me' ? 'user-round' : v.icon);
-    return `<button class="sb ${S.space === k ? 'on' : ''}" data-a="space" data-v="${k}" aria-pressed="${S.space === k}" aria-label="${esc(v.name)}${v.news ? `, ${v.news.n} new` : ''}"><span class="ring"><span class="in">${inner}</span></span>${v.news ? `<span class="dot">${v.news.n}</span>` : ''}<span class="nm">${esc(k === 'me' ? 'Just me' : v.name)}</span></button>`;
-  };
-  return `<div class="spaces-row" role="group" aria-label="Your spaces">${Object.entries(SPACES).map(bubble).join('')}
-    <button class="sb add" data-a="newspace" aria-label="Start a shared space"><span class="ring"><span class="in">${ic('plus')}</span></span><span class="nm">New space</span></button></div>
+  const tab = ([k, v]) => `<button class="tab ${S.space === k ? 'on' : ''}" data-a="space" data-v="${k}" role="tab" aria-selected="${S.space === k}" aria-label="${esc(v.name)}${v.news ? `, ${v.news.n} new` : ''}">${esc(v.name)}${v.news ? `<span class="n">${v.news.n}</span>` : ''}</button>`;
+  return `<div class="tabs" role="tablist" aria-label="Your spaces">${Object.entries(SPACES).map(tab).join('')}<button class="tab new" data-a="newspace">${ic('plus')}New</button></div>
     ${S.news ? `<p class="newsline">${ic('sparkles')}${esc(S.news)}</p>` : ''}`;
 }
 // Starting alone? Once you have saved things for doing with someone, the app offers a space for two (once).
@@ -577,85 +603,58 @@ function viewEmpty() {
 
 function viewToday() {
   if (!mems().length) return viewEmpty();
-  const shared = isShared(), m = current(), them = others();
+  const shared = isShared(), m = current(), them = others(), p = pool();
   if (m) S.shown = m.id;
-  // Worth knowing, in priority order, at most three: your plans in the next days (from every space), then events that end or start soon.
-  const worth = [];
-  for (const x of S.memories.filter(x => activePlan(x) && daysUntil(x.plan.date) <= 3).sort((a, b) => a.plan.date.localeCompare(b.plan.date)))
-    worth.push({ m: x, kind: 'plan', box: whenBox(x.plan.date), tag: 'Don’t forget' + (x.space !== S.space && isShared(x.space) ? `, ${sp(x.space).name}` : ''), line: `${planWhen(x.plan)}${planPeople(x).length ? `, with ${joinNames(planPeople(x))}` : ''}` });
-  for (const x of mems().filter(x => eventSoon(x) && x.event.end && x.event.start <= TODAY() && daysUntil(x.event.end) <= 21).sort((a, b) => a.event.end.localeCompare(b.event.end)))
-    worth.push({ m: x, kind: 'event', box: whenBox(x.event.end), tag: 'Ends soon', line: eventLabel(x) });
-  for (const x of mems().filter(x => eventSoon(x) && x.event.start > TODAY()).sort((a, b) => a.event.start.localeCompare(b.event.start)))
-    worth.push({ m: x, kind: 'event', box: whenBox(x.event.start), tag: 'Starts soon', line: eventLabel(x) });
-  const shownWorth = worth.slice(0, 3);
-  let card;
+  // Worth knowing: only the most urgent thing gets a line here; the rest lives in Planned.
+  const soonPlan = S.memories.filter(x => activePlan(x) && !x.plan.poll && daysUntil(x.plan.date) <= 3).sort((a, b) => (a.plan.date + a.plan.time).localeCompare(b.plan.date + b.plan.time))[0];
+  const soonEvent = mems().filter(x => eventSoon(x) && daysUntil(x.event.start > TODAY() ? x.event.start : x.event.end) <= 7).sort((a, b) => (a.event.start > TODAY() ? a.event.start : a.event.end).localeCompare(b.event.start > TODAY() ? b.event.start : b.event.end))[0];
+  const soon = soonPlan ? `<button class="oneline soon" data-a="openplan" data-id="${soonPlan.id}">${ic('calendar-heart')}<span>${planWhen(soonPlan.plan)} · ${esc(soonPlan.title)}</span>${ic('chevron-right')}</button>`
+    : soonEvent ? `<button class="oneline soon" data-a="open" data-id="${soonEvent.id}">${ic('ticket')}<span>${esc(eventLabel(soonEvent))} · ${esc(soonEvent.title)}</span>${ic('chevron-right')}</button>` : '';
+  let deck;
   if (m) {
-    const total = pool().length, slide = S.dir > 0 ? 'from-right' : S.dir < 0 ? 'from-left' : '';
-    S.dir = 0;
     const answered = them.filter(x => m.votes[x]);
-    const peek = !shared ? '' : answered.length === 0 ? `<p class="peek">${ic('sparkles')}You’re the first to see this.</p>`
-      : them.length === 1 ? `<p class="peek">${face(them[0])}${esc(them[0])} already answered. No peeking, your turn.</p>`
-      : `<p class="peek">${faces(answered)}${answered.length === them.length ? 'Everyone else' : `${answered.length} of ${them.length}`} already answered. Your turn.</p>`;
-    card = `<article class="card focus ${slide}" data-swipe aria-roledescription="carousel" aria-label="Suggestion ${S.idx + 1} of ${total}">
-      <span class="tape">${shared ? (m.by === 'you' ? 'you added this' : esc(m.by) + ' added this') : 'a note from past you'}</span>
-      ${peek}
+    const tape = shared ? `${m.by === 'you' ? 'you added this' : esc(m.by) + ' added this'}${answered.length && m.by !== 'you' ? ' · answered' : ''}` : 'a note from past you';
+    const fans = yesOf(m).filter(x => x !== 'you');
+    const back = shared && m.votes.you === 'later' && fans.length ? `<p class="backline">${ic('rotate-ccw')}Back again: ${joinNames(fans)} ${fans.length === 1 ? 'still loves' : 'still love'} this</p>` : '';
+    const yesLabel = shared ? 'I’d love to' : 'Let’s do it';
+    deck = `<div class="deck">${p.length > 2 ? '<div class="under u2"></div>' : ''}${p.length > 1 ? '<div class="under u1"></div>' : ''}
+      <article class="card focus" data-swipe data-id="${m.id}" aria-label="${esc(m.title)}. Swipe right: ${yesLabel}. Swipe left: another time.">
+      <span class="tape">${tape}</span>
+      <span class="stamp yes" aria-hidden="true">${ic(shared ? 'heart' : 'calendar-heart')}${yesLabel}</span><span class="stamp later" aria-hidden="true">${ic('clock')}Another time</span>
+      ${back}
       <button class="card-open" data-a="open" data-id="${m.id}" aria-label="Read the note: ${esc(m.title)}">
         <div style="display:flex;gap:12px;align-items:center;margin-top:2px"><div class="symbol">${ic(KINDS[m.kind].icon)}</div><div><p class="kind">${KINDS[m.kind].line}</p><h4 class="title">${esc(m.title)}</h4></div></div>
         <blockquote class="quote">“${esc(firstSentence(m.note))}”</blockquote>
-        <div class="meta" style="margin-bottom:16px">${m.who ? `<span>${whoBadge(m.who)}${esc(m.who)}’s tip</span>` : ''}<span>${ic('hourglass')}${shared ? 'saved ' + age(m.days) + (m.days < 2 ? '' : ' ago') : 'on your mind for ' + age(m.days)}</span></div>
+        ${!shared || m.who ? `<div class="meta" style="margin-bottom:16px">${m.who ? `<span>${whoBadge(m.who)}${esc(m.who)}’s tip</span>` : ''}${shared ? '' : `<span>${ic('hourglass')}on your mind for ${age(m.days)}</span>`}</div>` : '<div style="height:4px"></div>'}
       </button>
-      ${shared
-        ? `<div class="duo"><button class="primary" data-a="yes" data-id="${m.id}">${ic('heart')}I’d love to</button><button class="secondary" data-a="no" data-id="${m.id}">Not for me</button></div>`
-        : `<div class="duo"><button class="primary" data-a="plan" data-id="${m.id}">${ic('calendar-heart')}Let’s do it</button><button class="secondary" data-a="notnow" data-id="${m.id}">Not now</button></div>`}
-    </article>
-    ${total > 1 ? `<div class="pager">
-      <button class="round-btn" data-a="prev" aria-label="Previous suggestion">${ic('chevron-left')}</button>
-      <span class="dots" aria-live="polite">${total <= 9 ? pool().map((_, i) => `<i class="${i === S.idx ? 'on' : ''}"></i>`).join('') : ''}<span class="${total <= 9 ? 'sr' : 'count'}">${S.idx + 1} of ${total}</span></span>
-      <button class="round-btn" data-a="next" aria-label="Next suggestion">${ic('chevron-right')}</button>
-    </div>` : ''}`;
-  } else if (shared) {
-    card = `<div class="card focus" style="text-align:center">
-      <div class="companion" style="margin:0 auto 10px"><span class="loop l1"></span><span class="loop l2"></span></div>
-      <h4 class="title">You’ve answered everything.</h4>
-      <p class="sub" style="margin:8px 0 16px">When ${them.length === 1 ? esc(them[0]) : 'someone'} adds something new, it shows up here first.</p>
-      <div class="duo"><button class="primary" data-a="remember">${ic('plus')}Add something</button><button class="secondary" data-a="memory">Our memory</button></div>
-    </div>`;
+      <div class="duo"><button class="primary" data-a="${shared ? 'yes' : 'plan'}" data-id="${m.id}">${ic(shared ? 'heart' : 'calendar-heart')}${yesLabel}</button><button class="secondary" data-a="later" data-id="${m.id}">Another time</button></div>
+    </article></div>
+    <p class="decknote">${p.length === 1 ? 'The last one for now' : `${p.length} in the deck`}${S.hinted ? '' : ' · swipe right for yes, left for another time'}</p>`;
   } else {
-    card = `<div class="card focus" style="text-align:center">
+    deck = `<div class="card focus" style="text-align:center">
       <div class="companion" style="margin:0 auto 10px"><span class="loop l1"></span><span class="loop l2"></span></div>
-      <h4 class="title">That’s all for the next few days.</h4>
-      <p class="sub" style="margin:8px 0 16px">${S.snoozed.size ? 'You said “not now” to the rest. That’s fine too.' : 'Everything else is planned or has its own date.'}</p>
-      <div class="duo"><button class="primary" data-a="again">${ic('rotate-ccw')}Show them again</button><button class="secondary" data-a="memory">My memory</button></div>
+      <h4 class="title">That’s all for now.</h4>
+      <p class="sub" style="margin:8px 0 16px">${shared ? `When ${them.length === 1 ? esc(them[0]) : 'someone'} adds something new, it lands here first.` : S.snoozed.size ? 'The rest will come back another time.' : 'Everything else is planned or has its own date.'}</p>
+      <div class="duo"><button class="primary" data-a="remember">${ic('plus')}Add something</button><button class="secondary" data-a="memory">${shared ? 'Our' : 'My'} memory</button></div>
     </div>`;
   }
   let together = '';
   if (shared) {
     const matches = mems().filter(x => isMatch(x) && !activePlan(x));
     const waiting = mems().filter(x => x.votes.you === 'yes' && !isMatch(x) && waitingOn(x).length && !activePlan(x));
-    together = (matches.length ? `<p class="label section">${ic('heart')}${them.length === 1 ? 'You both want to' : 'Most of you want to'}</p>`
-      + matches.map(x => `<button class="match" data-a="plan" data-id="${x.id}"><span class="heart">${ic('heart')}</span><span style="flex:1;min-width:0"><strong>${esc(x.title)}</strong><small>${matchLine(x)}. Tap to plan it.</small></span>${faces(yesOf(x))}</button>`).join('') : '')
-      + (waiting.length ? `<p class="label section">${ic('hourglass')}Waiting for ${joinNames([...new Set(waiting.flatMap(waitingOn))])}</p>`
-      + waiting.map(x => `<button class="match waiting" data-a="open" data-id="${x.id}"><span class="heart">${ic('heart')}</span><span style="flex:1;min-width:0"><strong>${esc(x.title)}</strong><small>You said yes. ${joinNames(waitingOn(x))} ${waitingOn(x).length === 1 ? 'hasn’t' : 'haven’t'} answered yet.</small></span></button>`).join('') : '');
+    const bits = [matches.length ? `${matches.length} ${matches.length === 1 ? 'match' : 'matches'}` : '', waiting.length ? `${waiting.length} waiting for ${joinNames([...new Set(waiting.flatMap(waitingOn))])}` : ''].filter(Boolean);
+    if (bits.length) together = `<button class="oneline" data-a="matches">${ic('heart')}<span>${bits.join(' · ')}</span>${ic('chevron-right')}</button>`;
   }
-  const moodLinks = Object.entries(MOODS).map(([k, v]) => `<button class="chip sm" data-a="browse-mood" data-v="${k}">${ic(v.icon)}${v.label}</button>`).join('')
-    + `<button class="chip sm" data-a="browse-mood" data-v="">${ic('notebook')}Everything</button>`;
   const count = { 2: 'two', 3: 'three', 4: 'four', 5: 'five', 6: 'six', 7: 'seven', 8: 'eight' }[sp().members.length];
-  return `<div class="scroll">${header()}${spacesRow()}
-    <div style="text-align:center;margin:14px 0 20px">
-      ${shared ? `<h3 class="head">Something for<br><span class="squiggle">the ${count} of you.</span></h3>
-      <p class="sub" style="margin-top:16px">Say yes to what you’d love to do. When ${them.length === 1 ? 'you both' : 'most of you'} say yes, it’s a match.</p>`
-      : `<h3 class="head">A little spark<br><span class="squiggle">${greeting()}</span></h3>
-      <p class="sub" style="margin-top:16px">Picked from your memory for today or the next few days.</p>`}
+  return `<div class="scroll">${header()}${Object.keys(SPACES).length > 1 ? spacesRow() : ''}
+    <div style="text-align:center;margin:18px 0 22px">
+      <h3 class="head">${shared ? `Something for<br><span class="squiggle">the ${count} of you.</span>` : `A little spark<br><span class="squiggle">${greeting()}</span>`}</h3>
     </div>
-    ${card}
-    ${inviteCard()}
+    ${deck}
     ${together}
-    ${shownWorth.length ? `<p class="label section">${ic('sparkle')}Worth knowing</p>` + shownWorth.map(w => `<button class="coming" data-a="${w.kind === 'plan' ? 'openplan' : 'open'}" data-id="${w.m.id}">${w.box}<span style="flex:1;min-width:0"><em class="flag">${w.tag}</em><strong>${esc(w.m.title)}</strong><small>${esc(w.line)}</small></span>${ic('chevron-right')}</button>`).join('')
-      + (S.memories.some(activePlan) ? `<div style="text-align:center"><button class="text-btn" style="color:var(--purple)" data-a="plans">${ic('calendar-heart')}All your plans</button></div>` : '') : ''}
-    <div class="pointer">
-      <p class="pointer-q">${ic('corner-down-right')}Not what you feel like? Look in ${shared ? 'our' : 'your'} memory:</p>
-      <div class="chips">${moodLinks}</div>
-    </div>
+    ${soon}
+    ${inviteCard()}
+    <div class="browse"><button class="text-btn" style="color:var(--purple)" data-a="memory">Not this? Browse ${shared ? 'our' : 'your'} memory ${ic('chevron-right')}</button></div>
   </div>${navBar()}`;
 }
 
@@ -667,6 +666,8 @@ function planRow(m) {
 function viewPlans() {
   const plans = S.memories.filter(activePlan).sort((a, b) => (a.plan.date + a.plan.time).localeCompare(b.plan.date + b.plan.time));
   const worthPlanning = mems().filter(eventSoon);
+  const matched = S.memories.filter(x => isShared(x.space) && isMatch(x) && !activePlan(x));
+  const matchBlock = matched.length ? `<p class="label section">${ic('heart')}Matches, ready to plan</p>` + matched.map(x => `<button class="match" data-a="plan" data-id="${x.id}"><span class="heart">${ic('heart')}</span><span style="flex:1;min-width:0"><strong>${esc(x.title)}</strong><small>${matchLine(x)} · ${esc(sp(x.space).name)}</small></span>${faces(yesOf(x))}</button>`).join('') : '';
   const intro = `<div style="position:relative;padding-top:10px"><h3 class="head">Your plans.</h3>${ic('calendar-heart')}</div>
     <p class="sub" style="margin:10px 0 18px">Things you decided to do, on your own and together, with everything you need for them.</p>`;
   if (!plans.length) {
@@ -674,6 +675,7 @@ function viewPlans() {
       <div class="card" style="text-align:center"><div class="companion" style="margin:0 auto 10px"><span class="loop l1"></span><span class="loop l2"></span></div>
       <h4 class="title">Nothing planned.</h4><p class="sub" style="margin:8px 0 16px">That’s fine, wanting to is enough. When something in your memory feels right, choose “Let’s do it”.</p>
       <button class="primary" data-a="home">${ic('sparkles')}Find something</button></div>
+      ${matchBlock}
       ${worthPlanning.length ? `<p class="label section">${ic('ticket')}Worth planning</p>` + worthPlanning.map(x => `<button class="coming" data-a="open" data-id="${x.id}">${whenBox(x.event.start > TODAY() ? x.event.start : x.event.end)}<span style="flex:1;min-width:0"><strong>${esc(x.title)}</strong><small>${eventLabel(x)}</small></span>${ic('chevron-right')}</button>`).join('') : ''}
     </div>${navBar()}`;
   }
@@ -689,6 +691,7 @@ function viewPlans() {
     </button>
     ${week.length ? `<p class="label section">${ic('calendar')}This week</p>` + week.map(planRow).join('') : ''}
     ${later.length ? `<p class="label section">${ic('calendar-range')}Later</p>` + later.map(planRow).join('') : ''}
+    ${matchBlock}
     ${worthPlanning.length ? `<p class="label section">${ic('ticket')}Worth planning</p>` + worthPlanning.map(x => `<button class="coming" data-a="open" data-id="${x.id}">${whenBox(x.event.start > TODAY() ? x.event.start : x.event.end)}<span style="flex:1;min-width:0"><strong>${esc(x.title)}</strong><small>${eventLabel(x)}</small></span>${ic('chevron-right')}</button>`).join('') : ''}
     <p class="sub" style="text-align:center;margin-top:18px">Every plan starts from something in your memory.</p>
   </div>${navBar()}`;
@@ -807,8 +810,8 @@ function viewMemory() {
     const shelf = (title, note, items, fg) => items.length ? `<div class="shelf">${title} <small>${note}</small></div>` + items.map(m => memItem(m, fg)).join('') : '';
     list = shelf('New', 'this week', fresh) + shelf('Still on your mind', mind.length, mind) + shelf('Long forgotten', 'maybe now?', forgotten, true);
   }
-  return `<div class="scroll">${header()}
-    <div style="position:relative;padding-top:10px"><h3 class="head">${isShared() ? (sp().members.length === 2 ? 'Little things.<br>Very us.' : 'Little things.<br>For all of you.') : 'Little things.<br>Very you.'}</h3>${ic('sparkle')}</div>
+  return `<div class="scroll">${header()}${Object.keys(SPACES).length > 1 ? spacesRow() : ''}
+    <div style="position:relative;padding-top:16px"><h3 class="head">${isShared() ? (sp().members.length === 2 ? 'Little things.<br>Very us.' : 'Little things.<br>For all of you.') : 'Little things.<br>Very you.'}</h3>${ic('sparkle')}</div>
     <label class="search">${ic('search')}<input id="search" type="search" value="${esc(S.search)}" placeholder="A word, a person, a place…" aria-label="Search your memory"></label>
     ${isShared() ? `<p class="sub" style="margin:-2px 2px 12px">${faces(sp().members)} Everything ${joinNames(sp().members).replace('You', 'you')} saved for ${S.space === 'us' ? 'the two of you' : 'the group'}.</p>` : ''}
     <button class="ask-entry" data-a="ask">${'<div class="companion"><span class="loop l1"></span><span class="loop l2"></span></div>'}<span><strong>Can’t remember the words?</strong><small>Ask your memory, like you’d ask a friend.</small></span></button>
@@ -857,13 +860,14 @@ function viewDetail() {
       ${(m.history || []).length ? `<p class="history">${ic('history')}Planned before: ${m.history.map(h => fmtDay(h.date) + (h.people.length ? ', with ' + h.people.join(' and ') : '')).join('; ')}</p>` : ''}
       ${isShared(m.space) ? `<p class="mini" style="margin-top:0">Who’s up for it</p><div class="vote-row" style="margin-bottom:14px">${sp(m.space).members.map(x => {
         const v = m.votes[x], hidden = x !== 'you' && v && !m.votes.you;
-        return `<span class="vote ${hidden ? 'wait' : v === 'yes' ? 'yes' : v === 'no' ? 'no' : 'wait'}">${face(x)}${nm(x)}${hidden ? ': answered' : v === 'yes' ? ': yes' : v === 'no' ? ': not for me' : ': not yet'}</span>`; }).join('')}</div>` : ''}
+        return `<span class="vote ${hidden ? 'wait' : v === 'yes' ? 'yes' : 'wait'}">${face(x)}${nm(x)}${hidden ? ': answered' : v === 'yes' ? ': would love to' : v === 'later' ? ': another time' : ': not yet'}</span>`; }).join('')}</div>` : ''}
+      ${m.hidden ? `<p class="history">${ic('eye-off')}Hidden from your nudge. Only you know. <button class="text-btn" style="padding:0;min-height:0;color:var(--purple)" data-a="unhide" data-id="${m.id}">Show it again</button></p>` : ''}
       <p class="signoff">${ic('heart')}Something worth remembering.</p>
     </article>
-    ${isShared(m.space) && !m.votes.you && !activePlan(m) ? `<div class="duo" style="margin-bottom:8px"><button class="primary" data-a="yes" data-id="${m.id}">${ic('heart')}I’d love to</button><button class="secondary" data-a="no" data-id="${m.id}">Not for me</button></div>` : ''}
+    ${isShared(m.space) && m.votes.you !== 'yes' && !activePlan(m) ? `<div class="duo" style="margin-bottom:8px"><button class="primary" data-a="yes" data-id="${m.id}">${ic('heart')}I’d love to</button><button class="secondary" data-a="later" data-id="${m.id}">Another time</button></div>` : ''}
     ${activePlan(m) ? `<div class="planned">${ic('calendar-heart')}<span style="flex:1">Planned: ${planWhen(m.plan)}</span></div>
       <button class="primary" data-a="openplan" data-id="${m.id}">${ic('calendar-heart')}Open the plan</button>`
-      : isShared(m.space) && !m.votes.you ? `<button class="secondary" data-a="plan" data-id="${m.id}">${ic('calendar-heart')}Skip the vote, plan it</button>` : `<button class="primary" data-a="plan" data-id="${m.id}">${ic('calendar-heart')}${isShared(m.space) ? 'Plan it together' : 'Let’s do it'}</button>`}
+      : isShared(m.space) && m.votes.you !== 'yes' ? `<button class="secondary" data-a="plan" data-id="${m.id}">${ic('calendar-heart')}Skip the vote, plan it</button>` : `<button class="primary" data-a="plan" data-id="${m.id}">${ic('calendar-heart')}${isShared(m.space) ? 'Plan it together' : 'Let’s do it'}</button>`}
     <div style="text-align:center;margin-top:8px"><button class="text-btn muted" data-a="letgo" data-id="${m.id}">${ic('wind')}Let it go</button></div>
   </div>`;
 }
@@ -948,6 +952,19 @@ function sheet() {
       <h4 class="title" style="margin-bottom:18px">${esc(m.title)}</h4></div>
       <div class="duo"><button class="primary" data-a="plan" data-id="${m.id}">${ic('calendar-heart')}Plan it together</button><button class="secondary" data-a="close">Later</button></div>
       <p class="sub" style="text-align:center;margin-top:12px">It stays under “${all ? 'You both want to' : 'Most of you want to'}” on the first page.</p>`;
+  }
+  if (s.type === 'matches') {
+    const matches = mems().filter(x => isMatch(x) && !activePlan(x));
+    const waiting = mems().filter(x => x.votes.you === 'yes' && !isMatch(x) && waitingOn(x).length && !activePlan(x));
+    body = `<h4>${others().length === 1 ? 'You both want to' : 'Most of you want to'}</h4><p class="sub" style="margin-bottom:14px">Tap one to plan it together.</p>
+      ${matches.map(x => `<button class="match" data-a="plan" data-id="${x.id}"><span class="heart">${ic('heart')}</span><span style="flex:1;min-width:0"><strong>${esc(x.title)}</strong><small>${matchLine(x)}</small></span>${faces(yesOf(x))}</button>`).join('') || '<p class="mini">No matches yet. Keep saying yes.</p>'}
+      ${waiting.length ? `<p class="mini">Waiting for an answer</p>` + waiting.map(x => `<button class="match waiting" data-a="open" data-id="${x.id}"><span class="heart">${ic('heart')}</span><span style="flex:1;min-width:0"><strong>${esc(x.title)}</strong><small>You’d love to. ${joinNames(waitingOn(x))} ${waitingOn(x).length === 1 ? 'hasn’t' : 'haven’t'} answered yet.</small></span></button>`).join('') : ''}`;
+  }
+  if (s.type === 'keep') {
+    const m = byId(s.id);
+    body = `<h4>Third time’s a sign?</h4><p class="sub" style="margin-bottom:16px">You’ve said “another time” to <b style="color:var(--ink)">${esc(m.title)}</b> a few times. Keep it for someday, or hide it from your nudge? Only you will know.</p>
+      <div class="duo"><button class="primary" data-a="keep-someday" data-id="${m.id}">${ic('archive')}Keep for someday</button><button class="secondary" data-a="hide" data-id="${m.id}">Hide it for me</button></div>
+      <p class="note-purple" style="margin-top:14px">You can always show it again from the memory.</p>`;
   }
   if (s.type === 'spaces') {
     body = `<h4>Whose memory?</h4><p class="sub">Your own, or one you share with the people you do things with.</p>
@@ -1037,20 +1054,49 @@ function runAsk(q) {
 }
 
 // --- events --------------------------------------------------------------------
-let swipeStart = null, swiped = false;
+let drag = null, swiped = false;
 phone.addEventListener('pointerdown', e => {
-  if (e.target.closest('[data-swipe]')) swipeStart = { x: e.clientX, y: e.clientY };
+  const card = e.target.closest('[data-swipe]'); if (!card) return;
+  drag = { x: e.clientX, y: e.clientY, card, dx: 0, on: false, id: e.pointerId };
 });
-phone.addEventListener('pointerup', e => {
-  if (!swipeStart) return;
-  const dx = e.clientX - swipeStart.x, dy = e.clientY - swipeStart.y;
-  swipeStart = null;
-  if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.5 && pool().length > 1) {
-    swiped = true; S.idx += dx < 0 ? 1 : -1; S.dir = dx < 0 ? 1 : -1; render();
-    setTimeout(() => { swiped = false; }, 350);
+phone.addEventListener('pointermove', e => {
+  if (!drag) return;
+  const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+  if (!drag.on) {
+    if (Math.abs(dx) < 8) return;
+    if (Math.abs(dy) > Math.abs(dx)) { drag = null; return; }   // a vertical move scrolls the page
+    drag.on = true; drag.card.classList.add('drag'); try { drag.card.setPointerCapture(drag.id); } catch {}
   }
+  drag.dx = dx;
+  drag.card.style.transform = `translateX(${dx}px) rotate(${dx / 18}deg)`;
+  drag.card.querySelector('.stamp.yes').style.opacity = Math.max(0, Math.min(1, dx / 90));
+  drag.card.querySelector('.stamp.later').style.opacity = Math.max(0, Math.min(1, -dx / 90));
 });
-phone.addEventListener('pointercancel', () => { swipeStart = null; });
+function endDrag() {
+  if (!drag) return;
+  const { card, dx, on } = drag; drag = null;
+  if (!on) return;
+  swiped = true; setTimeout(() => { swiped = false; }, 350);
+  card.classList.remove('drag');
+  if (Math.abs(dx) < 90) {
+    card.classList.add('spring'); card.style.transform = '';
+    card.querySelectorAll('.stamp').forEach(x => { x.style.opacity = 0; });
+    return;
+  }
+  const id = card.dataset.id, right = dx > 0;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  card.classList.add('fly');
+  card.style.transform = `translateX(${right ? 520 : -520}px) rotate(${right ? 24 : -24}deg)`;
+  card.style.opacity = '0';
+  setTimeout(() => {
+    const m = byId(id); if (!m) return;
+    swiped = false;
+    if (right) phone.querySelector(`.deck .primary[data-id="${id}"]`)?.click();
+    else phone.querySelector(`.deck [data-a="later"][data-id="${id}"]`)?.click();
+  }, reduce ? 0 : 230);
+}
+phone.addEventListener('pointerup', endDrag);
+phone.addEventListener('pointercancel', () => { if (drag?.on) { drag.card.classList.remove('drag'); drag.card.style.transform = ''; } drag = null; });
 phone.addEventListener('click', e => {
   if (swiped) { swiped = false; if (e.target.closest('[data-swipe]')) return; }
   const b = e.target.closest('[data-a]'); if (!b) return;
@@ -1076,7 +1122,7 @@ phone.addEventListener('click', e => {
     case 'again': S.snoozed.clear(); S.idx = 0; render(); break;
     case 'next': S.idx++; S.dir = 1; render(); break;
     case 'prev': S.idx--; S.dir = -1; render(); break;
-    case 'notnow': { S.snoozed.add(id); S.dir = 1; toast('Okay, another time.', 'clock'); break; }
+    case 'notnow': { S.snoozed.add(id); toast('Another time. I’ll bring it back in a few days.', 'clock'); break; }
     case 'open': S.detail = id; go('detail'); break;
     case 'plan': S.planPick = 'tonight'; S.planDate = ''; S.sheet = { type: 'plan', id }; render(); break;
     case 'pick': S.planPick = v; render(); break;
@@ -1112,7 +1158,7 @@ phone.addEventListener('click', e => {
     case 'p-person': byId(S.planId).plan.people.push(v); render(); break;
     case 'p-unperson': { const pl = byId(S.planId).plan; pl.people = pl.people.filter(x => x !== v); render(); break; }
     case 'yes': {
-      const m = byId(id); m.votes.you = 'yes'; S.dir = 1;
+      const m = byId(id); m.votes.you = 'yes'; m.back = false; S.hinted = true;
       if (isMatch(m)) { S.sheet = { type: 'match', id }; render(); break; }
       const wait = waitingOn(m);
       toast(wait.length ? `Your yes is saved. ${joinNames(wait)} ${wait.length === 1 ? 'gets' : 'get'} to answer too.` : 'Saved your yes.', 'heart');
@@ -1122,9 +1168,20 @@ phone.addEventListener('click', e => {
       }, 3400);
       break;
     }
-    case 'no': { byId(id).votes.you = 'no'; S.dir = 1; toast('Okay, not this one.', 'feather'); break; }
+    case 'later': {
+      // A soft no: it comes back later; nothing is ever a hard no.
+      const m = byId(id); S.hinted = true;
+      if (!isShared(m.space)) { S.snoozed.add(id); toast('Another time. I’ll bring it back in a few days.', 'clock'); break; }
+      m.votes.you = 'later'; m.back = false; m.laterCount = (m.laterCount || 0) + 1;
+      if (m.laterCount >= 3) { S.sheet = { type: 'keep', id }; render(); break; }
+      toast('Another time. It comes back in a few weeks, or sooner if the others love it.', 'clock'); break;
+    }
+    case 'keep-someday': { const m = byId(id); m.laterCount = 0; S.sheet = null; toast('Kept for someday. It comes back much later.', 'archive'); break; }
+    case 'hide': { const m = byId(id); m.hidden = true; S.sheet = null; toast('Hidden from your nudge. Only you know.', 'eye-off'); break; }
+    case 'unhide': { const m = byId(id); m.hidden = false; m.laterCount = 0; toast('It’s back in your nudge.', 'eye'); break; }
+    case 'matches': S.sheet = { type: 'matches' }; render(); break;
     case 'spaces': S.sheet = { type: 'spaces' }; render(); break;
-    case 'space': { S.news = SPACES[v].news ? `New in ${SPACES[v].name}: ${SPACES[v].news.msg}.` : null; delete SPACES[v].news; S.space = v; S.idx = 0; S.dir = 0; S.search = ''; S.filter = { kind: null, who: null, mood: null, tag: null }; S.stack = []; S.sheet = null; S.view = 'today'; render(); phone.querySelector('.scroll')?.scrollTo(0, 0); break; }
+    case 'space': { S.news = SPACES[v].news ? `New in ${SPACES[v].name}: ${SPACES[v].news.msg}.` : null; delete SPACES[v].news; S.space = v; S.idx = 0; S.dir = 0; S.search = ''; S.filter = { kind: null, who: null, mood: null, tag: null }; S.stack = []; S.sheet = null; S.view = S.view === 'memory' ? 'memory' : 'today'; render(); phone.querySelector('.scroll')?.scrollTo(0, 0); break; }
     case 'dismiss-invite': S.inviteDismissed = true; toast('Okay. It’s always under the + at the top.', 'feather'); break;
     case 'w-pick': S.welcome.pick = v; render(); setTimeout(() => document.getElementById('w-name')?.focus(), 0); break;
     case 'w-me': S.view = 'today'; render(); break;
