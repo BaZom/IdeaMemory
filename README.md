@@ -33,10 +33,10 @@ flowchart LR
 
 - **Remember:** save in seconds, just a title, or a link that fills in the rest.
 - **My memory:** everything you saved, findable without remembering the words.
-- **A little nudge:** brings the right memory back for today or soon; a small deck of cards: swipe right for *Let’s do it*, left for *Another time* (it comes back later).
+- **A little nudge:** brings the right memory back for today or soon: *today’s pick* (shuffle with *Another*), then what else fits now; the rest waits under *Later*.
 - **Plan:** the concrete details for the day.
 - **After the day:** back into the memory with a “planned before” line, to be suggested again, planned again or let go.
-- **Together:** share a space with your partner or a group (up to 8). Everyone says *I’d love to* or *Another time* (never a hard no); when you both say yes (or enough people in a group) it’s a match, and you plan it together: find a day, who’s in, who sorts out what. Your memory stays yours: you suggest ideas to a space, and can keep someone else’s idea in your own memory. For two, date night picks from what you both want, or surprises you. Regular things organise themselves: the app asks the group “Drinks tonight. In?”. (Designed; planned in roadmap phase 2.)
+- **Together:** an idea is just for you or for a space: your partner, a friend or a group (up to 8). A space shows everyone’s ideas, what fits now first; anyone plans one and the others join. Partners don’t vote; in a group you tap *I’d join*, and an idea is ready once enough people would. Your memory stays yours. Regular things organise themselves: date night every Tuesday, or “Drinks tonight. In?” for the group. (Designed; planned in roadmap phase 2.)
 
 The idea in one page: [core concept](docs/concept.md). Why the app works this way, and what comes next: [roadmap](docs/roadmap.md). Where it could go one day: [vision](docs/vision.md).
 

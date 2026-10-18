@@ -17,11 +17,11 @@
 
 Every task is checked against these. 2–5 are from 2026-10-14; 1 was added on 2026-10-15.
 
-1. **Oh, right! is for you and your people (owner, 2026-10-15).** Your memory is always yours; a **space is where you decide together**. A space is *my partner* (a special space: date night, their dates and gifts, your story) or *a group* (up to 8). You suggest ideas from your memory to a space; everyone says “I’d love to” or “Another time”; matches get planned together. Keeping someone else’s idea in your memory is a deliberate tap (2026-10-17). Spaces are visible from the first screen, as tabs. Nothing is ever a hard no: *Another time* always comes back later. No public profiles, no big groups, no in-app chat.
-2. **A little nudge recommends from your memory.** It shows things you can do today or very soon as a small deck of cards (swipe right for yes, left for *Another time*), plus one line for the most urgent thing worth knowing (a plan in the next days, or an event that ends or starts soon). The first page stays calm: tabs, headline, the deck and one or two lines; everything else lives in Planned or My memory. Every item says why it is there (owner, 2026-10-17).
+1. **Oh, right! is for you and your people (owner, 2026-10-15).** Your memory is always yours; a **space is where you decide together**. A space is *my partner* (date night, their special days and gifts) or *a group* (up to 8). An idea is just for you or for one or more spaces; a space shows everyone’s ideas, what fits now first, and anyone can plan one. Partners don’t vote; in a group you tap *I’d join*, and there is no “no” anywhere (2026-10-18). People still talk to each other; the app remembers and plans. Keeping someone else’s idea in your memory is a deliberate tap. Spaces are tabs on the first screen. No public profiles, no big groups, no in-app chat.
+2. **A little nudge recommends from your memory.** It shows *today’s pick* (the best fit as a card, *Another* shows the next) and the rest that fits now, with the season as the reason (“🌧️ Rainy October · 8 things fit”); the rest waits under *Later*. Above it at most two *Oh, right!* lines. The first page stays calm: tabs, headline, the pick, a short list; everything else lives in Planned or My memory. Every item says why it is there (owner, 2026-10-17).
 3. **My memory is your database of everything you saved.** Plans live in it too; it must work for someone who forgot the details (browse by kind, person, mood, tags; ask in your own words).
 4. **Plans come from memories, never from nowhere.** The memory keeps the *why* (note, who told you, link); the plan adds the *how* (day and time, reminder, where, who’s coming, what to sort out, what to bring). One active plan per memory; when its day passes it becomes a “planned before” line on the memory. No done status. In a shared space the plan is shared: everyone answers *I’m in / Maybe / Can’t*, can help find a day and takes on things to sort out.
-5. **Saving asks little and infers a lot.** Only the title is required. Every optional detail switches on a feature (kind → icons and browsing, “good for” → suggestions, dates → “coming soon”, who told you → “Lena’s tip”, link → autofill, tags → your own groups). The app fills in what it can and you correct it; missing details are asked for later, at the right moment.
+5. **Saving asks little and infers a lot.** Only the title is required. Every optional detail switches on a feature (kind → icons and browsing, who it’s for → which spaces, when it’s good (warm days, cold days, weekends) → what fits now, dates → “coming soon”, who told you → “Lena’s tip”, link → autofill, tags → your own groups). The app fills in what it can and you correct it; missing details are asked for later, at the right moment.
 
 ## The main flow
 
@@ -60,19 +60,18 @@ flowchart LR
 
 Two shortcuts: you can open any memory from My memory and plan it directly, and *Remember & plan it* saves and plans in one go.
 
-**Together** (in a shared space), the same flow with one extra step (suggesting an idea from your memory puts a card into the space): the deck shows what the others suggested; each person says *I’d love to* or *Another time* without seeing the others’ answers first; when you both (or most of a group) say yes, it’s a **match**, and *Plan it together* turns it into a shared plan.
+**Together** (in a shared space), the same flow: an idea you save for a space shows up there for everyone; anyone plans it and the others join. In a group, people tap *I’d join* first, and the idea fits once enough people would join.
 
 ```mermaid
 flowchart LR
     A["<b>Add</b><br/>to a shared space"]
-    Y["<b>Say yes</b><br/>everyone on their own"]
-    X["<b>It’s a match</b><br/>you both want this"]
+    Y["<b>I’d join</b><br/>groups only"]
+    X["<b>Fits now</b><br/>in a group: enough<br/>people would join"]
     T["<b>Plan together</b><br/>find a day, who’s in,<br/>who sorts out what"]
     D(["the day"])
 
     A --> Y
-    Y -- "both / most say yes" --> X
-    Y -. "another time" .-> A
+    Y -- "enough people" --> X
     X -- "Plan it together" --> T
     T --> D
     D -- "planned before" --> A
@@ -128,9 +127,8 @@ Security-relevant: yes (schema change) → review before merge.
 ### 012 — A little nudge (rules)
 Goal: the first page brings back the right memory for today or the next days.
 Done when:
-- *Oh, right!* lines above the deck (at most two): an occasion with a saved gift idea in the next 3 weeks, your own event ending or starting soon
-- a deck of every memory that fits (doable soon, not planned, no own dates, no multi-day trips, no gifts), ordered by context (weather, how long it has waited), each card saying why; drag right for *Let’s do it*, left for *Another time*, with the same two buttons under the card
-- *Another time* hides a memory for a few days (stored, so it holds across devices)
+- *Oh, right!* lines above the list (at most two): an occasion with a saved gift idea in the next 3 weeks, your own event ending or starting soon
+- your just-me ideas in two parts: **Fits now** (event dates, season, weekend, how long it takes, rain for cozy ideas), with the best one as *today’s pick* (*Plan it*, *Another*), and **Later** folded away (out of season, trips, events far off); every item says why
 - one line for the most urgent thing (a plan in the next 3 days, else an event ending or starting within a week); a “Not this? Browse your memory” link
 
 Not now: AI ranking.
@@ -165,10 +163,10 @@ Goal: decide things together with your partner or a group, while your memory sta
 Done when:
 - start a space as *my partner* or *a group* (up to 8; a best friend is a group of two) and invite with a link; the invited person signs up or signs in and joins; leave a space; the owner can remove someone or turn the link off
 - space tabs under the header (Just me, each space, + New); Remember is the round + in the header
-- *Suggest to…* (when saving, or on a memory’s page) puts a card of your memory into one or more spaces; you can stop suggesting it; deleting the memory removes its cards
-- a new space works fully from the start: a partner space shows the date-night offer and *For Sam* with *Add a date*; a group can *Set up a weekly thing* (what, day, time, where, on from how many)
-- **one deck per space**: new ideas to answer and things you all want (*Let’s do it* opens a calendar to pick the day, months ahead too, a range for trips; it marks date night ♥ and event days 🎟 but never picks for you), the next plan as a slim line above, *You suggested* below; the partner space shows special days as emojis (🎂, 💍), 🎁 *For Lena* and ❤️ *Our story* as a pop-up
-- each group has one list, **Ready to plan** (plans to join, then matches nobody planned yet), and a partner space has *You both want*; new ideas are answered only in the deck, and your own suggestions show in *You suggested* on the space page; cards show who suggested it and why, plus up to four facts (when, where, cost, booking, people); My memory never shows space contents
+- **Who’s it for?** when saving (just me, or one or more spaces), changeable on a memory’s page; deleting the memory removes it from the spaces
+- a new space works fully from the start: a partner space shows *For Sam* with *Add a date* and *A regular date night?*; a group can *Set up a weekly thing* (what, day, time, where, on from how many)
+- **one page per space**: the weekly thing, *Coming up* (plans; *Join* someone else’s, looking is not joining), the season line, *today’s pick* and the rest that **fits now**, *Later* folded away, *Add an idea*; a *Last time: …* line; the partner space shows special days as emojis (🎂, 💍) and 🎁 *For Lena*
+- *Plan* opens a calendar (months ahead, a range for trips; it marks the weekly days and event days but never picks for you); *Cancel* changes nothing
 - *Keep in my memory* on someone else’s card copies it into your memory as their idea; saying yes alone does not
 - after signup: “Who do you do things with?” (my partner, a group, just me for now); in *Just me*, the invite card once there are “date night” or “with friends” memories
 - the database shows a card only to members of that space, and never your other memories (tested with a non-member)
@@ -176,12 +174,12 @@ Done when:
 Not now: votes, shared plans, news dots.
 Security-relevant: yes (membership-based access) → review before merge.
 
-### 016 — Say yes together
-Goal: find out what you all want to do, without “I don’t know, what do you want?”.
+### 016 — Who’d join (groups)
+Goal: see whether enough people want something before anyone plans it.
 Done when:
-- in a shared space the deck holds the cards you haven’t answered (*Lena’s idea*, and events with *don’t miss it*); *I’d love to* (right) / *Another time* (left); others’ answers stay hidden until you answer
-- *Another time* is never a hard no: it comes back after a few weeks, or sooner, warmly (“Back again: Lena still loves this”); after the third time only you are asked “Keep for someday, or hide it for me?”, and hiding can be undone
-- a match (both of you; in a group, enough people for the idea: 2, unless the suggester set *at least N people*; most ideas say *whoever comes*) opens “It’s a match!”; for partners, matches go into **You both want** (the partner’s *Ready to plan*; no separate jar); for groups, matches are *Ready to plan*, sorted by how many are in, each saying who (“Max, Jonas, Aylin are in · needs 4”)
+- in a group, ideas that need more people show under **Who’d join?** with dots (●●●○ *one more!*); *I’d join* adds you, tapping again takes you out; there is no “no”
+- an idea is ready once enough people would join (2, unless it needs at least N); then it moves to *Fits now* and anyone can plan it
+- partners have no voting: either can plan anything in their space
 - news counts on the space tabs (“Lena added 2 things”), cleared when you open the space
 
 Not now: notifications for news (later, with 014’s notifications).
@@ -190,7 +188,7 @@ Security-relevant: yes (shared rows) → review before merge.
 ### 017 — Plan together
 Goal: plan a date or a trip together.
 Done when:
-- anyone who wants an idea can start its plan (*Start the plan*); there is one plan per idea, so once it exists the others see *Mira started a plan* and *Join the plan*, and everyone who joined can edit it; for date night, whoever picks plans it; a plan in a shared space is shared: in a group everyone answers *I’m in / Maybe / Can’t*; for a couple the page is lighter (the partner’s “Works for me”, no who’s-in list)
+- anyone in the space can plan an idea (in a group once enough people would join); there is one plan per idea, so once it exists the others see *Mira started* and *Join*, and everyone who joined can edit it; for date night, whoever picks plans it; a plan in a shared space is shared: in a group everyone answers *I’m in / Maybe / Can’t*; for a couple the page is lighter (the partner’s “Works for me”, no who’s-in list)
 - ideas marked *needs booking* get the to-do “Book it” when planned
 - *Let everyone pick*: three suggested days, everyone taps what works, someone picks the best one
 - things to sort out can be given to a person; short notes on the plan (no chat; a button opens your own group chat); trips have a day-by-day list
@@ -203,8 +201,8 @@ Security-relevant: yes (shared plans, public link) → review before merge.
 Goal: regular things organise themselves, and the partner space feels special, without pressure.
 Done when:
 - a group can set a **fixed weekly activity** (“Drinks at Bar Zentral, every Friday 20:00, on from 3 people”); on its day the app asks everyone (“… tonight. In?”), answering is optional and only the *in*s count, and at a set time it says “It’s on!” or “Skipped this week”; that day the space’s page *is* this card (*I’m in* / *Not tonight*, *Ask in WhatsApp*, a streak), with a link to the other ideas
-- a partner space is **offered** a date night once (never required), on **a fixed day** (every Tuesday) or **flexible** (once a week or every two weeks; one nudge at the start, and whoever draws picks the day); with it on, the date night card shows the next date night with **Pick one** (from *You both want*) and **Surprise me** (a random one, *Another one* as often as you like, *Not now* stops), which plan it for that day, and couples can **take turns** (one plans, the other only sees the time); at most one gentle reminder, and if nothing is planned, nothing happens
-- the partner space also has **For Lena** (private: occasions like her birthday and your anniversary, gift ideas, things she mentioned; back before the day) and **Our story** (what you did together; “one year ago today…”)
+- a partner space can set **date night** as its weekly thing (no minimum, no “who’s in”): the slim strip says *pick something*, tapping it lists your ideas that fit now, and the pick is planned for that evening; the day before, one reminder for both
+- the partner space also has **For Lena** (private: occasions like her birthday and your anniversary, gift ideas; back before the day)
 - Planned lists the regular things under *Every week*
 
 Not in the MVP: open slots (a group’s regular afternoon to fill with *Pick together*).

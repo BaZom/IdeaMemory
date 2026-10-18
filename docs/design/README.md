@@ -5,6 +5,7 @@
 **Target design: [oh-app.html](oh-app.html)** (clickable, dummy data, phone-first; on your own and in shared spaces for couples and groups). Live: https://bazom.github.io/IdeaMemory/design/oh-app.html. This is what we build towards; the product principles and main flow behind it are in the [roadmap](../roadmap.md).
 
 - `oh-app.html`: the target design, full screen on phones. Use this link to show the design.
+- `oh-app-with-decks-and-votes.html`: the version before “remember and plan”. It had a swipe deck in every space, *I’d love to / Another time*, matches, *Your shared space*, the date night card with surprise turns and *Our story*.
 - `oh-app-with-plain-list.html`: My memory as a plain one-line list (before the small paper notes came back).
 - `oh-app-with-anyone-plans.html`: an older version: anyone could plan any idea (even without saying yes), new spaces were half empty until someone joined, and there was no demo tour.
 - `oh-app-with-memory-filters.html`: the version before the calm memory. It had space chips and filter rows in My memory, put ideas into your memory on *I’d love to*, had open slots, and treated a best friend as a couple.
@@ -18,4 +19,4 @@
 
 **Try everything:** account button (top right) → *Try the demo*: ten steps, each jumping straight to a feature, plus *Reset the demo*.
 
-**Demo spaces in the prototype:** *Just me* (a rainy evening, two Oh, right! moments); *You & Lena* (my partner: date night with Pick one / Surprise me and turns, *For Lena*, *Our story* with “one year ago”); *You & Mira* (a group of two); *The regulars* (group with a weekly fixed activity, falling on today); *Lisbon crew* (group: ready to plan, a trip plan, news).
+**Demo spaces in the prototype:** *Just me* (a rainy evening, two Oh, right! moments, what fits now); *You & Lena* (my partner: emoji days, date night every Tuesday, one list of ideas you both added); *You & Mira* (a group of two); *The regulars* (group: drinks tonight, football on Wednesdays, *Bowling night* needs one more person); *Lisbon crew* (group: plans to join, a trip plan).
