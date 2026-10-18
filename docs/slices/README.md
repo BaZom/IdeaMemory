@@ -13,8 +13,9 @@ A slice is the next small thing you can use on your phone, end to end (design, a
 
 1. `docs/slices/<n>-<name>.md` with the sections below.
 2. A design board `docs/design/slices/<n>-<name>.html`: the screens of *this slice only*, cut down from the target design, with the states the target skips (empty, error, offline, editing, deleting, dark mode).
+3. When the slice has screens: a clickable mockup `docs/design/slices/<n>-mockup.html` for the slice that is next to build, to try the flow on the phone before any app code. A small control panel switches between states (empty, error, dark).
 
-**Workflow:** the owner reviews the slice and its design → build it → try it on the phone → mark it done in the roadmap.
+**Workflow:** the owner reviews the slice, its board and its mockup → build it → try it on the phone → mark it done in the roadmap.
 
 ## Template
 

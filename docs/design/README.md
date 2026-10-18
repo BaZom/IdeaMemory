@@ -5,7 +5,7 @@
 **Target design: [oh-app.html](oh-app.html)** (clickable, dummy data, phone-first; on your own and in shared spaces for couples and groups). Live: https://bazom.github.io/IdeaMemory/design/oh-app.html. This is what we build towards; the product principles and main flow behind it are in the [roadmap](../roadmap.md).
 
 - `oh-app.html`: the target design, full screen on phones. Use this link to show the design.
-- `slices/`: one design board per slice (the screens and states of that slice only), written with the slice; see [slices](../slices/README.md).
+- `slices/`: one design board per slice (the screens and states of that slice only), and a clickable mockup for the slice that is next to build (`<n>-mockup.html`, states switch from the account button); see [slices](../slices/README.md). Current: [1.1 mockup](slices/1.1-mockup.html).
 - `explorations/`: earlier versions of the prototype, numbered in order, each with what it had and why we moved on ([index](explorations/README.md)). Reference only.
 - `brand/`: app icon (512 px), home-screen icon (180 px) and favicon.
 

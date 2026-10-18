@@ -11,4 +11,6 @@ This is a personal proof of concept: deliver the smallest version the owner can 
 - Handoff in a few lines: what changed, how to try it, check results, open risks.
 - Fix accepted review findings and rerun the affected checks.
 
+Work from the current slice in [docs/slices/](docs/slices/README.md): read it, its design board and its mockup first; the [roadmap](docs/roadmap.md) says which slice is next.
+
 Current gate: work from the [roadmap](docs/roadmap.md). A task the owner asks for in chat is authorized; security-relevant tasks, hosted resources, deployment, commits, pushes and merges need explicit owner approval.
