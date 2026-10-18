@@ -2,7 +2,7 @@
 
 **Oh, right!** *your little memory*: an external memory for the things you want to experience, on your own and with the people you do things with (your partner, friends, the trip crew), so that when you don’t know what to do, it does. Personal proof of concept; the goal is a phone app.
 
-**Target design:** [oh-app.html](design/oh-app.html), live at https://bazom.github.io/IdeaMemory/design/oh-app.html. Every UI task builds towards it (see [design](design/README.md)).
+**Target design:** [oh-app.html](design/oh-app.html), live at https://bazom.github.io/IdeaMemory/design/oh-app.html: the complete future app. We build it in **milestones** (below) made of small **[slices](slices/README.md)**, each with its own design board, written one or two ahead.
 
 ## What the app is for
 
@@ -37,8 +37,7 @@ flowchart LR
 
     R --> M
     M --> N
-    N -- "Let’s do it" --> P
-    N -. "Another time" .-> M
+    N -- "Plan it" --> P
     M -- "plan it" --> P
     R -- "Remember & plan it" --> P
     P --> D
@@ -54,7 +53,7 @@ flowchart LR
 
 - **Remember:** title, plus optional details or a link that fills them in.
 - **My memory:** everything, findable without remembering the words (browse, search, ask).
-- **A little nudge:** suggests what fits now; *Another time* puts it aside for a while; *Let’s do it* decides.
+- **A little nudge:** today’s pick and what else fits now (season, weekend, event dates); the rest waits under *Later*; *Plan it* decides.
 - **Plan:** becomes concrete on its own page; shows up in Planned, and in the nudge’s “worth knowing” as the day comes closer.
 - **After the day:** back in the memory with a history line; the memory may be suggested again later, planned again, or let go.
 
@@ -88,193 +87,68 @@ flowchart LR
 
 - **Accounts:** sign up and sign in with a username and password; each account sees only its own data.
 - **Manual memories (backend and a first UI):** save with just a title (description, category, tags, notes, location, exact original text), browse newest first, filter by category, open, edit, delete.
-- **Design:** the clickable target design ([oh-app.html](design/oh-app.html)), including couples and groups.
+- **Design:** the clickable target design ([oh-app.html](design/oh-app.html)), earlier versions in [explorations](design/explorations/README.md); capture research in [research](research/capture-from-social-media.md).
 
-## Where we are (2026-10-15)
+## Where we are (2026-10-18)
 
-- **Built:** accounts and manual memories (backend and a first Flutter UI, still the old look).
-- **Designed:** the complete target, including couples and groups ([oh-app.html](design/oh-app.html)); this roadmap and the [decisions](decisions.md) match it.
-- **Next:** 010 (the oh! look in the real app), then 011–013. Start a task by asking for it in chat; security-relevant tasks need the owner’s explicit OK first.
-- **Decision point:** after 018 and a test with 3–4 couples (see the [vision](vision.md) for the four numbers).
+- **Built:** accounts and manual memories (the old look).
+- **Next:** slice [1.1](slices/1.1-memory-model-and-look.md), then [1.2](slices/1.2-save-and-manage.md). Start a slice by asking for it in chat; security-relevant slices need the owner’s explicit OK first.
+- **Order (owner, 2026-10-18):** *Just me* first and complete (capture → plan → suggest), spaces after.
 
-## Plan
+## Milestones
 
-Phases in order. Each task is small enough to try on the same day; the order inside a phase can change. Tasks use the short format at the end.
+| Milestone | What you get | Exit test |
+| --- | --- | --- |
+| **M1 Just me v1** | save anything with almost no effort, find it, plan it, get suggestions | you use it daily for two weeks and save without thinking |
+| **M2 Native app** | share extension on iPhone and Android, reading screenshots on the phone | saving from Instagram takes 3 taps or fewer on both phones |
+| **M3 Spaces** | partner and group spaces, plans together, weekly things | 3–4 couples test it (the four numbers in the [vision](vision.md)) |
+| **M4 Smarter** | ask your memory, better suggestions | measurably better than the rules on your own data |
 
-### Phase 1: the oh! app with today’s data (no AI)
+After each milestone: a short review, then the concept, the target design and this roadmap are updated, and the next milestone is sliced.
 
-### 010 — The oh! look
-Goal: the real app looks and reads like the design.
-Done when:
-- theme (colors light and dark, Nunito, shapes, companion) and the three-tab shell (A little nudge, Planned, My memory) with the header and “Remember this”
-- sign-in, Remember and the memory note page use the oh! layout and voice
-- existing features keep working
+## M1 — Just me v1
 
-Not now: new data, suggestions, plans.
-Security-relevant: no.
+Slices in order; only the next one or two are written out (see [slices](slices/README.md)). Hosting comes early because sharing from a phone needs a server the phone can reach.
 
-### 011 — Richer memories
-Goal: save the details that power the other pages.
-Done when:
-- a memory can carry kind (the design’s list, including gift ideas), “good for” (date night, with friends, a quiet evening, on my own), conditions (booking, weather, weekend, cost), who told you, **for whom and which occasion** (private; the occasion is also saved as a date), your tags, a link and event dates (from, until)
-- Remember asks for them as optional one-tap chips; only the title is required
-- My memory is calm: one search box (title, note, people, place, link title, tags), **one row of categories**, a compact one-line list; *Ask your memory* is offered only when the search finds nothing; rarely used details sit behind *More details* when saving
-- memories stay owned by one person (as today); 015 adds spaces that show cards of suggested memories, so nothing has to move
+| # | Slice | You can… | Status |
+| --- | --- | --- | --- |
+| 1.1 | [Memory model and the oh! look](slices/1.1-memory-model-and-look.md) | see your memories in the new design: search, kinds, who it’s for | draft |
+| 1.2 | [Save and manage](slices/1.2-save-and-manage.md) | save by typing with who / kind / when it’s good; edit, let go | draft |
+| 1.3 | On your phone | use it from your phone over HTTPS, install it; account recovery decided | later |
+| 1.4 | Paste a link | TikTok, YouTube, Maps and websites fill themselves in (official previews only) | later |
+| 1.5 | Share into the app | Android share target, iOS Shortcut, “What was it?” at share time; saved instantly | later |
+| 1.6 | Screenshots and *Needs a look* | share a screenshot, AI reads it, you confirm with one tap | later |
+| 1.7 | Plan it | the calendar, the plan page, the Planned tab | later |
+| 1.8 | Suggest | today’s pick, Fits now / Later, *Oh, right!* moments | later |
+| 1.9 | Dates and gifts | birthdays and anniversaries, gift ideas back in time | later |
 
-Not now: link fetching, AI, sharing.
-Security-relevant: yes (schema change) → review before merge.
+Rules that hold for every slice: no scraping (only official previews, the user’s own words and screenshots, see [research](research/capture-from-social-media.md)); saving never waits and never fails (understanding happens afterwards); AI only with an approved provider, model and budget.
 
-### 012 — A little nudge (rules)
-Goal: the first page brings back the right memory for today or the next days.
-Done when:
-- *Oh, right!* lines above the list (at most two): an occasion with a saved gift idea in the next 3 weeks, your own event ending or starting soon
-- your just-me ideas in two parts: **Fits now** (event dates, season, weekend, how long it takes, rain for cozy ideas), with the best one as *today’s pick* (*Plan it*, *Another*), and **Later** folded away (out of season, trips, events far off); every item says why
-- one line for the most urgent thing (a plan in the next 3 days, else an event ending or starting within a week); a “Not this? Browse your memory” link
+## M2 — Native app (sketch)
 
-Not now: AI ranking.
-Security-relevant: no.
+A Flutter iOS and Android build of the same app with a share extension (instant save, “What was it?”), screenshots straight from the preview, on-phone text reading, real notifications. Needs: Apple Developer Program ($99/yr, owner approval), Play Console ($25) or sideloading.
 
-### 013 — Plans
-Goal: turn a memory into a concrete plan.
-Done when:
-- *Let’s do it* picks a day (tonight, tomorrow, this weekend, pick a day) and opens the plan page: time, reminder choice, where (open in maps), who’s coming, checklist, what to bring, the memory’s note
-- the Planned tab: next up, this week, later, worth planning
-- a passed plan becomes a “planned before” line on its memory; one active plan per memory; *Remember & plan it*
+## M3 — Spaces (sketch)
 
-Not now: push notifications (reminders show in the app until 014), sharing (015–017).
-Security-relevant: yes (new table with ownership) → review before merge.
+From the [concept](concept.md): partner and group spaces with invite links (up to 8); “who it’s for” names become spaces (“6 ideas with Lena: add them to You & Lena?”); one page per space (today’s pick, Fits now, Who’d join? in groups, Later); plans together (who’s in, things to sort out, notes, a guest link); weekly things (date night, drinks on Fridays). Security: a space sees only the memories added to it (row-level security on membership).
 
-### Phase 2: together
+## M4 — Smarter (sketch)
 
-Sharing needs everyone on their own phone, so it starts with hosting. Regular things (a weekly drink, date night) come last, once matches and plans work.
+Ask your memory in your own words (only over your own memories, citing them); better order and wording of suggestions from real usage; bulk import of your own Instagram/TikTok saved-posts export.
 
-### 014 — On our phones
-Goal: open the app on any phone over HTTPS, install it to the home screen, get reminders.
-Done when:
-- hosting approved and running, data private, home-screen install works
-- plan reminders arrive as notifications
-- account recovery decided and in place before anyone else signs up
+## Later, only if needed
 
-Needs owner approval first: hosting, region, cost, recovery method.
-Security-relevant: yes → review before merge.
-
-### 015 — Spaces and suggestions
-Goal: decide things together with your partner or a group, while your memory stays yours.
-Done when:
-- start a space as *my partner* or *a group* (up to 8; a best friend is a group of two) and invite with a link; the invited person signs up or signs in and joins; leave a space; the owner can remove someone or turn the link off
-- space tabs under the header (Just me, each space, + New); Remember is the round + in the header
-- **Who’s it for?** when saving (just me, or one or more spaces), changeable on a memory’s page; deleting the memory removes it from the spaces
-- a new space works fully from the start: a partner space shows *For Sam* with *Add a date* and *A regular date night?*; a group can *Set up a weekly thing* (what, day, time, where, on from how many)
-- **one page per space**: the weekly thing, *Coming up* (plans; *Join* someone else’s, looking is not joining), the season line, *today’s pick* and the rest that **fits now**, *Later* folded away, *Add an idea*; a *Last time: …* line; the partner space shows special days as emojis (🎂, 💍) and 🎁 *For Lena*
-- *Plan* opens a calendar (months ahead, a range for trips; it marks the weekly days and event days but never picks for you); *Cancel* changes nothing
-- *Keep in my memory* on someone else’s card copies it into your memory as their idea; saying yes alone does not
-- after signup: “Who do you do things with?” (my partner, a group, just me for now); in *Just me*, the invite card once there are “date night” or “with friends” memories
-- the database shows a card only to members of that space, and never your other memories (tested with a non-member)
-
-Not now: votes, shared plans, news dots.
-Security-relevant: yes (membership-based access) → review before merge.
-
-### 016 — Who’d join (groups)
-Goal: see whether enough people want something before anyone plans it.
-Done when:
-- in a group, ideas that need more people show under **Who’d join?** with dots (●●●○ *one more!*); *I’d join* adds you, tapping again takes you out; there is no “no”
-- an idea is ready once enough people would join (2, unless it needs at least N); then it moves to *Fits now* and anyone can plan it
-- partners have no voting: either can plan anything in their space
-- news counts on the space tabs (“Lena added 2 things”), cleared when you open the space
-
-Not now: notifications for news (later, with 014’s notifications).
-Security-relevant: yes (shared rows) → review before merge.
-
-### 017 — Plan together
-Goal: plan a date or a trip together.
-Done when:
-- anyone in the space can plan an idea (in a group once enough people would join); there is one plan per idea, so once it exists the others see *Mira started* and *Join*, and everyone who joined can edit it; for date night, whoever picks plans it; a plan in a shared space is shared: in a group everyone answers *I’m in / Maybe / Can’t*; for a couple the page is lighter (the partner’s “Works for me”, no who’s-in list)
-- ideas marked *needs booking* get the to-do “Book it” when planned
-- *Let everyone pick*: three suggested days, everyone taps what works, someone picks the best one
-- things to sort out can be given to a person; short notes on the plan (no chat; a button opens your own group chat); trips have a day-by-day list
-- an invite link for people without the app: a plan card with *I’m in / Maybe / Can’t*, no account needed, can be turned off
-
-Not now: costs per person, in-app chat.
-Security-relevant: yes (shared plans, public link) → review before merge.
-
-### 018 — Every week, and the partner space
-Goal: regular things organise themselves, and the partner space feels special, without pressure.
-Done when:
-- a group can set a **fixed weekly activity** (“Drinks at Bar Zentral, every Friday 20:00, on from 3 people”); on its day the app asks everyone (“… tonight. In?”), answering is optional and only the *in*s count, and at a set time it says “It’s on!” or “Skipped this week”; that day the space’s page *is* this card (*I’m in* / *Not tonight*, *Ask in WhatsApp*, a streak), with a link to the other ideas
-- a partner space can set **date night** as its weekly thing (no minimum, no “who’s in”): the slim strip says *pick something*, tapping it lists your ideas that fit now, and the pick is planned for that evening; the day before, one reminder for both
-- the partner space also has **For Lena** (private: occasions like her birthday and your anniversary, gift ideas; back before the day)
-- Planned lists the regular things under *Every week*
-
-Not in the MVP: open slots (a group’s regular afternoon to fill with *Pick together*).
-
-Needs: notifications from 014.
-Not now: rotating hosts, costs, chat.
-Security-relevant: yes (scheduled notifications, shared rows) → review before merge.
-
-### Phase 3: less typing, better finding (first AI)
-
-### 019 — Save from a link
-Goal: paste a link and most fields fill themselves.
-Done when:
-- the server fetches the page safely (no local or private addresses, size and time limits) and reads title, site, description, image and, where the page states them, event dates
-- kind is suggested from the site type (maps → place, film sites → film, ticket sites → event); you confirm
-- if fetching fails you still save by hand; the original link is kept
-
-Not now: AI, screenshots.
-Security-relevant: yes (fetching untrusted URLs) → review before merge.
-
-### 020 — “Fill it in for me” (AI step 1)
-Goal: AI suggests kind, “good for”, tags and dates from the link text and your note.
-Done when:
-- suggestions appear as pre-selected chips with “Filled in from the link. Check it?”; nothing is saved without your Save
-- only that one memory’s text is sent; it works without AI (feature off or provider down)
-
-Needs owner approval first: provider and model, what is sent, monthly budget.
-Security-relevant: yes → review before merge.
-
-### 021 — Ask your memory (AI step 2)
-Goal: find something when you don’t remember the words (“that restaurant Lena mentioned”).
-Done when:
-- a question returns up to three memories from the current space with a short answer in oh!’s voice; it never mentions anything that isn’t saved there
-- retrieval runs only over rows you can see (database search first, embeddings if needed); the answer cites the memories it used
-
-Needs owner approval first (as 020).
-Security-relevant: yes → review before merge.
-
-### Phase 4: more ways in
-
-### 022 — Save from a screenshot
-Goal: keep a screenshot as the memory’s source and let AI read it.
-Done when: private image storage that follows the memory’s space, the image shows on the memory, deleting the memory deletes the image, AI suggests fields from it (as 020).
-Security-relevant: yes (private file storage) → review before merge.
-
-### 023 — Smarter nudge (optional AI step 3)
-Goal: better order and wording of suggestions once there is real usage (what you planned, what you skipped, what matched).
-Done when: a measurable improvement over the rules from 012 on your own data; the rules remain the fallback.
-
-### Later, only if needed
-- **Costs per person** on a trip plan.
-- **Save from the phone’s share sheet** (needs an installed app).
-- **In-app chat:** not planned; only if testers ask for it after 018. Group conversation stays in WhatsApp or Signal (the plan has short notes and a link to the group chat).
+- Costs per person on a trip plan.
+- In-app chat: not planned; conversation stays in WhatsApp or Signal.
+- Telegram or WhatsApp bot as a share target.
 
 ## When AI comes in, and why
 
-- **Not before phase 3.** The app must be useful without AI: rules can pick suggestions because you gave the details when saving. Without good data AI has nothing to work with, and every call costs money and privacy.
-- **First where it removes typing (020).** Saving has to be fast or nobody saves; AI turns a pasted link or a rough note into filled-in chips. One short call per save, you confirm, nothing else is sent.
-- **Second where words fail (021).** Search needs you to remember the words; asking in your own words fixes that. It only works over your own memories and must cite them, never invent.
-- **Suggestions stay rule-based at first (012).** Rules are explainable (“ends in 3 days”, “on your mind for 7 weeks”) and free. AI can improve the order and wording later (023) once there is usage to learn from.
-- **Why together comes before AI:** sharing is the reason people bring others in and the clearest reason to pay; AI only makes saving and finding easier. Rules still pick suggestions in shared spaces; matches come from people, not from a model.
-- **Rules for every AI feature:** owner approves provider, model and budget first; calls run on the server, never in the app; only the minimum text is sent, nothing about the account or the other members; no content in logs; the app keeps working when AI is off or down.
+- **Only where it removes effort when saving (M1, 1.6).** Instagram gives us nothing but a link, so a screenshot read by AI, or a few words from you, is how a saved post becomes a memory. One small call per save, you confirm, nothing is saved without you.
+- **Suggestions stay rule-based (1.8).** Rules are explainable (“ends in 3 days”, “cold days: now’s the time”) and free. AI can improve order and wording later (M4) once there is usage to learn from.
+- **Asking your memory comes in M4**, over your own memories only, citing them, never inventing.
+- **Rules for every AI feature:** owner approves provider, model and budget first; calls run on the server, never in the app; only the minimum is sent, nothing about the account; no content in logs; the app keeps working when AI is off or down.
 
-## Task format
+## Slice format
 
-```text
-## NNN — <what I can do afterwards>
-Goal: one sentence.
-Done when:
-- 2–4 things I can check myself
-Not now: what is deliberately left out
-Security-relevant: yes/no (yes → review before merge)
-```
-
-Implementation: simplest design that meets “Done when”, about 3–5 tests (main path, one failure, ownership for a new table or route), `make check`, and a few lines on how to try it. The UI follows the [target design](design/oh-app.html); deviations need the owner’s OK.
+See [slices](slices/README.md): one file per slice (goal, towards, design board, data, API and app, security, done when, not now, open questions, parked). Implementation: simplest design that meets “Done when”, about 3–5 tests (main path, one failure, ownership for a new table or route), `make check`, and a few lines on how to try it. The UI follows the slice’s design board; deviations need the owner’s OK.
